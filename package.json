@@ -1,0 +1,93 @@
+{
+  "name": "@coreui/coreui-free-react-admin-template",
+  "version": "2.6.0",
+  "description": "MIS Dashboard",
+  "author": "Sukriti",
+  "homepage": "http://dashboard-mis.s3-website.ap-south-1.amazonaws.com",
+  "copyright": "Copyright 2019-20 Sukriti Social Foundation",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/himalayanDev/iccc-dashboard.git"
+  },
+  "dependencies": {
+    "@coreui/coreui": "^2.1.12",
+    "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.3.1",
+    "@coreui/icons": "0.3.0",
+    "@coreui/react": "^2.5.1",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@types/react": "^17.0.19",
+    "amazon-cognito-identity-js": "^4.3.3",
+    "aws-iot-device-sdk": "^2.2.11",
+    "aws-mqtt": "^1.0.0",
+    "aws-sdk": "^2.720.0",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.3.1",
+    "bootstrap-daterangepicker": "^3.0.5",
+    "chart.js": "^2.9.4",
+    "classnames": "^2.2.6",
+    "core-js": "^3.1.4",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "flag-icon-css": "^3.3.0",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.6.0",
+    "moment": "^2.24.0",
+    "node-sass": "^4.14.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-app-polyfill": "^1.0.1",
+    "react-bootstrap-daterangepicker": "^4.1.0",
+    "react-chartjs-2": "^2.7.6",
+    "react-datepicker": "^2.14.0",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.2.0",
+    "react-rounded-image": "^2.0.2",
+    "react-router-config": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "react-test-renderer": "^16.8.6",
+    "reactstrap": "^8.0.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "simple-line-icons": "^2.4.1",
+    "xlsx": "^0.17.1"
+  },
+  "devDependencies": {
+    "react-scripts": "^3.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "test:cov": "npm test -- --coverage --watchAll=false",
+    "test:debug": "react-scripts --inspect-brk test --runInBand",
+    "eject": "react-scripts eject"
+  },
+  "bugs": {
+    "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 9",
+    "not op_mini all"
+  ],
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!**/*index.js",
+      "!src/serviceWorker.js",
+      "!src/polyfill.js"
+    ]
+  },
+  "engines": {
+    "node": ">=8.10",
+    "npm": ">=6"
+  },
+  "main": "index.js"
+}
