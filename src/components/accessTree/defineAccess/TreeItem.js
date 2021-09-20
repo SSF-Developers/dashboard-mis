@@ -53,13 +53,13 @@ class TreeItemRoot extends React.Component {
   }
 
   DisplayRow = (props) => {
-
     var treeRowProps = {
       displayData: this.props.displayData,
       displayDataStyle: this.props.displayDataStyle,
       onCheckboxChange: this.onCheckboxChange,
       handleToggle: this.handleToggle,
-      listComponent: this.props.listComponent
+      listComponent: this.props.listComponent,
+      selected: this.props.selected
     }
 
     if (this.props.type === TreeItemType.State) {
@@ -99,7 +99,7 @@ class TreeItemRoot extends React.Component {
     }
 
     else if (this.props.type === TreeItemType.Complex) {
-      return <ComplexRow treeRowProps={treeRowProps} />;
+      return <ComplexRow selected={this.props.selected} treeRowProps={treeRowProps} />;
     }
 
   }

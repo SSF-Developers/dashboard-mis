@@ -44,6 +44,7 @@ class RxInputCheckbox extends React.Component {
       return (
         <Input
           type="checkbox"
+          checked={this.props.selected}
           onChange={e => this.onCheckboxChange(e)}
         />
       );

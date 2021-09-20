@@ -9,35 +9,34 @@ import TreeEdge from "../../../Entity/TreeEdge";
 class SateList extends React.Component {
 
   state = {
-    text: ""
+
   };
 
   constructor(props) {
     super(props);
+    this.state = {
+      accessTree: props.listData
+    };
+
   }
 
   componentDidMount() {
-    this.setState({
-      text: this.props.text
-    });
+    
   }
 
-
-  getText() {
-    return this.state.text;
-  }
-
-  setText(text) {
+  updateData(accessTree) {
+    console.log("_storeUpdatedState","updateData()");
     this.setState({
-      text: text
+      accessTree: accessTree
     });
   }
 
 
   render() {
+    console.log("_storeUpdatedState","render: StateList");
     return (
       <div style={{ padding: "10px 10px 10px 10px", overflowY:"auto", height:"500px"}}>
-        {this.props.listData.map((item, index) => {
+        {this.state.accessTree.map((item, index) => {
           return this.renderRow(item, index);
         })}
       </div>
@@ -50,13 +49,14 @@ class SateList extends React.Component {
 
   renderRow = (item, stateIndex) => {
     var treeEdge = new TreeEdge(stateIndex)
+    
     return (
       <TreeItem  
       treeEdge = {new TreeEdge(stateIndex)}
       type = {TreeItemType.State}
       recursiveAccess={item.recursive==1}
       expanded={false}
-      selected = {false}
+      selected = {item.selected}
       displayData={item.name}
       displayDataStyle={stateFont}
       listComponent={this.getListComponent(item,stateIndex)}

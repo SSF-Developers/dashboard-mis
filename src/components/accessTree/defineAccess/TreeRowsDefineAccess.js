@@ -141,7 +141,7 @@ export function ComplexRow(props) {
       </div>
 
       <div className="col-md-2" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "0" }}>
-        <RxInputCheckbox onChange={props.treeRowProps.onCheckboxChange}/>
+        <RxInputCheckbox selected ={props.selected} onChange={props.treeRowProps.onCheckboxChange}/>
       </div>
 
     </div>

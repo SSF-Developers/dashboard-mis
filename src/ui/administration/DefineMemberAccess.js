@@ -6,6 +6,7 @@ import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
 import ConfirmationDialog from "../../dialogs/ConfirmationDialog";
 import { executeFetchCompletedUserAccessTree } from "../../awsLambdaClients/administrationLambdas";
+import {getTrimmedAccessTree} from "../../components/accessTree/accessTreeUtils"
 import StateList from "../../components/accessTree/defineAccess/SateList";
 import NoDataComponent from "../../components/NoDataComponent";
 import {getSelectionSummary} from "../../components/accessTree/accessTreeUtils";
@@ -29,7 +30,9 @@ class MemberAccess extends React.Component {
         this.messageDialog = React.createRef();
         this.loadingDialog = React.createRef();
         this.selectionSummary = React.createRef();
+        this.stateList = React.createRef();
         this.initFetchCompletedUserAccessTreeAction = this.initFetchCompletedUserAccessTreeAction.bind(this);
+        this.handleSubmitAction = this.handleSubmitAction.bind(this);
     }
 
     async initFetchCompletedUserAccessTreeAction() {
@@ -37,6 +40,19 @@ class MemberAccess extends React.Component {
         try {
             var result = await executeFetchCompletedUserAccessTree(this.props.user.userName);
             this.props.setOwnAccessTree(result);
+            this.loadingDialog.current.closeDialog();
+        } catch (err) {
+            console.log("_err",err);
+            this.loadingDialog.current.closeDialog();
+            this.messageDialog.current.showDialog("Error Alert!", err.message)
+        }
+    }
+
+    async handleSubmitAction() {
+        this.loadingDialog.current.showDialog();
+        try {
+            var result = await getTrimmedAccessTree(this.accessTree);
+            //console.log("_trimmedAccess",JSON.stringify(result));
             this.loadingDialog.current.closeDialog();
         } catch (err) {
             console.log("_err",err);
@@ -64,6 +80,7 @@ class MemberAccess extends React.Component {
         this.accessSummary = getSelectionSummary(this.accessTree);
         //console.log("_handleUserSelection",this.accessSummary);
         this.selectionSummary.current.setAccessSummary(this.accessSummary);
+        this.stateList.current.updateData(this.accessTree);
         console.log("_handleUserSelection",selected);
     }
 
@@ -83,7 +100,7 @@ class MemberAccess extends React.Component {
                         outline
                         color="primary"
                         className="px-4"
-                    // onClick={this.onSubmit}
+                        onClick={this.handleSubmitAction}
                     >
                         Define Access
                     </Button>
@@ -113,7 +130,7 @@ class MemberAccess extends React.Component {
                 console.log("_accessTree",this.accessTree);
             }
                 
-            return (<StateList listData={this.accessTree} handleUserSelection={this.handleUserSelection}/>);
+            return (<StateList ref={this.stateList} listData={this.accessTree} handleUserSelection={this.handleUserSelection}/>);
         }
     }
 }

@@ -60,7 +60,7 @@ class DistrictList extends React.Component {
       treeEdge = {new TreeEdge(this.props.treeEdge.stateIndex,districtIndex)}
       recursiveAccess={item.recursive==1}
       expanded={false}
-      selected = {false}
+      selected = {item.selected}
       displayData={item.name}
       displayDataStyle={districtFont}
       listComponent={this.getListComponent(item,districtIndex)}
