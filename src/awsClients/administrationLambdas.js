@@ -220,3 +220,28 @@ export function executeFetchCompletedUserAccessTree(userName) {
       });
   });
 };
+
+export function executeDefineUserAccessLambda(request) {
+  return new Promise(function(resolve, reject) {
+      var lambda = new AWS.Lambda({ region: 'ap-south-1', apiVersion: '2015-03-31' });
+      var pullParams = {
+        FunctionName: 'mis_administration_defineAccess',
+        Payload: JSON.stringify(request)
+      };
+  
+  
+      lambda.invoke(pullParams, function (err, data) {
+        if (err) {
+          console.log("_lambda", err)
+          reject(err);
+        } else {
+          var pullResults = JSON.parse(data.Payload);
+          console.log("_lambda", pullResults);
+          if(pullResults.status != 1)
+            reject(pullResults);
+          else
+            resolve(pullResults.accessTree)
+        }
+      });
+  });
+};

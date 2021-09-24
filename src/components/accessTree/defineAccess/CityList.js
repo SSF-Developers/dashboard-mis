@@ -57,7 +57,7 @@ class CityList extends React.Component {
       treeEdge = {new TreeEdge(this.props.treeEdge.stateIndex,this.props.treeEdge.districtIndex,cityIndex)}
       type = {TreeItemType.City}
       recursiveAccess={item.recursive==1}
-      selected = {false}
+      selected = {item.selected}
       expanded={false}
       displayData={item.name}
       displayDataStyle={cityFont}

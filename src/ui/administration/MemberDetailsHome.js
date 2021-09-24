@@ -10,9 +10,6 @@ import {
   TabContent,
   TabPane
 } from "reactstrap";
-import { NameValueList } from "../../components/DisplayLabels"
-import NameValue from "../../Entity/NameValue"
-import  {whiteSurface} from "../../jsStyles/Style"
 import MemberDetails from "./childComponents/MemberDetails";
 import MemberAccess from "./childComponents/MemberAccess"
 
@@ -100,6 +97,7 @@ class MemberDetailsHome extends Component {
       </div>
     );
   }
+  
 }
 
 

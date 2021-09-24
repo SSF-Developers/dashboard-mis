@@ -36,7 +36,7 @@ class SateList extends React.Component {
     console.log("_storeUpdatedState","render: StateList");
     return (
       <div style={{ padding: "10px 10px 10px 10px", overflowY:"auto", height:"500px"}}>
-        {this.state.accessTree.map((item, index) => {
+        {this.state.accessTree.country.states.map((item, index) => {
           return this.renderRow(item, index);
         })}
       </div>

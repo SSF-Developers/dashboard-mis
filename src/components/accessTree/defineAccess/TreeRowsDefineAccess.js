@@ -58,7 +58,7 @@ export function CollapsedRowRootWithRecursive(props) {
       </div>
 
       <div className="col-md-2" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "0" }}>
-        <RxInputCheckbox onChange={e => props.treeRowProps.onCheckboxChange(e)}/>
+        <RxInputCheckbox selected ={props.treeRowProps.selected} onChange={e => props.treeRowProps.onCheckboxChange(e)}/>
       </div>
 
     </div>
@@ -108,10 +108,8 @@ export function CollapsedRowWithRecursive(props) {
   return (
     <div className="row" style={treeItemBox}>
 
-      <div className="col-md-2" style={{ display: "none", justifyContent: "center", alignItems: "center", padding: "0" }} onClick={() => props.treeRowProps.handleToggle()}>
-
+      <div className="col-md-2" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "0" }} onClick={() => props.treeRowProps.handleToggle()}>
         <i class="fa fa-plus-square"></i>
-
       </div>
 
       <div className="col-md-8" style={props.treeRowProps.displayDataStyle}>
@@ -119,7 +117,7 @@ export function CollapsedRowWithRecursive(props) {
       </div>
 
       <div className="col-md-2" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "0" }}>
-        <RxInputCheckbox onChange={e => props.treeRowProps.onCheckboxChange(e)}/>
+        <RxInputCheckbox selected ={props.treeRowProps.selected} onChange={e => props.treeRowProps.onCheckboxChange(e)}/>
       </div>
 
     </div>
@@ -141,7 +139,7 @@ export function ComplexRow(props) {
       </div>
 
       <div className="col-md-2" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "0" }}>
-        <RxInputCheckbox selected ={props.selected} onChange={props.treeRowProps.onCheckboxChange}/>
+        <RxInputCheckbox selected ={props.treeRowProps.selected} onChange={props.treeRowProps.onCheckboxChange}/>
       </div>
 
     </div>

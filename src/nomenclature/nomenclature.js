@@ -1,6 +1,15 @@
 
 const enumValue = (name) => Object.freeze({toString: () => name});
 
+export const UiAdminDestinations = Object.freeze({
+    Home: enumValue("UiAdminDestinations.Home"),
+    CreateUser: enumValue("UiAdminDestinations.CreateUser"),
+    MemberDetailsHome: enumValue("UiAdminDestinations.MemberDetailsHome"),
+    MemberDetails: enumValue("UiAdminDestinations.MemberDetails"),
+    MemberAccess: enumValue("UiAdminDestinations.MemberAccess"),
+    DefineAccess: enumValue("UiAdminDestinations.DefineAccess"),
+});
+
 export const UserRoles = Object.freeze({
     SuperAdmin: enumValue("UserRoles.SuperAdmin"),
     VendorAdmin: enumValue("UserRoles.VendorAdmin"),

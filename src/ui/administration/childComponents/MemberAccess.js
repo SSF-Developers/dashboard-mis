@@ -1,17 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Col, Row, Label, Input, Button } from "reactstrap";
-import { NameValueList } from "../../../components/DisplayLabels"
-import NameValue from "../../../Entity/NameValue"
+import { connect } from "react-redux";
 import { whiteSurface } from "../../../jsStyles/Style"
-import { fromUserDetails } from "../../../parsers/listDataParsers"
 import MessageDialog from "../../../dialogs/MessageDialog";
 import LoadingDialog from "../../../dialogs/LoadingDialog";
-import ConfirmationDialog from "../../../dialogs/ConfirmationDialog";
-import { executeEnableUserLambda, executeDisableUserLambda, executeDeleteUserLambda } from "../../../awsLambdaClients/administrationLambdas"
+import { Col, Row, Label, Input, Button } from "reactstrap";
+import { NameValueList } from "../../../components/DisplayLabels";
+import { executeEnableUserLambda, executeDisableUserLambda, executeDeleteUserLambda } from "../../../awsClients/administrationLambdas"
 import StateList from "../../../components/accessTree/readOnly/SateList"
 import NoDataComponent from "../../../components/NoDataComponent"
-import {getAccessSummary} from "../../../components/accessTree/accessTreeUtils"
+import { getAccessSummary } from "../../../components/accessTree/accessTreeUtils"
+import { pushComponentProps } from "../../../redux/actions/history-actions"
+import {UiAdminDestinations} from "../../../nomenclature/nomenclature"
+
 class MemberAccess extends React.Component {
 
     state = {
@@ -23,7 +23,8 @@ class MemberAccess extends React.Component {
 
     constructor(props) {
         super(props);
-        this.accessSummary = getAccessSummary(props.user.permissions.country.states);
+
+        this.accessSummary = getAccessSummary(props.user.permissions);
         this.messageDialog = React.createRef();
         this.loadingDialog = React.createRef();
     }
@@ -47,6 +48,16 @@ class MemberAccess extends React.Component {
         //   });
     }
 
+    
+
+    handleDefineAccessAction = () => {
+        var bundle = {
+            "user": this.props.user,
+            "history": this.props.history
+        };
+        this.props.pushComponentProps(UiAdminDestinations.MemberAccess,this.props);
+        this.props.history.push({ pathname: "/administration/defineAccess", bundle: bundle })
+    }
 
     render() {
         return (
@@ -59,9 +70,10 @@ class MemberAccess extends React.Component {
                         outline
                         color="primary"
                         className="px-4"
-                        onClick={() => {
-                            this.props.history.push({pathname: "/administration/defineAccess",memberUserName: this.props.user})
-                          }}
+                        onClick={() => this.handleDefineAccessAction()}
+                    // onClick={() => {
+
+                    //   }}
                     >
                         Define Access
                     </Button>
@@ -83,14 +95,18 @@ class MemberAccess extends React.Component {
     }
 
     ComponentSelector = () => {
-        if (this.props.user.permissions.country.recursive == 1) {
-            return <this.SuperAdminAcceess />
-        } else if (this.props.user.permissions.country.states.length == 0) {
-            return (<NoDataComponent />);
-        } else {
-            console.log("_accessTree",this.props.user.permissions.country.states)
-            return (<StateList listData={this.props.user.permissions.country.states} />);
-        }
+        if(this.props.user != undefined){
+            if (this.props.user.permissions.country.recursive == 1) {
+                return <this.SuperAdminAcceess />
+            } else if (this.props.user.permissions.country.states.length == 0) {
+                return (<NoDataComponent />);
+            } else {
+                console.log("_accessTree", this.props.user.permissions.country.states)
+                return (<StateList listData={this.props.user.permissions.country.states} />);
+            }
+        }else
+
+        return (<NoDataComponent />);
     }
 
     SuperAdminAcceess = () => {
@@ -109,4 +125,15 @@ class MemberAccess extends React.Component {
 //   onChange: PropTypes.func
 // };
 
-export default MemberAccess;
+const mapStateToProps = (state) => {
+    var lastProps = state.historyStore[UiAdminDestinations.MemberAccess];
+    if (lastProps != undefined) {
+        return lastProps;
+    }
+
+    return {};
+};
+
+const mapActionsToProps = { pushComponentProps: pushComponentProps };
+
+export default connect(mapStateToProps, mapActionsToProps)(MemberAccess);

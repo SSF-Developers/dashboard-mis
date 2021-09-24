@@ -1,8 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { whiteSurface } from "../../../jsStyles/Style"
-import { Col, Row, Label, Input, Button } from "reactstrap";
-import TreeEdge from "../../../Entity/TreeEdge";
 import {
   ExpandedRowRoot, CollapsedRowRoot, CollapsedRowRootWithRecursive,
   ExpandedRow, CollapsedRow, CollapsedRowWithRecursive,
@@ -43,8 +39,9 @@ class TreeItemRoot extends React.Component {
   }
 
   handleToggle = () => {
-    if (!this.props.selected) {
+    console.log("_itemExpansion",""+this.props.selected);
 
+    if (!this.props.selected) {
       var expanded = this.state.expanded
       this.setState({
         expanded: !expanded
@@ -68,8 +65,8 @@ class TreeItemRoot extends React.Component {
         return <ExpandedRowRoot treeRowProps={treeRowProps} />;
       }
 
-      // if (this.props.recursiveAccess)
-      //   return <CollapsedRowRootWithRecursive treeRowProps={treeRowProps} />;
+      if (this.props.recursiveAccess)
+        return <CollapsedRowRootWithRecursive treeRowProps={treeRowProps} />;
 
       return <CollapsedRowRoot treeRowProps={treeRowProps} />;
     }
@@ -80,8 +77,8 @@ class TreeItemRoot extends React.Component {
         return <ExpandedRow treeRowProps={treeRowProps} />;
       }
 
-      // if (this.props.recursiveAccess)
-      //   return <CollapsedRowWithRecursive treeRowProps={treeRowProps} />;
+      if (this.props.recursiveAccess)
+        return <CollapsedRowWithRecursive treeRowProps={treeRowProps} />;
 
       return <CollapsedRow treeRowProps={treeRowProps} />;
     }
@@ -92,14 +89,14 @@ class TreeItemRoot extends React.Component {
         return <ExpandedRow treeRowProps={treeRowProps} />;
       }
 
-      // if (this.props.recursiveAccess)
-      //   return <CollapsedRowWithRecursive treeRowProps={treeRowProps} />;
+      if (this.props.recursiveAccess)
+        return <CollapsedRowWithRecursive treeRowProps={treeRowProps} />;
 
       return <CollapsedRow treeRowProps={treeRowProps} />;
     }
 
     else if (this.props.type === TreeItemType.Complex) {
-      return <ComplexRow selected={this.props.selected} treeRowProps={treeRowProps} />;
+      return <ComplexRow treeRowProps={treeRowProps} />;
     }
 
   }

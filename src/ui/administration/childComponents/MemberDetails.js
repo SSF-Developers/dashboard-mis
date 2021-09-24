@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Col, Row, Label, Input, Button } from "reactstrap";
 import { NameValueList } from "../../../components/DisplayLabels"
@@ -8,35 +9,47 @@ import { fromUserDetails } from "../../../parsers/listDataParsers"
 import MessageDialog from "../../../dialogs/MessageDialog";
 import LoadingDialog from "../../../dialogs/LoadingDialog";
 import ConfirmationDialog from "../../../dialogs/ConfirmationDialog";
-import { executeEnableUserLambda,executeDisableUserLambda,executeDeleteUserLambda } from "../../../awsLambdaClients/administrationLambdas"
-import { thingShadow } from "aws-iot-device-sdk";
+import { executeEnableUserLambda, executeDisableUserLambda, executeDeleteUserLambda } from "../../../awsClients/administrationLambdas";
+import { pushComponentProps } from "../../../redux/actions/history-actions"
+import {UiAdminDestinations} from "../../../nomenclature/nomenclature"
 
 class MemberDetails extends React.Component {
 
     state = {
-        userStatus: this.props.user.enabled?"enabled":"disabled"
+
     };
 
     userDetailsNameValueList = []
 
     constructor(props) {
         super(props);
+        this.state = {
+            userStatus: this.props.user.enabled ? "enabled" : "disabled"
+        };
+        var userDetails = fromUserDetails(this.props.user);
+        Object.keys(userDetails).map((item, value) => {
+            this.userDetailsNameValueList.push(new NameValue(item, userDetails[item]))
+        })
+
+
         this.messageDialog = React.createRef();
         this.loadingDialog = React.createRef();
         this.confirmationDialog = React.createRef();
         this.initAdminDisableAction = this.initAdminDisableAction.bind(this);
         this.initAdminDeleteAction = this.initAdminDeleteAction.bind(this);
-        var userDetails = fromUserDetails(this.props.user);
-        Object.keys(userDetails).map((item, value) => {
-            this.userDetailsNameValueList.push(new NameValue(item, userDetails[item]))
-        })
+
     }
-   
+
+    componentWillUnmount() {
+        console.log("_memberDetails", "_restoreProps-saved", this.props);
+        this.props.pushComponentProps(UiAdminDestinations.MemberDetails, this.props);
+    }
+
     async initAdminDisableAction() {
         this.loadingDialog.current.showDialog();
         try {
             var result = await executeDisableUserLambda(this.props.user.userName);
-            this.setState({userStatus: "disabled"})
+            this.setState({ userStatus: "disabled" })
             this.loadingDialog.current.closeDialog();
         } catch (err) {
             this.loadingDialog.current.closeDialog();
@@ -48,7 +61,7 @@ class MemberDetails extends React.Component {
         this.loadingDialog.current.showDialog();
         try {
             var result = await executeEnableUserLambda(this.props.user.userName);
-            this.setState({userStatus: "enabled"})
+            this.setState({ userStatus: "enabled" })
             this.loadingDialog.current.closeDialog();
         } catch (err) {
             this.loadingDialog.current.closeDialog();
@@ -56,9 +69,9 @@ class MemberDetails extends React.Component {
         }
     }
 
-    handleDeleteAction =() =>{
+    handleDeleteAction = () => {
 
-        this.confirmationDialog.current.showDialog("Confirm Action","To delete the user permenently, type 'DELETE' below","DELETE",this.initAdminDeleteAction)
+        this.confirmationDialog.current.showDialog("Confirm Action", "To delete the user permenently, type 'DELETE' below", "DELETE", this.initAdminDeleteAction)
     }
 
     async initAdminDeleteAction() {
@@ -66,7 +79,7 @@ class MemberDetails extends React.Component {
         try {
             var result = await executeDeleteUserLambda(this.props.user.userName);
             this.loadingDialog.current.closeDialog();
-            this.messageDialog.current.showDialog("Success","User deleted successfully", ()=>{this.props.history.goBack()})
+            this.messageDialog.current.showDialog("Success", "User deleted successfully", () => { this.props.history.goBack() })
         } catch (err) {
             this.loadingDialog.current.closeDialog();
             this.messageDialog.current.showDialog("Error Alert!", err.message)
@@ -85,21 +98,21 @@ class MemberDetails extends React.Component {
             <div className="col-md-10 offset-md-2" style={{ ...whiteSurface, width: "80%", margin: "auto" }}>
                 <MessageDialog ref={this.messageDialog} />
                 <LoadingDialog ref={this.loadingDialog} />
-                <ConfirmationDialog ref={this.confirmationDialog}/>
+                <ConfirmationDialog ref={this.confirmationDialog} />
                 <this.ActionSelector />
 
-                <div className="col-md-6" style={{ margin:"100px", clear: "both" }}>
+                <div className="col-md-6" style={{ margin: "100px", clear: "both" }}>
                     <NameValueList data={this.userDetailsNameValueList} withPadding />
                 </div>
             </div>
         );
     }
 
-    ActionSelector = () =>{
-        if(this.state.userStatus == "enabled")
-            return(<this.EnabledUserActions />)
-        else if(this.state.userStatus == "disabled")
-            return (<this.DisabledUserActions/>)
+    ActionSelector = () => {
+        if (this.state.userStatus == "enabled")
+            return (<this.EnabledUserActions />)
+        else if (this.state.userStatus == "disabled")
+            return (<this.DisabledUserActions />)
         else
             return (<div />)
     }
@@ -112,7 +125,7 @@ class MemberDetails extends React.Component {
                     outline
                     color="danger"
                     className="px-4"
-                    onClick={()=>this.initAdminDisableAction()}
+                    onClick={() => this.initAdminDisableAction()}
                 >
                     Disable User
                 </Button>
@@ -121,7 +134,7 @@ class MemberDetails extends React.Component {
         );
     }
 
-    DisabledUserActions= ()=> {
+    DisabledUserActions = () => {
         return (
             <div>
                 <Button
@@ -129,7 +142,7 @@ class MemberDetails extends React.Component {
                     outline
                     color="success"
                     className="px-4"
-                    onClick={()=>this.initAdminEnableAction()}
+                    onClick={() => this.initAdminEnableAction()}
                 >
                     Enable User
                 </Button>
@@ -138,7 +151,7 @@ class MemberDetails extends React.Component {
                     outline
                     color="danger"
                     className="px-4"
-                    onClick={()=>this.handleDeleteAction()}
+                    onClick={() => this.handleDeleteAction()}
                 >
                     Delete User
                 </Button>
@@ -153,5 +166,16 @@ class MemberDetails extends React.Component {
 //   placeholder: PropTypes.string,
 //   onChange: PropTypes.func
 // };
+const mapStateToProps = (state) => {
 
-export default MemberDetails;
+    var lastProps = state.historyStore[UiAdminDestinations.MemberDetails];
+    if (lastProps != undefined) {
+        return lastProps;
+    }
+
+    return {};
+};
+
+const mapActionsToProps = { pushComponentProps: pushComponentProps };
+
+export default connect(mapStateToProps, mapActionsToProps)(MemberDetails);

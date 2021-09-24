@@ -20,7 +20,7 @@ import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
 import AuthClient from "./authClient";
 import {setLoggedIn} from "../../redux/actions/authentication-actions"
-import {executeGetUserDetailsLambda} from "../../awsLambdaClients/administrationLambdas"
+import {executeGetUserDetailsLambda} from "../../awsClients/administrationLambdas"
 
 class login2 extends React.Component {
   email = "";

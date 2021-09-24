@@ -8,7 +8,7 @@ import * as Styles from "../../jsStyles/Style"
 import {addTeamMember,setClientList} from "../../redux/actions/administration-actions"
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
-import {executelistClientsLambda,executeCreateUserLambda} from "../../awsLambdaClients/administrationLambdas"
+import {executelistClientsLambda,executeCreateUserLambda} from "../../awsClients/administrationLambdas"
 
 import {   
   Button,

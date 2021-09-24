@@ -3,10 +3,12 @@ import { Card, CardBody, CardHeader, Col, Row, Button } from "reactstrap";
 import { connect } from "react-redux";
 import List from "../../components/List";
 import { setTeamList } from "../../redux/actions/administration-actions";
-import {executelistTeamLambda} from "../../awsLambdaClients/administrationLambdas"
+import { removeComponentProps } from "../../redux/actions/history-actions";
+import {executelistTeamLambda} from "../../awsClients/administrationLambdas"
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
 import NoDataComponent from "../../components/NoDataComponent"
+import {UiAdminDestinations} from "../../nomenclature/nomenclature"
 
 class AdministrationHome extends Component {
   constructor(props) {
@@ -37,12 +39,10 @@ class AdministrationHome extends Component {
   }
 
    componentDidMount (){
+    this.props.removeComponentProps(UiAdminDestinations.MemberAccess);
+    this.props.removeComponentProps(UiAdminDestinations.MemberDetails);
      this.fetchAndInitTeam();
   };
-
-  componentWillReceiveProps(nextProps) {
-    
-  }
 
   render() {
     return (
@@ -146,6 +146,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapActionsToProps = { setTeamList: setTeamList };
+const mapActionsToProps = { setTeamList: setTeamList, removeComponentProps:removeComponentProps };
 
 export default connect(mapStateToProps, mapActionsToProps)(AdministrationHome);
