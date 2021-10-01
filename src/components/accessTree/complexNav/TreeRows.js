@@ -1,7 +1,6 @@
 import React from "react";
 import { whiteSurface, treeItemBox, complexSelectedCircleSurface } from "../../../jsStyles/Style"
 import { Col, Row, Label, Input, Button } from "reactstrap";
-import RxInputCheckbox from "../../RxInputCheckbox"
 
 export function ExpandedRowRoot(props) {
   return (
@@ -36,27 +35,6 @@ export function CollapsedRowRoot(props) {
 
       <div className="col-md-8" style={props.treeRowProps.displayDataStyle}>
         {props.treeRowProps.displayData}
-      </div>
-
-    </div>
-  );
-}
-
-export function CollapsedRowRootRecursive(props) {
-  return (
-    <div className="row" style={whiteSurface}>
-
-      <div className="col-md-2" >
-
-      </div>
-
-      <div className="col-md-8" style={props.treeRowProps.displayDataStyle}>
-        {props.treeRowProps.displayData}
-      </div>
-
-      <div className="col-md-2" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "0" }}>
-        {/* <input type="checkbox" onChange={e => props.treeRowProps.onCheckboxChange(e)} /> */}
-        <RxInputCheckbox readOnly/>
       </div>
 
     </div>
@@ -102,43 +80,30 @@ export function CollapsedRow(props) {
   );
 }
 
-export function CollapsedRowRecursive(props) {
-  return (
-    <div className="row" style={treeItemBox}>
 
-      <div className="col-md-2">
-
-      </div>
-
-      <div className="col-md-8" style={props.treeRowProps.displayDataStyle}>
-        {props.treeRowProps.displayData}
-      </div>
-
-      <div className="col-md-2" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "0" }}>
-        {/* <input type="checkbox" onChange={e => props.treeRowProps.onCheckboxChange(e)} /> */}
-        <RxInputCheckbox readOnly/>
-      </div>
-
-    </div>
-  );
-}
-
-export function ComplexRowSelected(props) {
+export function ComplexRow(props) {
   return (
     <div className="row" style={treeItemBox}>
 
       <div className="col-md-2" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "0" }}>
-        <div  style={ complexSelectedCircleSurface }>
-          
+        <div style={complexSelectedCircleSurface}>
+
         </div>
       </div>
 
-      <div className="col-md-8" style={props.treeRowProps.displayDataStyle}>
+      <div className="col-md-8" style={{...props.treeRowProps.displayDataStyle, display: "flex", alignItems: "center"}}>
         {props.treeRowProps.displayData}
       </div>
 
       <div className="col-md-2" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "0" }}>
-      <RxInputCheckbox readOnly/>
+        <Button
+          outline
+          color="primary"
+          className="px-4"
+          onClick={props.handleComplexSelection}
+        >
+          Details
+        </Button>
       </div>
 
     </div>

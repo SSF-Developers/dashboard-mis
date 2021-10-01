@@ -2,12 +2,17 @@ import React from "react";
 
 export function NameValueList(props)  {
   var labelStyle = {}
+  
+  if('labelStyle' in props){
+    labelStyle = props.labelStyle
+  }
+
   if ('withPadding' in props){
     labelStyle = {...labelStyle, margin:"20px"}
   }
 
   return (
-    <div  style={{ margin:"10px 10px 10px 10px"}}>
+    <div  style={{ margin:"10px 10px 10px 10px",width:"100%"}}>
         {props.data.map((item, index) => {
           return <NameValueLabel data={item} labelStyle ={labelStyle}/>
         })}

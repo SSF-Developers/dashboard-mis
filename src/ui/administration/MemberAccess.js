@@ -1,16 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-import { whiteSurface } from "../../../jsStyles/Style"
-import MessageDialog from "../../../dialogs/MessageDialog";
-import LoadingDialog from "../../../dialogs/LoadingDialog";
+import { whiteSurface } from "../../jsStyles/Style"
+import MessageDialog from "../../dialogs/MessageDialog";
+import LoadingDialog from "../../dialogs/LoadingDialog";
 import { Col, Row, Label, Input, Button } from "reactstrap";
-import { NameValueList } from "../../../components/DisplayLabels";
-import { executeEnableUserLambda, executeDisableUserLambda, executeDeleteUserLambda } from "../../../awsClients/administrationLambdas"
-import StateList from "../../../components/accessTree/readOnly/SateList"
-import NoDataComponent from "../../../components/NoDataComponent"
-import { getAccessSummary } from "../../../components/accessTree/accessTreeUtils"
-import { pushComponentProps } from "../../../redux/actions/history-actions"
-import {UiAdminDestinations} from "../../../nomenclature/nomenclature"
+import { NameValueList } from "../../components/DisplayLabels";
+import { 
+    executeEnableUserLambda, 
+    executeDisableUserLambda, 
+    executeDeleteUserLambda 
+} from "../../awsClients/administrationLambdas"
+import StateList from "../../components/accessTree/readOnly/SateList"
+import NoDataComponent from "../../components/NoDataComponent"
+import { getAccessSummary } from "../../components/accessTree/accessTreeUtils"
+import { pushComponentProps } from "../../redux/actions/history-actions"
+import {UiAdminDestinations} from "../../nomenclature/nomenclature"
 
 class MemberAccess extends React.Component {
 

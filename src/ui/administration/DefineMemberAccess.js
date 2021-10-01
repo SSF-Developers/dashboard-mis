@@ -35,6 +35,11 @@ class MemberAccess extends React.Component {
         this.handleSubmitAction = this.handleSubmitAction.bind(this);
     }
 
+    componentDidMount() {
+        if(this.props.accessTree == undefined)
+            this.initFetchCompletedUserAccessTreeAction();
+    }
+
     async initFetchCompletedUserAccessTreeAction() {
         this.loadingDialog.current.showDialog();
         try {
@@ -103,9 +108,7 @@ class MemberAccess extends React.Component {
         this.stateList.current.updateData(this.accessTree);
     }
 
-    componentDidMount() {
-        this.initFetchCompletedUserAccessTreeAction();
-    }
+    
 
 
     render() {

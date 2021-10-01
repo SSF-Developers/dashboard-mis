@@ -4,14 +4,11 @@ import {
   SET_OWN_ACCESS_TREE
 } from "../actions/authentication-actions";
 import User from "../../Entity/User/User"
-// var defaultState = { 
-//   login: false,
-//   user: {}
-//  }
 
 var defaultState = {
-  login: true,
-  user: User.getTestUser()
+  authenticated: false,
+  user: User.getEmptyUser(),
+  accessTree: undefined
 }
 
 export default function administrationReducer(

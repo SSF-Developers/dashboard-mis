@@ -2,6 +2,20 @@
 import NameValue from "../../Entity/NameValue"
 import TreeEdge from "../../Entity/TreeEdge"
 
+export function getComplexHierarchy(accessTree, treeEdge) {
+    var stateIndex = treeEdge.stateIndex;
+    var districtIndex = treeEdge.districtIndex;
+    var cityIndex = treeEdge.cityIndex;
+    var complexIndex = treeEdge.complexIndex;
+
+    var state = accessTree.country.states[stateIndex];
+    var district = accessTree.country.states[stateIndex].districts[districtIndex];
+    var city = accessTree.country.states[stateIndex].districts[districtIndex].cities[cityIndex];
+
+    var hierarchy = {state:state.code, district:district.name,city:city.name};
+    return hierarchy;
+
+}
 export function getAccessSummary(accessTree) {
 
     var stateCount = 0;

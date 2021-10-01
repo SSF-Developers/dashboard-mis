@@ -2,16 +2,20 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Col, Row, Label, Input, Button } from "reactstrap";
-import { NameValueList } from "../../../components/DisplayLabels"
-import NameValue from "../../../Entity/NameValue"
-import { whiteSurface } from "../../../jsStyles/Style"
-import { fromUserDetails } from "../../../parsers/listDataParsers"
-import MessageDialog from "../../../dialogs/MessageDialog";
-import LoadingDialog from "../../../dialogs/LoadingDialog";
-import ConfirmationDialog from "../../../dialogs/ConfirmationDialog";
-import { executeEnableUserLambda, executeDisableUserLambda, executeDeleteUserLambda } from "../../../awsClients/administrationLambdas";
-import { pushComponentProps } from "../../../redux/actions/history-actions"
-import {UiAdminDestinations} from "../../../nomenclature/nomenclature"
+import { NameValueList } from "../../components/DisplayLabels"
+import NameValue from "../../Entity/NameValue"
+import { whiteSurface } from "../../jsStyles/Style"
+import { fromUserDetails } from "../../parsers/listDataParsers"
+import MessageDialog from "../../dialogs/MessageDialog";
+import LoadingDialog from "../../dialogs/LoadingDialog";
+import ConfirmationDialog from "../../dialogs/ConfirmationDialog";
+import { 
+    executeEnableUserLambda, 
+    executeDisableUserLambda, 
+    executeDeleteUserLambda 
+} from "../../awsClients/administrationLambdas";
+import { pushComponentProps } from "../../redux/actions/history-actions"
+import {UiAdminDestinations} from "../../nomenclature/nomenclature"
 
 class MemberDetails extends React.Component {
 

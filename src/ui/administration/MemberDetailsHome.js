@@ -10,8 +10,8 @@ import {
   TabContent,
   TabPane
 } from "reactstrap";
-import MemberDetails from "./childComponents/MemberDetails";
-import MemberAccess from "./childComponents/MemberAccess"
+import MemberDetails from "./MemberDetails";
+import MemberAccess from "./MemberAccess"
 
 
 

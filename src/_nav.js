@@ -8,8 +8,9 @@ export default {
       },
     },
     {
-      name: "Complex",
+      name: "Complexes",
       icon: "icon-folder-alt",
+      url: "/complex/complexTree"
       // children: [
       //   {
       //     name: "Summary",
