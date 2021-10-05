@@ -81,8 +81,7 @@ class ComplexNavigation extends Component {
             <div
                 className="animated fadeIn"
                 style={{
-                    padding: "10px",
-                    border:"2px solid red"
+                    padding: "10px"
                 }}
             >
                 <MessageDialog ref={this.messageDialog} />

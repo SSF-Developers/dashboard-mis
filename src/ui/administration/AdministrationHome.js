@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card, CardBody, CardHeader, Col, Row, Button } from "reactstrap";
 import { connect } from "react-redux";
-import List from "../../components/List";
+import List from "../../components/list/userList/List";
 import { setTeamList } from "../../redux/actions/administration-actions";
 import { removeComponentProps } from "../../redux/actions/history-actions";
 import {executelistTeamLambda} from "../../awsClients/administrationLambdas"

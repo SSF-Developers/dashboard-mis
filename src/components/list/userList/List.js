@@ -3,7 +3,7 @@ import { Table } from "reactstrap";
 import Button from "reactstrap/lib/Button";
 import TableHeader from "./TableHeader";
 import { Link } from "react-router-dom";
-import {fromUserList} from "../parsers/listDataParsers"
+import {fromUserList} from "../../../parsers/listDataParsers"
 
 class List extends Component {
 

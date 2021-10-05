@@ -58,17 +58,13 @@ class ComplexDetails extends Component {
                     complex= {this.props.location.bundle.complex}
                     hierarchy= {this.props.location.bundle.hierarchy}
                     /> */}
-                    {/* <ComplexComposition complex={complex} hierarchy={hierarchy}/> */}
+                    <ComplexComposition complex={complex} hierarchy={hierarchy}/>
                 </div>
-                <div className="col-md-10">
+                <div className="col-md-10" style={{border:'2px solid red'}}>
                     <CabinDetails />
                 </div>
             </div>
             </div>
-            
-
-           
-
         );
     }
 }

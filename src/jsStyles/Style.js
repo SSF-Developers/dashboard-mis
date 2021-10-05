@@ -14,6 +14,13 @@ export const whiteSurface = {
   padding: "10px 10px 10px 10px"
 }
 
+export const whiteSurfaceNoMargin = {
+  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+  transition: "0.3s",
+  margin: "0px 0px 0px 0px",
+  padding: "0px 0px 0px 0px"
+}
+
 export const treeItemBox = {
   margin: "10px 0px 0px 0px",
   padding: "10px 10px 10px 10px"
@@ -92,65 +99,77 @@ export const complexFont = {
 };
 
 export const complexCompositionStyle = {
-  complexTitleClient : {
+  complexTitleClient: {
     color: `white`,
     fontSize: "16px",
     fontWeight: "bold",
     fontStyle: "bold",
   },
-  complexTitle : {
+  complexTitle: {
     color: `white`,
     fontSize: "16px"
   },
-  complexSubTitle : {
+  complexSubTitle: {
     color: `white`,
     fontSize: "16px",
     fontWeight: "normal"
   },
-  complexDetails : {
+  complexDetails: {
     color: `black`,
     fontSize: "14px",
     fontWeight: "normal",
     fontStyle: "normal",
   },
-  cabinTypeTitle : {
+  cabinTypeTitle: {
     color: `black`,
     fontSize: "14px",
     fontWeight: "bold",
     fontStyle: "bold",
   },
-  cabinTypeSubTitle : {
+  cabinTypeSubTitle: {
     color: `black`,
     fontSize: "14px",
     fontWeight: "normal"
   },
-  cabinTitle : {
-    color: `white`,
+  cabinTitle: {
+    color: `black`,
     fontSize: "12px",
     fontWeight: "bold",
     fontStyle: "bold",
   },
-  cabinDetails : {
+  cabinDetails: {
     color: `black`,
     fontSize: "10px"
   },
 };
 
 export const cabinDetailsStyle = {
-  cabinStatus : {
-    componentTitle : {
-      color: `black`,
-      fontSize: "20px",
-      fontWeight: "bold",
-      fontStyle: "bold",
-    },
-    gaugeTitle : {
+  componentTitle: {
+    color: `black`,
+    fontSize: "20px",
+    fontWeight: "bold",
+    fontStyle: "bold",
+  },
+  cabinStatus: {
+    gaugeTitle: {
       color: `black`,
       fontSize: "16px",
       fontWeight: "bold",
       fontStyle: "bold",
     },
-    gaugeValue : {
+    gaugeValue: {
+      color: `black`,
+      fontSize: "12px"
+    }
+  },
+  cabinHealth: {
+    itemTitle: {
+      color: `black`,
+      fontSize: "12px",
+      fontWeight: "bold",
+      fontStyle: "bold",
+    },
+    itemValue: {
       color: `black`,
       fontSize: "12px"
     }

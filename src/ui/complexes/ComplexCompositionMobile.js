@@ -78,7 +78,13 @@ class ComplexComposition extends Component {
             return (
                 <Fragment>
                     <this.ComplexHeader />
-                    <this.CabinList/>
+                    <div style={{ overflow: "scroll", height: "80vh", width: "100%" }}>
+                        <this.CabinTypeElement mwc />
+                        <this.CabinTypeElement fwc />
+                        <this.CabinTypeElement pwc />
+                        <this.CabinTypeElement mur />
+
+                    </div>
                 </Fragment>
             );
         return (<div></div>)
@@ -125,59 +131,146 @@ class ComplexComposition extends Component {
         )
     }
 
-    CabinList = () => {
+    CabinTypeElement = (props) => {
         //var complex = this.props.complexStore[this.props.complex.name];
         var complex = this.props.complexStore['TEST_AWS'];
-        var cabinList = [];
-        if(complex.complexComposition.mwcCabins !== undefined)
-        complex.complexComposition.mwcCabins.forEach(cabinDetails => {
-            cabinList.push(cabinDetails)
-        });
+        var C = [1, 1, 1, 1, 1, 1]
+        var elementProps = {};
+        if ('mwc' in props) {
+            elementProps.logo = icHome;
+            elementProps.title = "Male WC Cabins";
+            elementProps.count = complex.complexComposition.mwcCabins.length;
+            elementProps.cabins = complex.complexComposition.mwcCabins;
+        }
+        if ('fwc' in props) {
+            elementProps.logo = icHome;
+            elementProps.title = "Female WC Cabins";
+            elementProps.count = complex.complexComposition.fwcCabins.length;
+            elementProps.cabins = complex.complexComposition.fwcCabins;
+        }
+        if ('pwc' in props) {
+            elementProps.logo = icHome;
+            elementProps.title = "Physically Disabled WC Cabins";
+            elementProps.count = complex.complexComposition.pwcCabins.length;
+            elementProps.cabins = complex.complexComposition.pwcCabins;
+        }
+        if ('mur' in props) {
+            elementProps.logo = icHome;
+            elementProps.title = "Male Urinal Cabins";
+            elementProps.count = complex.complexComposition.murCabins.length;
+            elementProps.cabins = complex.complexComposition.murCabins;
+        }
 
-        if(complex.complexComposition.fwcCabins !== undefined)
-        complex.complexComposition.fwcCabins.forEach(cabinDetails => {
-            cabinList.push(cabinDetails)
-        });
+        if (elementProps.count == 0) {
+            return (<div></div>)
+        }
 
-        if(complex.complexComposition.pwcCabins !== undefined)
-        complex.complexComposition.pwcCabins.forEach(cabinDetails => {
-            cabinList.push(cabinDetails)
-        });
-
-        if(complex.complexComposition.murCabins !== undefined)
-        complex.complexComposition.murCabins.forEach(cabinDetails => {
-            cabinList.push(cabinDetails)
-        });
-
-        console.log("_cabinList",""+cabinList.length)
-
-        if(cabinList.length !== 0)
-        return cabinList.map((cabinDetails, index) => {
-            return (<this.Cabin cabin={cabinDetails}/>)
-        })
-
-        return(<div></div>)
-        
-    }
-
-    Cabin = (props) => {
         return (
+            <div style={{ ...whiteSurface, background: "white" }}>
+                <div style={{
+                    ...whiteSurfaceCircularBorder,
+                    float: "left",
+                    padding: "10px",
+                    width: "50px",
+                    height: "50px",
+                }}>
+                    <img
+                        src={elementProps.logo}
+                        style={{
+                            width: "30px",
+                            height: "30px",
+                            borderRadius: "5%",
+                        }}
+                    />
+                </div>
 
-            <div style={{...whiteSurface,background:'white', width: "100%", padding: "10px",  display: "flexbox", alignItems: "center" }}>
 
-                <div style={{ ...complexCompositionStyle.cabinTitle, float: "left" }}>{props.cabin.shortThingName}</div>
+                <div style={{ float: "left", marginLeft: "10px" }}>
+                    <div style={{ ...complexCompositionStyle.cabinTypeTitle }}>
+                        {elementProps.title}
+                    </div>
+                    <div style={{ ...complexCompositionStyle.cabinTypeSubTitle }}>
+                        {elementProps.count + " cabins listed"}
+                    </div>
+                </div>
 
-                <Button
-                    style={{ float: "right", padding: "0px 0px 0px 0px" }}
-                    color="primary"
-                    className="px-4"
+                <div style={{ clear: "both", height: "10px", width: "100%" }} />
 
-                >
-                    Details
-                </Button>
+                <div className="row" style={{ clear: "both" }}>
+                    {
+
+                        elementProps.cabins.map((item, index) => {
+
+                            return (<this.Cabin cabin={item} />)
+                        })
+                    }
+
+                    {/* {
+                        C.map((item) =>{
+                            return (<this.Cabin cabin={elementProps.cabins[0]} />)
+                        })
+                    } */}
+
+                    {/* <this.CabinHolder arr={C}/> */}
+                </div>
+
             </div>
         );
     }
+
+    CabinHolder = (props) => {
+
+        props.arr.forEach(element => {
+            return (<div>1</div>);
+        });
+
+    }
+
+    Cabin = (props) => {
+        var detailsList = [];
+        detailsList.push(new NameValue("Smartness", props.cabin.smartnessLevel))
+        detailsList.push(new NameValue("Usage Charge", props.cabin.usageChargeType))
+
+
+        return (
+            <div className="row" >
+            <div className="col-md-12" style={{ width: "100%", marginTop: "10px" }}>
+                <div style={{ border: "4px solid " + colorTheme.primary, height: "100px" }}>
+                    <div style={{ background: colorTheme.primary, width: "100%", padding: "10px", height: "65px", display: "flexbox", alignItems: "center" }}>
+
+                        <div style={{ ...complexCompositionStyle.cabinTitle, float: "left" }}>{props.cabin.shortThingName}</div>
+
+                        <Button
+                            style={{ float: "right", padding: "0px 0px 0px 0px" }}
+                            color="primary"
+                            className="px-4"
+
+                        >
+                            Details
+                        </Button>
+                    </div>
+
+                    <div style={{
+                        ...whiteSurfaceCircularBorder,
+                        width: "95%",
+                        height: "40px",
+                        margin: "auto",
+                        position: "relative",
+                        top: "-20px"
+                    }}>
+                        <NameValueList labelStyle={{
+                            ...complexCompositionStyle.cabinDetails,
+                            width: "100%"
+                        }}
+
+                            data={detailsList} />
+                    </div>
+                </div>
+            </div>
+            </div>
+        );
+    }
+
 
 }
 

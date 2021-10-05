@@ -6,7 +6,7 @@ const tableStyle = {
       textOverflow: "ellipsis"
     }
   };
-
+  
 class TableHeader extends Component {
   state = {
     SelectionMode: "Off",
@@ -45,8 +45,6 @@ class TableHeader extends Component {
   }
 
   renderOnlyHeaders() {
-    console.log("_renderHeader",this.state.data);
-    console.log("_renderHeader",this.props.data);
     var dataCopy = this.props.data;
     if (
       this.state.SelectionMode === "All-Rows" ||

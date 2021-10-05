@@ -16,6 +16,7 @@ import {
 import {
     colorTheme,
     whiteSurface,
+    whiteSurfaceNoMargin,
     complexCompositionStyle,
     cabinDetailsStyle,
     whiteSurfaceCircularBorder
@@ -23,15 +24,13 @@ import {
 
 export default function CabinStatus(props) {
     return (
-
-        <div className="col-md-12" style={{ ...whiteSurface, background: "white", padding: "10px 10px 10px 10px"}}>
-            
-            <div  style={{...cabinDetailsStyle.cabinStatus.componentTitle}} >
+        <div className="col-md-12" style={{ ...whiteSurfaceNoMargin, background: "white", padding: "10px 10px 10px 10px"}}>
+            <div  style={{...cabinDetailsStyle.componentTitle}} >
                 Cabin Status
             </div>
 
             <div className="row" >
-                <div className="col-md-6" style={{ width: "80%", margin: "auto" }}>
+                <div className="col-md-3" style={{ width: "80%", margin: "auto" }}>
                     <div style={{ ...whiteSurface, background: "white" }}>
                         <div style={{}}>
                             <GaugeChart id="gauge-chart1" hideText={true} />
@@ -42,7 +41,7 @@ export default function CabinStatus(props) {
                     </div>
                 </div>
 
-                <div className="col-md-6" style={{ width: "80%", margin: "auto" }}>
+                <div className="col-md-3" style={{ width: "80%", margin: "auto" }}>
                     <div style={{ ...whiteSurface, background: "white", marginTop: "10px" }}>
                         <div style={{}}>
                             <GaugeChart id="gauge-chart1" hideText={true} />
@@ -53,7 +52,7 @@ export default function CabinStatus(props) {
                     </div>
                 </div>
 
-                <div className="col-md-6" style={{ width: "80%", margin: "auto" }}>
+                <div className="col-md-3" style={{ width: "80%", margin: "auto" }}>
                     <div style={{ ...whiteSurface, background: "white", marginTop: "10px" }}>
                         <div style={{}}>
                             <GaugeChart id="gauge-chart1" hideText={true} />
@@ -64,7 +63,7 @@ export default function CabinStatus(props) {
                     </div>
                 </div>
 
-                <div className="col-md-6" style={{ width: "80%", margin: "auto" }}>
+                <div className="col-md-3" style={{ width: "80%", margin: "auto" }}>
                     <div style={{ ...whiteSurface, background: "white", marginTop: "10px" }}>
                         <div style={{}}>
                             <GaugeChart id="gauge-chart1" hideText={true} />

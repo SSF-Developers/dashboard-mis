@@ -17,6 +17,7 @@ import {
   AppSidebarNav2 as AppSidebarNav,
 } from "@coreui/react";
 // sidebar nav config
+import AppBar from "../../components/AppBar";
 import navigation from "../../_nav";
 // routes config
 import routes from "../../routes";
@@ -46,14 +47,16 @@ class DefaultLayout extends Component {
   render() {
     return (
       <div className="app">
-        <AppHeader fixed>
+        <AppBar style={{width:'100%'}} history={this.props.history}/>
+
+        {/* <AppHeader fixed>
           <Suspense fallback={this.loading()}>
             <DefaultHeader onLogout={(e) => this.signOut(e)} />
           </Suspense>
-        </AppHeader>
+        </AppHeader> */}
 
         <div className="app-body">
-          <AppSidebar fixed display="lg">
+          {/* <AppSidebar fixed display="lg">
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
@@ -65,7 +68,7 @@ class DefaultLayout extends Component {
             </Suspense>
             <AppSidebarFooter />
             <AppSidebarMinimizer />
-          </AppSidebar>
+          </AppSidebar> */}
  
           <main className="main">
           
@@ -128,11 +131,11 @@ class DefaultLayout extends Component {
             </Container>
           </main>
 
-          <AppAside fixed>
+          {/* <AppAside fixed>
             <Suspense fallback={this.loading()}>
               <DefaultAside />
             </Suspense>
-          </AppAside>
+          </AppAside> */}
         </div>
 
         <AppFooter>

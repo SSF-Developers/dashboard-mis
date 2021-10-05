@@ -13,6 +13,7 @@ import {
   Collapse,
 } from "reactstrap";
 import PropTypes from "prop-types";
+import AppBar from '../../components/AppBar'
 
 import {
   AppAsideToggler,
@@ -35,13 +36,35 @@ class DefaultHeader extends Component {
 
     return (
       <React.Fragment>
-        <AppSidebarToggler className="d-lg-none" display="md" mobile />
-        <AppSidebarToggler className="d-md-down-none" display="lg" />
+        {/* <AppSidebarToggler className="d-lg-none" display="md" mobile />
+        <AppSidebarToggler className="d-md-down-none" display="lg" /> */}
 
-        <AppNavbarBrand full={{ src: logo, width: 140, height: 30 }} />
+        <AppNavbarBrand 
+        style ={{border:'2px solid red'}}
+        full={{ 
+          src: logo, 
+          width: 120, 
+          height: 30 }} />
+        
+        <Nav 
+        style ={{border:'2px solid red'}}
+        className="ml-auto" 
+        navbar 
+        >
+           <NavItem>
+              <NavLink href="/complex/complexTree/">Complexes</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="">Incidence</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="">Reports</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/dashboard">Administration</NavLink>
+            </NavItem>
 
-        <Nav className="ml-auto" navbar>
-          {/* <UncontrolledDropdown nav direction="down">
+          <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
               <img
                 src={"../../assets/img/avatars/profile.png"}
@@ -75,7 +98,7 @@ class DefaultHeader extends Component {
                 <i className="fa fa-lock"></i> Logout
               </DropdownItem>
             </DropdownMenu>
-          </UncontrolledDropdown> */}
+          </UncontrolledDropdown>
         </Nav>
         {/* <AppAsideToggler className="d-md-down-none" />
         <AppAsideToggler className="d-lg-none" mobile /> */}
