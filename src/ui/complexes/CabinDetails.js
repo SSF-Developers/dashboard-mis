@@ -16,8 +16,9 @@ import {
 //CustomUI
 import CabinStatus from "./cabinDetails/CabinStatus";
 import CabinHealth from "./cabinDetails/CabinHealth";
-import UsageProfile from "./cabinDetails/UsageProfile"
-import ResetProfile from "./cabinDetails/ResetProfile"
+import UsageProfile from "./cabinDetails/UsageProfile";
+import ResetProfile from "./cabinDetails/ResetProfile";
+import CabinUsageFeedback from './cabinDetails/CabinUsageFeedback'
 import LoadingDialog from "../../dialogs/LoadingDialog";
 import MessageDialog from "../../dialogs/MessageDialog";
 import { NameValueList } from "../../components/DisplayLabels"
@@ -78,7 +79,8 @@ class CabinDetails extends Component {
             return(<div />)
         }else{
             return(
-            <div style={{width:'100%'}}>
+            <div style={{width:'98%', margin:'auto'}}>
+                <CabinUsageFeedback />
                 <CabinStatus cabinStatus={this.state.cabinDetails.aqiLumen}/>
                 <CabinHealth cabinHealth={this.state.cabinDetails.health}/>
                 <UsageProfile usageProfile={getUsageProfileDisplayData(this.state.cabinDetails.usageProfile)} />

@@ -60,7 +60,7 @@ class ComplexDetails extends Component {
                     /> */}
                     <ComplexComposition complex={complex} hierarchy={hierarchy}/>
                 </div>
-                <div className="col-md-10" style={{border:'2px solid red'}}>
+                <div className="col-md-10" style={{}}>
                     <CabinDetails />
                 </div>
             </div>

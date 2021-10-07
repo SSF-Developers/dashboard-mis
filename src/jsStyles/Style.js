@@ -37,6 +37,16 @@ export const whiteCircleSurface = {
   alignItems: "center"
 }
 
+export const primaryColorCircleSurface = {
+  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+  backgroundColor: "#5DC0A6",
+  borderRadius: "50%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  padding:'10px 10px 10px 10px'
+}
+
 export const whiteSurfaceCircularBorder = {
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
   backgroundColor: "white",
@@ -57,6 +67,31 @@ export const complexSelectedCircleSurface = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center"
+}
+
+export const usageSurface = {
+  height:'100px',
+  margin: '5% 0%',
+  display: 'flex',
+  justifyContent: "left",
+  alignItems: "center",
+  boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)',
+  borderBottomRightRadius: '50px',
+  backgroundColor: "white",
+  padding:'0px 0px 0px 20px'
+}
+
+export const feedbackSurface = {
+  height:'100px',
+  margin: '5% 0%',
+  display: 'flex',
+  justifyContent: "left",
+  alignItems: "center",
+  boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)',
+  animation: 'w_color 10s infinite alternate',
+  borderTopLeftRadius: '50px',
+  backgroundColor: "white",
+  padding:'0px 0px 0px 20px'
 }
 
 //Text
