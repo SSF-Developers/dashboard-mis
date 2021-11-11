@@ -10,13 +10,21 @@ class DropDown extends React.Component {
       };
   
     constructor(props) {
+
     super(props);
 
+    console.log('_getIndex2',props.currentIndex,props.options[props.currentIndex]);
+
     if (props !== undefined) {
-        this.setState({
-          dropdownList: props.options,
-          selectedItem: props.options[0]
-        });
+      this.state = {
+        dropdownList: props.options,
+        selectedItem: props.options[props.currentIndex]
+      };
+
+        // this.setState({
+        //   dropdownList: props.options,
+        //   selectedItem: props.options[props.currentIndex]
+        // });
       }
   }
 
@@ -41,8 +49,13 @@ class DropDown extends React.Component {
   }
 
   helper(mOption, index) {
-    if (this.state.selectedItem === mOption)
+    
+
+    if (this.state.selectedItem === mOption){
+      console.log('_getIndex3',this.state.selectedItem);
       return <option selected>{mOption}</option>;
+    }
+      
     else return <option>{mOption}</option>;
   }
 

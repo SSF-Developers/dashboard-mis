@@ -1,7 +1,10 @@
 import React from "react";
-
+import { useState } from "react";
 import { cabinDetailsStyle } from "../jsStyles/Style"
-
+import Dropdown from "../components/DropDown"
+import icSmile from "../assets/img/icons/ic_smile.png";
+import icToilet from "../assets/img/icons/ic_toilet.png";
+import { dashboardStyle,whiteCircleSurface, whiteSurface, colorTheme, whiteSurfaceCircularBorder } from "../jsStyles/Style"
 
 export function NameValueList(props) {
   var labelStyle = {}
@@ -75,6 +78,7 @@ function IconNameValuelLabel(props) {
             borderRadius: "5%",
           }} />
           
+        
         <div
           style={{
             ...cabinDetailsStyle.cabinHealth.itemTitle,
@@ -99,4 +103,168 @@ function IconNameValuelLabel(props) {
       </div>
     </div>
   );
+}
+
+export function DropDownLabel(props) {
+
+  const [paymentMode, setPaymentMode] = useState(0);
+
+  return (
+    <div
+      className="row"
+      style={{ display: 'flex', alignItems: 'center', padding: "0", margin: '0px 0px 30px 0px'}}>
+
+      <div
+        className="col-md-2"
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: "0" }}>
+
+        <div
+          style={{
+            ...cabinDetailsStyle.cabinHealth.itemTitle,
+            textAlign: 'end'
+          }}>
+          {props.label}
+        </div>
+
+      </div>
+
+      <div
+        className="col-md-1"
+        style={{
+          marginLeft: '12px'
+        }}
+      >
+        
+
+      </div>
+      <div
+        className="col-md-6"
+        style={{
+          marginLeft: '8px'
+        }}
+      >
+        <Dropdown
+          options={props.options}
+          onSelection={(index, value) => { 
+            setPaymentMode(value); 
+            props.handleUpdate(props.label, value)
+          
+          }}
+        />
+
+      </div>
+
+    </div>
+  );
+}
+
+export function NoFaultElement(props) {
+  return (
+      <table style={{ background: colorTheme.primary, width: "100%", height: '190px', padding: '0px' }}>
+          <tbody>
+              <tr>
+                  <td style={{ width: '30%' }}>
+                      <div style={{display:'flex', alignItems:'center', justifyContent:'center' }}>
+                      <div
+                  style={{
+                      ...whiteCircleSurface,
+                      background: colorTheme.primaryDark,
+                      float: "right",
+                      padding: "10px",
+                      width: "160px",
+                      height: "160px"
+                  }}>
+                  <img
+                      src={props.icon}
+                      style={{
+                          width: "120px",
+                          height: "120px",
+                          borderRadius: "5%",
+                      }}
+                  />
+              </div>
+                       </div>
+                  </td>
+                  <td style={{ width: '70%' }}>
+                      <div style={{...dashboardStyle.itemTitleLa, display:'flex', alignItems:'center', justifyContent:'center' }}> 
+                      {props.title}
+                      </div>
+                  </td>
+              </tr>
+          </tbody>
+
+      </table>
+  )
+}
+
+export function FaultHeader(props){
+  return (
+      <div style={{}}>
+
+          <div style={{ ...dashboardStyle.title, float: 'left' }}>
+              {props.title}
+          </div>
+
+          <div style={{ ...dashboardStyle.label, float: 'right', margin: '4px 80px 0px 10px' }}>
+          {props.label}
+          </div>
+
+          <div >
+              <div
+                  style={{
+                      ...whiteSurfaceCircularBorder,
+                      float: "right",
+                      padding: "10px",
+                      width: "30px",
+                      height: "30px"
+                  }}>
+                  <img
+                      src={icToilet}
+                      style={{
+                          width: "20px",
+                          height: "20px",
+                          borderRadius: "5%",
+                      }}
+                  />
+              </div>
+          </div>
+
+      </div>
+  )
+}
+
+export function NoFaultHeader(props) {
+  return (
+      <div style={{}}>
+
+          <div style={{ ...dashboardStyle.title, float: 'left' }}>
+             {props.title}
+          </div>
+
+          <div style={{ ...dashboardStyle.label, float: 'right', margin: '4px 80px 0px 10px' }}>
+              {props.label}
+          </div>
+
+          <div >
+              <div
+                  style={{
+                      ...whiteSurfaceCircularBorder,
+                      float: "right",
+                      padding: "10px",
+                      width: "30px",
+                      height: "30px"
+                  }}>
+                  <img
+                      src={icSmile}
+                      style={{
+                          width: "20px",
+                          height: "20px",
+                          borderRadius: "5%",
+                      }}
+                  />
+              </div>
+          </div>
+
+      </div>
+  )
 }

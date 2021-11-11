@@ -29,6 +29,7 @@ const addTeamMember = React.lazy(() => import("../../ui/administration/AddTeamMe
 const defineMemberAccess = React.lazy(() => import("../../ui/administration/DefineMemberAccess"));
 const complexNavigation = React.lazy(() => import("../../ui/complexes/ComplexNavigation"));
 const complexDetails = React.lazy(() => import("../../ui/complexes/ComplexDetails"));
+const dashboard = React.lazy(() => import("../../ui/dashboard/Home"));
 
 const DefaultAside = React.lazy(() => import("./DefaultAside"));
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
@@ -118,6 +119,13 @@ class DefaultLayout extends Component {
                     exact={true}
                     name={"Complex Details"}
                     component={complexDetails}
+                  />
+
+                  <Route
+                    path={"/dashboard"}
+                    exact={true}
+                    name={"Dashboard"}
+                    component={dashboard}
                   />
                   {/* <ProtectedRoute
                     path={"/dashboard"}

@@ -53,7 +53,7 @@ class login2 extends React.Component {
       this.props.setLoggedIn(userDetails);
       
       this.loadingDialog.current.closeDialog();
-      this.props.history.push("/administration");
+      this.props.history.push("/dashboard");
       console.log("_login",result)
     }catch(err){
       this.loadingDialog.current.closeDialog();

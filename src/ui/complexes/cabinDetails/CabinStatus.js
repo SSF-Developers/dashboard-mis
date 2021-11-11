@@ -23,8 +23,9 @@ import {
 } from "../../../jsStyles/Style"
 
 export default function CabinStatus(props) {
+    console.log('_aqiLumen',props.cabinStatus)
     return (
-        <div className="col-md-12" style={{ ...whiteSurfaceNoMargin, background: "white", padding: "10px 10px 10px 10px"}}>
+        <div className="col-md-12" style={{...whiteSurface, background:'white'}}>
             <div  style={{...cabinDetailsStyle.componentTitle}} >
                 Cabin Status
             </div>
@@ -33,8 +34,8 @@ export default function CabinStatus(props) {
                 <div className="col-md-3" style={{ width: "80%", margin: "auto" }}>
                     <div style={{ ...whiteSurface, background: "white" }}>
                         <div style={{}}>
-                            <GaugeChart id="gauge-chart1" hideText={true} />
-                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeValue, display: "flex", justifyContent: "center" }}>0.0 PPM</div>
+                            <GaugeChart id="gauge-chart1" hideText={true} percent={props.cabinStatus.data.concentrationCH4}/>
+                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeValue, display: "flex", justifyContent: "center" }}>{props.cabinStatus.data.concentrationCH4} PPM</div>
                             <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeTitle, display: "flex", justifyContent: "center" }}>Methane Concentration</div>
                         </div>
 
@@ -44,9 +45,9 @@ export default function CabinStatus(props) {
                 <div className="col-md-3" style={{ width: "80%", margin: "auto" }}>
                     <div style={{ ...whiteSurface, background: "white", marginTop: "10px" }}>
                         <div style={{}}>
-                            <GaugeChart id="gauge-chart1" hideText={true} />
-                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeValue, display: "flex", justifyContent: "center" }}>0.0 PPM</div>
-                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeTitle, display: "flex", justifyContent: "center" }}>Methane Concentration</div>
+                            <GaugeChart id="gauge-chart1" hideText={true} percent={props.cabinStatus.data.concentrationCO}/>
+                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeValue, display: "flex", justifyContent: "center" }}>{props.cabinStatus.data.concentrationCO} PPM</div>
+                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeTitle, display: "flex", justifyContent: "center" }}>Carbon Monoxide Concentration</div>
                         </div>
 
                     </div>
@@ -55,9 +56,9 @@ export default function CabinStatus(props) {
                 <div className="col-md-3" style={{ width: "80%", margin: "auto" }}>
                     <div style={{ ...whiteSurface, background: "white", marginTop: "10px" }}>
                         <div style={{}}>
-                            <GaugeChart id="gauge-chart1" hideText={true} />
-                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeValue, display: "flex", justifyContent: "center" }}>0.0 PPM</div>
-                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeTitle, display: "flex", justifyContent: "center" }}>Methane Concentration</div>
+                            <GaugeChart id="gauge-chart1" hideText={true} percent={props.cabinStatus.data.concentrationNH3}/>
+                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeValue, display: "flex", justifyContent: "center" }}>{props.cabinStatus.data.concentrationNH3} PPM</div>
+                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeTitle, display: "flex", justifyContent: "center" }}>Ammonia Concentration</div>
                         </div>
 
                     </div>
@@ -66,9 +67,9 @@ export default function CabinStatus(props) {
                 <div className="col-md-3" style={{ width: "80%", margin: "auto" }}>
                     <div style={{ ...whiteSurface, background: "white", marginTop: "10px" }}>
                         <div style={{}}>
-                            <GaugeChart id="gauge-chart1" hideText={true} />
-                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeValue, display: "flex", justifyContent: "center" }}>0.0 PPM</div>
-                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeTitle, display: "flex", justifyContent: "center" }}>Methane Concentration</div>
+                            <GaugeChart id="gauge-chart1" hideText={true} percent={props.cabinStatus.data.concentrationLuminosityStatus}/>
+                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeValue, display: "flex", justifyContent: "center" }}>{props.cabinStatus.data.concentrationLuminosityStatus} Lumen</div>
+                            <div style={{ ...cabinDetailsStyle.cabinStatus.gaugeTitle, display: "flex", justifyContent: "center" }}>Luminous Intensity</div>
                         </div>
 
                     </div>

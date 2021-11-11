@@ -32,7 +32,7 @@ export default function CabinHealth(props) {
     console.log('healthVal','render',props.cabinHealth)
     return (
 
-        <div className="col-md-12" style={{ ...whiteSurface, background: "white",padding: "10px 10px 10px 10px"}}>
+        <div className="col-md-12" style={{ ...whiteSurface,marginTop:'20px', background: "white",padding: "10px 10px 10px 10px"}}>
             
             <div  style={{...cabinDetailsStyle.componentTitle}} >
                 Cabin Health
@@ -75,9 +75,9 @@ function HealthList(props) {
     console.log('healthVal-1',data)
     return data.map((mData, index) => {
       return (
-        <th >
+        <th style={{background:'#5DC0A6'}}>
           <div
-            style={{ width: '120px' }}
+            style={{ fontSize: "10px", width: '120px' }}
           >
             {mData.name}
           </div>
@@ -93,7 +93,7 @@ function HealthList(props) {
       return (
         <td>
           <div
-          style={{display:'flex',alignItems:'center',justifyContent:'flex-end', padding: "0"}}>
+          style={{display:'flex',alignItems:'center',justifyContent:'flex-start', padding: "0"}}>
         
           <img
             src={item.icon}

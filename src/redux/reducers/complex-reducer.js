@@ -1,6 +1,8 @@
 import {
   PUSH_COMPLEX_COMPOSITION,
-  REMOVE_COMPLEX_COMPOSITION
+  REMOVE_COMPLEX_COMPOSITION,
+  UPDATE_SELECTED_COMPLEX,
+  UPDATE_SELECTED_CABIN
 } from "../actions/complex-actions";
 
 var defaultState = {
@@ -27,6 +29,19 @@ export default function complexReducer(
     case REMOVE_COMPLEX_COMPOSITION:
       delete state[payload.key];
       return state;
+
+    case UPDATE_SELECTED_COMPLEX:
+      return {
+        ...state,
+        complex: payload.complex,
+        hierarchy: payload.hierarchy
+      };
+
+    case UPDATE_SELECTED_CABIN:
+      return {
+        ...state,
+        cabin: payload.cabin
+      };
 
     default:
       return state;

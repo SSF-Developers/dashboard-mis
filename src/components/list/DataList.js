@@ -4,7 +4,7 @@ import Button from "reactstrap/lib/Button";
 
 export default function UsageProfileList(props) {
   return (
-    <div style={{  }}>
+    <div style={{ height:'400px',width:'100%', overflowY:'scroll' }}>
       <Table
         hover
         striped

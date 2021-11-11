@@ -16,38 +16,43 @@ import { Link } from "react-router-dom";
 import logo from "../assets/img/brand/logo.png";
 
 const AppBar = (props) => {
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
-  
+
+  const navLinkStyle = {cursor: 'pointer',fontSize: "16px"}
 
   return (
-    <div>
-      <Navbar color="light" light expand="md">
-          
+    <div >
+      <Navbar color="white" light expand="md">
+
         <NavbarBrand href="/">
-        <img src={logo} style={{width:180}} />
+          <img src={logo} style={{ width: 180 }} />
         </NavbarBrand>
+        
         <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
+        
+        <Collapse style={{marginLeft:'0px'}}isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-          <NavItem>
-              <NavLink >Dashboard</NavLink>
+            <NavItem>
+              <NavLink style={navLinkStyle} onClick={() => { props.history.push("/dashboard") }}>Dashboard</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink onClick={()=>{props.history.push("/complex/complexTree")}}>Complexes</NavLink>
+              <NavLink style={navLinkStyle} onClick={() => { props.history.push("/complex/details") }}>Complexes</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/complex/complexTree">Incidence</NavLink>
+              <NavLink style={navLinkStyle} to="/complex/complexTree">Incidence</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="">Reports</NavLink>
+              <NavLink style={navLinkStyle}>Reports</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink onClick={()=>{props.history.push("/administration")}}>Administration</NavLink>
+              <NavLink style={navLinkStyle} onClick={() => { props.history.push("/administration") }}>Administration</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
+
       </Navbar>
     </div>
   );

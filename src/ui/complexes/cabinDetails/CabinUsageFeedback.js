@@ -17,90 +17,171 @@ import {
 import {
     colorTheme,
     whiteSurface,
-    primaryColorCircleSurface,
+    usageAndFeedbackStyle,
     cabinDetailsStyle,
-    whiteSurfaceCircularBorder,
-    usageSurface,
-    feedbackSurface
+    whiteSurfaceCircularBorder
 } from "../../../jsStyles/Style"
 import NameValue from "../../../Entity/NameValue"
 import { getCabinHealthData } from "../utils/ComplexUtils";
-import Home from '../../../assets/img/icons/eco_home.png';
-import AnimatedBg from "react-animated-bg";
+import UsageIcon from '../../../assets/img/icons/eco_home.png'
+import FeedbackIcon from '../../../assets/img/icons/ic_quick_access_active.png'
+
 
 
 export default function CabinUsageFeedback(props) {
+
+    var totalUsage = 0
+    var totalFeedback = 0
+
+    console.log('_usageAndFeedback', props.usageAndFeedback, props.usageAndFeedback.length)
+    if (props.usageAndFeedback  !== -1) {
+        totalUsage = props.usageAndFeedback.TotalUsage;
+        totalFeedback = props.usageAndFeedback.AverageFeedback;
+    }
+
     return (
-        <div className="col-md-12" style={{ ...whiteSurface, marginBottom: '10px', background: "white", padding: "10px 10px 10px 10px" }}>
+        <div className="col-md-12" style={{ marginBottom: '20px' }}>
 
-            <div style={{ ...cabinDetailsStyle.componentTitle }} >
+            {/* <div style={{ ...cabinDetailsStyle.componentTitle }} >
                 Usage and Feedback
-            </div>
+            </div> */}
 
-            <div className='row' style={{ width: '99%', margin: 'auto' }}>
+            <div className='row' style={{}}>
 
-                <div className="col-md-6" >
-                    <Usage />
+                <div className="col-md-6" style={{   }} >
+                    <Usage totalUsage={totalUsage} />
                 </div>
 
-                <div className="col-md-6" >
-
-                    {/* <Feedback /> */}
+                <div className="col-md-6" style={{   }} >
+                    <Feedback totalFeedback={totalFeedback} />
                 </div>
             </div>
         </div>
     );
 };
 
-function Usage(props) {
+function Loader() {
+    var style = {
+        border: '16px solid #eee',
+        borderTop: '16px solid #3ae',
+        borderRadius: '50%',
+        width: '1cm',
+        height: '1cm',
+        animation: 'spin 2s linear infinite',
+    }
     return (
-        <div style={{ ...usageSurface }}>
-            <div style={{width:'100%'}}>
-            <AnimatedBg
-                colors={["#fe8808", "#db1e5f", "#0f0f17", "#71e0d1"]}
-                duration={1.5}
-                delay={0}
-                timingFunction="ease-out"
-                className="animated-section"
-            >
-                <div style={{ display: 'block' }}>
+        <div style={style}>
+            <style>{`
+            @keyframes spin {
+                 0% { transform: rotate(0deg); }
+                 100% { transform: rotate(360deg); }
+            }
+        `}</style>
+        </div>
+    )
+}
 
-                    <div style={{ ...primaryColorCircleSurface, margin: 'auto', width: '50px', height: '50px' }}>
-                        <img
-                            src={Home}
-                            style={{
-                                width: "30px",
-                                height: "30px",
-                            }} />
-                    </div>
+function Usage(props) {
+    var style = {
+        ...usageAndFeedbackStyle.bottomRightCurvedSurface,
+        animation: 'usage 10s linear infinite'
+    }
+    return (
+        <div style={style}>
+            <style>{`
+            @keyframes usage {
 
-                    <div style={{}}>Total Usage</div>
+                 0% {
+                    background: #5DC0A6;
+                  }
+                  25% {
+                    background: #7AFFDC;
+                  }
+                  50% {
+                    background: #5DC0A6;
+                  }
+                  75% {
+                    background: #7AFFDC;
+                  }
+                  100% {
+                    background: #5DC0A6;
+                  }
+            }
+        `}</style>
+
+            <div style={{ display: 'block' }}>
+
+                <div style={{ ...usageAndFeedbackStyle.circleSurface, margin: 'auto', width: '30px', height: '30px' }}>
+                    <img
+                        src={UsageIcon}
+                        style={{
+                            width: "30px",
+                            height: "30px",
+                        }} />
                 </div>
 
-                <div style={{ width: '80%', display: 'flex', justifyContent: 'right', paddingRight: '30px' }}>
-                    <div style={{}}>13,356</div>
-                </div>
-            </AnimatedBg>
+                <div style={{ ...usageAndFeedbackStyle.name }}>Total Usage</div>
+
+            </div>
+
+            <div style={{ width: '70%', display: 'flex', justifyContent: 'right' }}>
+                <div style={{ ...usageAndFeedbackStyle.value }}>{props.totalUsage}</div>
             </div>
         </div>
+
+
     )
 }
 
 function Feedback(props) {
+    var style = {
+        ...usageAndFeedbackStyle.topLeftCurvedSurface,
+        animation: 'feedback 10s linear infinite',
+    }
     return (
-        <div style={{ ...feedbackSurface }}>
-            <div style={{ ...primaryColorCircleSurface }}>
-                <img
-                    src={Home}
-                    style={{
-                        width: "30px",
-                        height: "30px"
-                    }} />
+        <div style={style}>
+            <style>{`
+            @keyframes feedback {
+
+                 0% {
+                    background: #7AFFDC;
+                  }
+                  25% {
+                    background: #5DC0A6;
+                  }
+                  50% {
+                    background: #7AFFDC;
+                  }
+                  75% {
+                    background: #5DC0A6;
+                  }
+                  100% {
+                    background: #7AFFDC;
+                  }
+            }
+        `}</style>
+
+            <div style={{ display: 'block' }}>
+
+                <div style={{ ...usageAndFeedbackStyle.circleSurface, margin: 'auto', width: '30px', height: '30px' }}>
+                    <img
+                        src={FeedbackIcon}
+                        style={{
+                            width: "30px",
+                            height: "30px",
+                        }} />
+                </div>
+
+                <div style={{ ...usageAndFeedbackStyle.name }}>Feedback</div>
+            </div>
+
+            <div style={{ width: '75%', display: 'flex', justifyContent: 'right' }}>
+                <div style={{ ...usageAndFeedbackStyle.value }}>{props.totalFeedback}</div>
             </div>
         </div>
 
 
-
-
     )
 }
+
+

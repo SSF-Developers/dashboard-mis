@@ -11,7 +11,16 @@ export const whiteSurface = {
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
   transition: "0.3s",
   margin: "10px 0px 0px 0px",
+  borderRadius: "5px",
   padding: "10px 10px 10px 10px"
+}
+export const selectedSurface = {
+  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+  transition: "0.3s",
+  margin: "10px 0px 0px 0px",
+  padding: "10px 10px 10px 10px",
+  borderRadius: "5px",
+  border:'2px solid #5DC0A6'
 }
 
 export const whiteSurfaceNoMargin = {
@@ -37,16 +46,6 @@ export const whiteCircleSurface = {
   alignItems: "center"
 }
 
-export const primaryColorCircleSurface = {
-  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-  backgroundColor: "#5DC0A6",
-  borderRadius: "50%",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  padding:'10px 10px 10px 10px'
-}
-
 export const whiteSurfaceCircularBorder = {
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
   backgroundColor: "white",
@@ -67,31 +66,6 @@ export const complexSelectedCircleSurface = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center"
-}
-
-export const usageSurface = {
-  height:'100px',
-  margin: '5% 0%',
-  display: 'flex',
-  justifyContent: "left",
-  alignItems: "center",
-  boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)',
-  borderBottomRightRadius: '50px',
-  backgroundColor: "white",
-  padding:'0px 0px 0px 20px'
-}
-
-export const feedbackSurface = {
-  height:'100px',
-  margin: '5% 0%',
-  display: 'flex',
-  justifyContent: "left",
-  alignItems: "center",
-  boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)',
-  animation: 'w_color 10s infinite alternate',
-  borderTopLeftRadius: '50px',
-  backgroundColor: "white",
-  padding:'0px 0px 0px 20px'
 }
 
 //Text
@@ -133,42 +107,73 @@ export const complexFont = {
   fontStyle: "normal",
 };
 
+export const compactComplexnavStyle = {
+
+  stateFont : {
+    color: `black`,
+    fontSize: "12px",
+    fontWeight: "normal",
+    fontStyle: "normal",
+    textAlign: "left",
+    padding: "0"
+  },
+  districtFont : {
+    color: `black`,
+    fontSize: "12px",
+    fontWeight: "normal",
+    fontStyle: "normal",
+  },
+  cityFont : {
+    color: `black`,
+    fontSize: "10px",
+    fontWeight: "normal",
+    fontStyle: "normal",
+  },
+  
+  complexFont : {
+    color: `black`,
+    fontSize: "8px",
+    fontWeight: "normal",
+    fontStyle: "normal",
+  }
+};
+
 export const complexCompositionStyle = {
   complexTitleClient: {
     color: `white`,
-    fontSize: "16px",
+    fontSize: "12px",
     fontWeight: "bold",
     fontStyle: "bold",
   },
   complexTitle: {
     color: `white`,
-    fontSize: "16px"
+    fontSize: "10px"
   },
   complexSubTitle: {
     color: `white`,
-    fontSize: "16px",
+    fontSize: "10px",
     fontWeight: "normal"
   },
   complexDetails: {
     color: `black`,
-    fontSize: "14px",
+    fontSize: "10px",
     fontWeight: "normal",
     fontStyle: "normal",
   },
   cabinTypeTitle: {
     color: `black`,
-    fontSize: "14px",
+    fontSize: "10px",
     fontWeight: "bold",
     fontStyle: "bold",
   },
   cabinTypeSubTitle: {
     color: `black`,
-    fontSize: "14px",
+    fontSize: "10px",
     fontWeight: "normal"
   },
   cabinTitle: {
     color: `black`,
-    fontSize: "12px",
+    fontSize: "10px",
     fontWeight: "bold",
     fontStyle: "bold",
   },
@@ -181,32 +186,161 @@ export const complexCompositionStyle = {
 export const cabinDetailsStyle = {
   componentTitle: {
     color: `black`,
-    fontSize: "20px",
+    fontSize: "12px",
     fontWeight: "bold",
     fontStyle: "bold",
   },
   cabinStatus: {
     gaugeTitle: {
       color: `black`,
-      fontSize: "16px",
+      fontSize: "10px",
       fontWeight: "bold",
       fontStyle: "bold",
     },
     gaugeValue: {
       color: `black`,
-      fontSize: "12px"
+      fontSize: "10px"
     }
   },
   cabinHealth: {
     itemTitle: {
       color: `black`,
-      fontSize: "12px",
+      fontSize: "10px",
       fontWeight: "bold",
       fontStyle: "bold",
     },
     itemValue: {
       color: `black`,
-      fontSize: "12px"
+      fontSize: "10px"
     }
   }
-}
+};
+
+export const settingsModal = {
+  itemTitle: {
+    color: `black`,
+    fontSize: "12px",
+    fontWeight: "bold",
+    fontStyle: "bold",
+  },
+  itemValue: {
+    color: `black`,
+    fontSize: "12px"
+  },
+  labelTimestamp: {
+    color: `black`,
+    fontSize: "12px",
+    fontWeight: "italic",
+    fontStyle: "italic",
+  }
+};
+
+export const usageAndFeedbackStyle = {
+  name: {
+    color: `white`,
+    fontSize: "12px",
+    fontWeight: "bold",
+    fontStyle: "bold"
+  },
+  value: {
+    color: `white`,
+    fontSize: "12px",
+    fontWeight: "bold",
+    fontStyle: "bold"
+  },
+  circleSurface: {
+    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+    backgroundColor: "White",
+    borderRadius: "50%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding:'10px 10px 10px 10px'
+  },
+  bottomRightCurvedSurface: {
+    height:'100px',
+    display: 'flex',
+    justifyContent: "left",
+    alignItems: "center",
+    boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)',
+    borderBottomRightRadius: '50px',
+    backgroundColor: "white",
+    padding:'0px 0px 0px 20px'
+  },
+  topLeftCurvedSurface: {
+    height:'100px',
+    display: 'flex',
+    justifyContent: "left",
+    alignItems: "center",
+    boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)',
+    borderTopLeftRadius: '50px',
+    backgroundColor: "white",
+    padding:'0px 0px 0px 20px'
+  }
+};
+
+export const statsStyle = {
+  elementTitle: {
+    color: `white`,
+    fontSize: "20px"
+  },
+  pieLabel: {
+    color: `black`,
+    fontSize: "14px",
+    fontWeight: "bold",
+    fontStyle: "bold",
+  },
+  labelTimestamp: {
+    color: `black`,
+    fontSize: "12px",
+    fontWeight: "italic",
+    fontStyle: "italic",
+  }
+};
+
+export const dashboardStyle = {
+  title: {
+    color: colorTheme.primary,
+    fontSize: "16px",
+    fontWeight: "bold",
+    fontStyle: "bold",
+  },
+  label: {
+    color: colorTheme.primary,
+    fontSize: "12px",
+    fontWeight: "italic",
+    fontStyle: "italic",
+  },
+  itemTitle: {
+    color: `white`,
+    fontSize: "14px",
+    fontWeight: "bold",
+    fontStyle: "bold",
+  },
+  itemTitleLa: {
+    color: `white`,
+    fontSize: "18px",
+    fontWeight: "bold",
+    fontStyle: "bold",
+  },
+  itemDescriprtion: {
+    color: `black`,
+    fontSize: "12px",
+    fontWeight: "italic",
+    fontStyle: "italic",
+  },
+  itemDescriprtionBold: {
+    color: `black`,
+    fontSize: "12px",
+    fontWeight: "bold",
+    fontStyle: "bold",
+  },
+  colorCodes: {
+    total: '#E94700',
+    mwc: '#AC1600',
+    fwc: '#37A51C',
+    pwc: '#5DC0A6',
+    mur: '#329AD6',
+    bwt: '#E10753'
+  }
+};

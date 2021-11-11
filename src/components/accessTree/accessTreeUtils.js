@@ -12,10 +12,17 @@ export function getComplexHierarchy(accessTree, treeEdge) {
     var district = accessTree.country.states[stateIndex].districts[districtIndex];
     var city = accessTree.country.states[stateIndex].districts[districtIndex].cities[cityIndex];
 
-    var hierarchy = {state:state.code, district:district.name,city:city.name};
+    var hierarchy = {
+        state:state.code, 
+        district:district.name,
+        city:city.name,
+        districtCode:district.code,
+        cityCode:city.code
+    };
     return hierarchy;
 
 }
+
 export function getAccessSummary(accessTree) {
 
     var stateCount = 0;

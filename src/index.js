@@ -15,6 +15,7 @@ import authenticationReducer from "./redux/reducers/authentication-reducer";
 import administrationReducer from "./redux/reducers/administration-reducer";
 import historyReducer from "./redux/reducers/history-reducer";
 import complexReducer from "./redux/reducers/complex-reducer";
+import dashboardReducer from "./redux/reducers/dashboard-reducer";
 import iccc_dataReducer from "./redux/reducers/iccc-dashboard-reducer";
 
 import { BrowserRouter, HashRouter, Route, Switch } from "react-router-dom";
@@ -28,7 +29,8 @@ const allReducers = combineReducers({
   administration: administrationReducer,
   clientData: iccc_dataReducer,
   historyStore: historyReducer,
-  complexStore: complexReducer
+  complexStore: complexReducer,
+  dashboard: dashboardReducer
 });
 
 const loading = () => (

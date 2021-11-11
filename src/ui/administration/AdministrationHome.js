@@ -10,6 +10,7 @@ import LoadingDialog from "../../dialogs/LoadingDialog";
 import NoDataComponent from "../../components/NoDataComponent"
 import {UiAdminDestinations} from "../../nomenclature/nomenclature"
 
+
 class AdministrationHome extends Component {
   constructor(props) {
     super(props);

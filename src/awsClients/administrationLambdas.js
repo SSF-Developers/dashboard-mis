@@ -42,7 +42,7 @@ export function executelistClientsLambda() {
             var pullResults = JSON.parse(data.Payload);
             console.log("_lambda", pullResults)
             resolve(pullResults)
-          }
+          } 
         });
     });
 };
@@ -241,6 +241,29 @@ export function executeDefineUserAccessLambda(request) {
             reject(pullResults);
           else
             resolve(pullResults.accessTree)
+        }
+      });
+  });
+};
+
+export function executeFetchDashboardLambda(userName, duration) {
+  return new Promise(function(resolve, reject) {
+      var request = {userName:userName, duration:duration}
+      var lambda = new AWS.Lambda({ region: 'ap-south-1', apiVersion: '2015-03-31' });
+      var pullParams = {
+        FunctionName: 'mis_adminisatration_fetchDateWaiseUsageData',
+        Payload: JSON.stringify(request)
+      };
+  
+  
+      lambda.invoke(pullParams, function (err, data) {
+        if (err) {
+          console.log("_lambda", err)
+          reject(err);
+        } else {
+          var pullResults = JSON.parse(data.Payload);
+          console.log("_lambda", pullResults)
+          resolve(pullResults)
         }
       });
   });

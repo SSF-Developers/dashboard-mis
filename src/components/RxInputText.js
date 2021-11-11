@@ -36,13 +36,20 @@ class RxInputText extends React.Component {
         value={this.state.text}
         type="text"
         placeholder={this.props.placeholder}
-        onChange={(event) => this.props.onChange(event.target.value)}
-        diisabled
+        onChange={(event) => {
+
+          var newValue = event.target.value
+          console.log('_isNumb',newValue,!isNaN(newValue))
+          if(!isNaN(newValue) && !newValue.includes('.')){
+            this.props.onChange(newValue);
+            this.setText(newValue);
+          }
+          
+        }}
       />
     );
   }
 }
-
 RxInputText.propTypes = {
   text: PropTypes.string,
   placeholder: PropTypes.string,

@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 //CustomUI
 import ComplexComposition from "./ComplexComposition";
+import ComplexNavigationCompact from "./ComplexNavigationCompact";
 import CabinDetails from "./CabinDetails";
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
@@ -24,27 +25,14 @@ class ComplexDetails extends Component {
 
     constructor(props) {
         super(props);
-
-    }
-
-    componentDidMount() {
-
+        this.state = {
+            cabinDetails: 'cabinDetailsData'
+        };
+        this.complexComposition = React.createRef();
+        this.messageDialog = React.createRef();
     }
 
     render() {
-        var complex = {
-            address: "Test_aws",
-            client: "DEV_TEST",
-            coco: "False",
-            isSelected: false,
-            lat: "15.0909090",
-            lon: "76.0909090",
-            name: "TEST_AWS",
-            selected: false,
-            uuid: "HP0501_03092021_000",
-        }
-
-        var hierarchy = {state:'HP', district:'Mandi',city:'Mandi'};
         return (
             <div
                 className="animated fadeIn"
@@ -53,12 +41,12 @@ class ComplexDetails extends Component {
                 }}>
 
                 <div className="row" >
-                <div className="col-md-2" >
-                    {/* <ComplexComposition 
-                    complex= {this.props.location.bundle.complex}
-                    hierarchy= {this.props.location.bundle.hierarchy}
-                    /> */}
-                    <ComplexComposition complex={complex} hierarchy={hierarchy}/>
+                <div className="col-md-2" 
+                style={{}}>
+                    <MessageDialog ref={this.messageDialog} />
+                    <ComplexNavigationCompact />
+                    <ComplexComposition />
+
                 </div>
                 <div className="col-md-10" style={{}}>
                     <CabinDetails />

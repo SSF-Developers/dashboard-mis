@@ -35,7 +35,7 @@ export default function UsageProfile(props) {
 
         // <UsageProfileList data={props.usageProfile} />
 
-        <div style={{ ...whiteSurface, background: "white", padding: "10px 10px 10px 10px"}}>
+        <div style={{ ...whiteSurface, background: "white",marginTop:'20px', padding: "10px 10px 10px 10px"}}>
             
             <div style={{...cabinDetailsStyle.componentTitle}} >
                 Usage Profile

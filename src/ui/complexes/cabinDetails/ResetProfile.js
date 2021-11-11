@@ -32,7 +32,7 @@ export default function ResetProfile(props) {
 
         // <UsageProfileList data={props.usageProfile} />
 
-        <div style={{ ...whiteSurface, width:'100%',background: "white", padding: "10px 10px 10px 10px"}}>
+        <div style={{ ...whiteSurface, width:'100%',background: "white",marginTop:'20px', padding: "10px 10px 10px 10px"}}>
             
             <div style={{...cabinDetailsStyle.componentTitle}} >
                 Reset Profile
@@ -49,7 +49,8 @@ export default function ResetProfile(props) {
 };
 
 function ComponentSelector(props) {
-    if(props.resetProfile.length != 0)
+    console.log('_resetProfile',props.resetProfile.length)
+    if(props.resetProfile.length == 0)
     return(<NoDataComponent />)
 
 
