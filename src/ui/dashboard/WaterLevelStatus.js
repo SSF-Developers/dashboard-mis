@@ -48,7 +48,6 @@ class WaterLevelStatus extends Component {
 
     }
     
-    
     ComponentSelector = () => {
 
         if (this.props.data !== undefined && this.props.data.length !== 0) {

@@ -45,7 +45,7 @@ const AppBar = (props) => {
               <NavLink style={navLinkStyle} to="/complex/complexTree">Incidence</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink style={navLinkStyle}>Reports</NavLink>
+              <NavLink style={navLinkStyle} onClick={() => { props.history.push("/reports") }}>Reports</NavLink>
             </NavItem>
             <NavItem>
               <NavLink style={navLinkStyle} onClick={() => { props.history.push("/administration") }}>Administration</NavLink>

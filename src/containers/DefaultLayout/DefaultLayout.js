@@ -30,6 +30,7 @@ const defineMemberAccess = React.lazy(() => import("../../ui/administration/Defi
 const complexNavigation = React.lazy(() => import("../../ui/complexes/ComplexNavigation"));
 const complexDetails = React.lazy(() => import("../../ui/complexes/ComplexDetails"));
 const dashboard = React.lazy(() => import("../../ui/dashboard/Home"));
+const reportsHome = React.lazy(() => import("../../ui/reports/ReportsHome"));
 
 const DefaultAside = React.lazy(() => import("./DefaultAside"));
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
@@ -126,6 +127,13 @@ class DefaultLayout extends Component {
                     exact={true}
                     name={"Dashboard"}
                     component={dashboard}
+                  />
+
+                  <Route
+                    path={"/reports"}
+                    exact={true}
+                    name={"Reports"}
+                    component={reportsHome}
                   />
                   {/* <ProtectedRoute
                     path={"/dashboard"}

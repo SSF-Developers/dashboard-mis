@@ -65,12 +65,12 @@ const COLORS = [
 
 export function HalfPieChart(props) {
   return (
-    <ResponsiveContainer width="95%" height={160}>
-   <PieChart width={200} height={130}>
+    <ResponsiveContainer width="95%" height='95%'>
+   <PieChart>
       <Pie
         data={props.data}
-        cx={225}
-        cy={160}
+        cx='50%'
+        cy='100%'
         startAngle={180}
         endAngle={0}
         innerRadius={100}

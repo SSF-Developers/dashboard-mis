@@ -38,7 +38,7 @@ class Stats extends Component {
     handleUpdate = (configName, configValue) => {
         console.log('_updateCommand', configName, configValue);
         var index = this.actionOptions.indexOf(configValue)
-        this.props.fetchDashboardData(this.actionValues[index])
+        this.props.setDurationSelection(this.actionValues[index])
     }
 
     render() {
@@ -73,13 +73,17 @@ class Stats extends Component {
                     <div className='col-md-4'>
                         <div className='col-md-12' style={{ ...whiteSurface, background: 'white', width: "100%", height: '220px', padding: "10px", display: "flexbox", alignItems: "center" }}>
                             
-                            <div className='row' >
-                            <HalfPieChart data={props.pieChartData}/>
+                            <div  style={{height:'180px', width:'100%', display:'flex', alignItems:'center', justifyContent:'center'}}>
+                                <div style={{width:'90%',height:'100%', margin:'auto'}}>
+                                <HalfPieChart data={props.pieChartData}/>
+                                </div>
                             </div>
-                            <div className='row' style={{...statsStyle.pieLabel, width:'100%',margin:'auto', justifyContent:'center'}}>
+
+                            <div  style={{...statsStyle.pieLabel, display:'flex', alignItems:'center', justifyContent:'center', marginTop:'-30px'}}>
                             {props.total}
                             </div>
-                            <div className='row' style={{...statsStyle.pieLabel, width:'100%',margin:'auto', justifyContent:'center'}}>
+
+                            <div style={{...statsStyle.pieLabel, display:'flex', alignItems:'center', justifyContent:'center'}}>
                            {props.name}
                             </div>
                             

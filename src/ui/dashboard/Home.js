@@ -28,6 +28,8 @@ import WaterLevelStatus from './WaterLevelStatus'
 
 class Home extends Component {
 
+    reportParms = {complex:'all',duration:'15'}
+
     constructor(props) {
         super(props);
         this.state = {
@@ -37,13 +39,20 @@ class Home extends Component {
         this.messageDialog = React.createRef();
     this.loadingDialog = React.createRef();
     this.fetchDashboardData = this.fetchDashboardData.bind(this);
+    this.setDurationSelection = this.setDurationSelection.bind(this);
+    }
+
+    setDurationSelection(duration) {
+        console.log('duration', duration)
+        this.reportParms.duration = duration;
+        this.fetchDashboardData();
     }
 
     async fetchDashboardData(duration) {
         this.loadingDialog.current.showDialog();
         try{
           console.log("_user",this.props.user);
-          var result = await executeFetchDashboardLambda(this.props.user.userName, duration);
+          var result = await executeFetchDashboardLambda(this.props.user.userName, this.reportParms.duration, this.reportParms.complex);
           this.props.setDashboardData(result);
           this.loadingDialog.current.closeDialog();
         }catch(err){
@@ -78,7 +87,7 @@ class Home extends Component {
             return(
                 <>
                 <Summary />
-                <Stats fetchDashboardData={this.fetchDashboardData} chartData={this.props.dashboardData.dashboardChartData} pieChartData={this.props.dashboardData.pieChartData} dataSummary = {this.props.dashboardData.dataSummary}/>
+                <Stats setDurationSelection={this.setDurationSelection} chartData={this.props.dashboardData.dashboardChartData} pieChartData={this.props.dashboardData.pieChartData} dataSummary = {this.props.dashboardData.dataSummary}/>
                 <ActiveTickets data={this.props.dashboardData.activeTickets}/>
                 <HealthStatus data={this.props.dashboardData.faultyComplexes}/>
                 <WaterLevelStatus data={this.props.dashboardData.lowWaterComplexes}/>

@@ -246,9 +246,9 @@ export function executeDefineUserAccessLambda(request) {
   });
 };
 
-export function executeFetchDashboardLambda(userName, duration) {
+export function executeFetchDashboardLambda(userName, duration, complex) {
   return new Promise(function(resolve, reject) {
-      var request = {userName:userName, duration:duration}
+      var request = {userName:userName, duration:duration, complex:complex}
       var lambda = new AWS.Lambda({ region: 'ap-south-1', apiVersion: '2015-03-31' });
       var pullParams = {
         FunctionName: 'mis_adminisatration_fetchDateWaiseUsageData',
