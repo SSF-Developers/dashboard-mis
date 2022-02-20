@@ -103,7 +103,7 @@ export function executeGetUserDetailsLambda(userName) {
         Payload: '{ "action": "actionGetUserDetails", "userName":"'+ userName+'" }'
       };
   
-  
+      console.log("_lambda", pullParams)
       lambda.invoke(pullParams, function (err, data) {
         if (err) {
           console.log("_lambda", err)

@@ -94,9 +94,13 @@ class ReportsHome extends Component {
 
                             <td style={{ width: '70%' }}>
                                 <div style={{ ...dashboardStyle.itemTitleLa, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    
-
-                                    
+                                <Stats
+                                        setDurationSelection={this.setDurationSelection}
+                                        handleComplexSelection={this.handleComplexSelection}
+                                        chartData={this.props.dashboardData.dashboardChartData}
+                                        pieChartData={this.props.dashboardData.pieChartData}
+                                        dataSummary={this.props.dashboardData.dataSummary} />
+                                
                                 </div>
                             </td>
                         </tr>
@@ -107,30 +111,12 @@ class ReportsHome extends Component {
         );
     }
 
-    ComponentSelector = () => {
-        if (this.reportParms.complex !== '') {
-            return (
-                <>
-                <Stats
-                                        setDurationSelection={this.setDurationSelection}
-                                        handleComplexSelection={this.handleComplexSelection}
-                                        chartData={this.props.dashboardData.dashboardChartData}
-                                        pieChartData={this.props.dashboardData.pieChartData}
-                                        dataSummary={this.props.dashboardData.dataSummary} />
-                </>
-                
-            )
-        }
-
-        return (<NoDataComponent />)
-    }
-
-    Greeting = (props) => {
+    ReportListSelector = (props) => {
         if (props.teamList.length === 0) {
           return <NoDataComponent />;
         }
         return <List data={props.teamList} />;
-      }
+    }
 }
 
 const mapStateToProps = (state) => {

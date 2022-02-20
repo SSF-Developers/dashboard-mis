@@ -186,7 +186,7 @@ export const complexCompositionStyle = {
 export const cabinDetailsStyle = {
   componentTitle: {
     color: `black`,
-    fontSize: "12px",
+    fontSize: "18px",
     fontWeight: "bold",
     fontStyle: "bold",
   },
@@ -238,13 +238,14 @@ export const settingsModal = {
 export const usageAndFeedbackStyle = {
   name: {
     color: `white`,
-    fontSize: "12px",
+    fontSize: "24px",
     fontWeight: "bold",
-    fontStyle: "bold"
+    fontStyle: "bold",
+    marginTop:"10px"
   },
   value: {
     color: `white`,
-    fontSize: "12px",
+    fontSize: "32px",
     fontWeight: "bold",
     fontStyle: "bold"
   },
@@ -258,7 +259,7 @@ export const usageAndFeedbackStyle = {
     padding:'10px 10px 10px 10px'
   },
   bottomRightCurvedSurface: {
-    height:'100px',
+    height:'160px',
     display: 'flex',
     justifyContent: "left",
     alignItems: "center",
@@ -268,7 +269,7 @@ export const usageAndFeedbackStyle = {
     padding:'0px 0px 0px 20px'
   },
   topLeftCurvedSurface: {
-    height:'100px',
+    height:'160px',
     display: 'flex',
     justifyContent: "left",
     alignItems: "center",

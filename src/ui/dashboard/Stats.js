@@ -13,15 +13,14 @@ import {
 } from "reactstrap";
 
 import { whiteSurface } from "../../jsStyles/Style"
-import { NoAxisLineChart, HalfPieChart, FullLineChart } from './Charts';
+import { NoAxisLineChart, HalfPieChart, FullLineChart } from './components/Charts';
 import { DropDownLabel } from '../../components/DisplayLabels'
-import piechart2 from './piechart2'
 
 class Stats extends Component {
 
     actionOptions = ['15 Days', '30 Days', '45 Days', '60 Days', '90 Days'];
     actionValues = [15, 30, 45, 60, 90];
-    constructor(props) {
+    constructor(props) {   
         super(props);
         this.state = {
             cabinDetails: 'cabinDetailsData'

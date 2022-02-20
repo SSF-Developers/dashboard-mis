@@ -2,52 +2,17 @@
 import React from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { PieChart, Pie, Sector, Cell } from "recharts";
-import {dashboardStyle} from '../../jsStyles/Style'
+import {dashboardStyle} from '../../../jsStyles/Style'
 
-const pieData = [
-    { name: "MWC", value: 400 },
-    { name: "FWC", value: 300 },
-    { name: "PWC", value: 300 },
-    { name: "MUR", value: 200 }
-  ];
 
-const data = [
-  {
-    name: 'Page A',
-    amt: 5000,
-  },
-  {
-    name: 'Page B',
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    amt: 0,
-  },
-];
 
-export function NoAxisLineChart() {
+
+export function NoAxisLineChart(props) {
     return (
         <div style={{}}>
         {/* <ResponsiveContainer width="100%" height="100%"> */}
-        <LineChart width={200} height={50} data={data}>
-          <Line type="monotone" dataKey="amt" stroke="#8884d8" strokeWidth={2} />
+        <LineChart width={200} height={50} data={props.data}>
+          <Line type="monotone" dataKey="all" dot={false} stroke="#8884d8" strokeWidth={2} />
         </LineChart>
       {/* </ResponsiveContainer> */}
         </div>

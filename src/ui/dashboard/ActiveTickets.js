@@ -42,7 +42,7 @@ class ActiveTickets extends Component {
     }
     HeaderSelector = () => {
         if (this.props.data !== undefined && this.props.data.length > 0) {
-            return (<FaultHeader title='Active Tickets' label={this.props.data.length+' Fault(s) Reported'  }/>)
+            return (<FaultHeader title='Active Tickets' label={this.props.data.length+' Ticket(s) Active'  }/>)
         }
         return (<NoFaultHeader title='Active Tickets' label='All units working fine'/>)
 

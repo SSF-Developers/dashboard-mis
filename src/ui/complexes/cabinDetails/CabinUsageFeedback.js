@@ -111,12 +111,12 @@ function Usage(props) {
 
             <div style={{ display: 'block' }}>
 
-                <div style={{ ...usageAndFeedbackStyle.circleSurface, margin: 'auto', width: '30px', height: '30px' }}>
+                <div style={{ ...usageAndFeedbackStyle.circleSurface, margin: 'auto', width: '90px', height: '90px' }}>
                     <img
                         src={UsageIcon}
                         style={{
-                            width: "30px",
-                            height: "30px",
+                            width: "80px",
+                            height: "80px",
                         }} />
                 </div>
 
@@ -163,12 +163,12 @@ function Feedback(props) {
 
             <div style={{ display: 'block' }}>
 
-                <div style={{ ...usageAndFeedbackStyle.circleSurface, margin: 'auto', width: '30px', height: '30px' }}>
+                <div style={{ ...usageAndFeedbackStyle.circleSurface, margin: 'auto', width: '90px', height: '90px' }}>
                     <img
                         src={FeedbackIcon}
                         style={{
-                            width: "30px",
-                            height: "30px",
+                            width: "80px",
+                            height: "80px",
                         }} />
                 </div>
 

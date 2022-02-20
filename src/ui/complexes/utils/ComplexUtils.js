@@ -339,9 +339,12 @@ export function getResetProfileDisplayData(resetProfile) {
 
 function getUiDate(timestamp){
     var u = new Date(timestamp);
-
+    console.log("_getUiDate"+u);
+    console.log("_getUiDate"+u.getUTCDate());
+    console.log("_getUiDate"+u.getUTCMonth());
+    console.log("_getUiDate"+u.getUTCFullYear());
     var dd = ('0' + u.getUTCDate()).slice(-2);
-    var mm = ('0' + u.getUTCMonth()).slice(-2);
+    var mm = ('0' + (u.getUTCMonth()+1)).slice(-2);
     var yyyy = u.getUTCFullYear();
     
     return (dd+'/'+mm+'/'+yyyy);

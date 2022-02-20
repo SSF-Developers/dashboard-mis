@@ -25,7 +25,7 @@ export function ExpandedRowRoot(props) {
 
 export function CollapsedRowRoot(props) {
   return (
-    <div className="row" style={whiteSurface}>
+    <div className="row" style={{...whiteSurface, border:'2px solid red'}}>
 
       <div className="col-md-2" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "0" }} onClick={() => props.treeRowProps.handleToggle()}>
 

@@ -27,3 +27,21 @@ export const TreeItemType = Object.freeze({
     City: enumValue("TreeItemType.City"),
     Complex: enumValue("TreeItemType.Complex"),
 });
+
+export const CabinType = Object.freeze({
+    MWC: enumValue("CabinType.MWC"),
+    FWC: enumValue("CabinType.FWC"),
+    PD: enumValue("CabinType.PD"),
+    MUR: enumValue("CabinType.MUR"),
+});
+
+export const QuickConfigTabs = Object.freeze({
+    TAB_USAGE_CHARGE_CONFIG: enumValue("QuickConfigTabs.TAB_USAGE_CHARGE_CONFIG"),
+    TAB_PRE_FLUSH_CONFIG: enumValue("QuickConfigTabs.TAB_PRE_FLUSH_CONFIG"),
+    TAB_MINI_FLUSH_CONFIG: enumValue("QuickConfigTabs.TAB_MINI_FLUSH_CONFIG"),
+    TAB_FULL_FLUSH_CONFIG: enumValue("QuickConfigTabs.TAB_FULL_FLUSH_CONFIG"),
+    TAB_FLOOR_CLEAN_CONFIG: enumValue("QuickConfigTabs.TAB_FLOOR_CLEAN_CONFIG"),
+    TAB_LIGHT_CONFIG: enumValue("QuickConfigTabs.TAB_LIGHT_CONFIG"),
+    TAB_FAN_CONFIG: enumValue("QuickConfigTabs.TAB_FAN_CONFIG"),
+    TAB_DATA_REQUEST_CONFIG: enumValue("QuickConfigTabs.TAB_DATA_REQUEST_CONFIG")
+});

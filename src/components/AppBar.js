@@ -23,6 +23,8 @@ const AppBar = (props) => {
 
   const navLinkStyle = {cursor: 'pointer',fontSize: "16px"}
 
+  var messageDialog = React.createRef();
+  
   return (
     <div >
       <Navbar color="white" light expand="md">
@@ -42,10 +44,10 @@ const AppBar = (props) => {
               <NavLink style={navLinkStyle} onClick={() => { props.history.push("/complex/details") }}>Complexes</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink style={navLinkStyle} to="/complex/complexTree">Incidence</NavLink>
+              <NavLink style={navLinkStyle}  onClick={() => {alert("This module will be deployed soon. Work in progress...") }}>Incidence</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink style={navLinkStyle} onClick={() => { props.history.push("/reports") }}>Reports</NavLink>
+              <NavLink style={navLinkStyle} onClick={() => {alert("This module will be deployed soon. Work in progress...") }}>Reports</NavLink>
             </NavItem>
             <NavItem>
               <NavLink style={navLinkStyle} onClick={() => { props.history.push("/administration") }}>Administration</NavLink>

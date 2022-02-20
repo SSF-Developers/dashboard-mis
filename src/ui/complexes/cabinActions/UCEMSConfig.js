@@ -36,7 +36,7 @@ class UCEMSConfig extends Component {
       
 
         this.props.loadingDialog.current.closeDialog();
-        
+           
 
     } catch (err) {
         console.log('_fetchCabinDetails',"_err", err);
@@ -59,7 +59,7 @@ class UCEMSConfig extends Component {
   showDialog = (ucemsConfig,onClickAction) => {
     this.ucemsConfig = ucemsConfig;
 
-      this.title = 'UCEMS Config';
+      this.title = 'UCEMS Config#@';
       if(onClickAction !== undefined)
         this.onClickAction = onClickAction
     else
