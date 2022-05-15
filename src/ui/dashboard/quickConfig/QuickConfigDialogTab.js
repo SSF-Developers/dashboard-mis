@@ -21,7 +21,7 @@ class QuickConfigDialogTab extends Component {
     this.initClientNameList();
   }
 
-  selectedScope = { 'CabinType.MWC': false , 'CabinType.FWC': false , 'CabinType.PD': false ,'CabinType.MUR': false }
+  selectedScope = { 'CabinType.MWC': false, 'CabinType.FWC': false, 'CabinType.PD': false, 'CabinType.MUR': false }
   clientNameList = []
   title = ""
   onClickAction
@@ -108,7 +108,7 @@ class QuickConfigDialogTab extends Component {
 
   setSelectedClient = (client) => {
     this.selectedClient = client;
-    this.props.handleUpdate(this.props.configTab,"configClient",this.selectedClient)
+    this.props.handleUpdate(this.props.configTab, "configClient", this.selectedClient)
   }
 
 
@@ -194,9 +194,9 @@ class QuickConfigDialogTab extends Component {
         break;
       case CabinType.MUR:
         this.selectedScope['CabinType.MUR'] = selected;
-        break;   
+        break;
     }
-    this.props.handleUpdate(this.props.configTab,"configScope",this.selectedScope);
+    this.props.handleUpdate(this.props.configTab, "configScope", this.selectedScope);
   }
 
 }

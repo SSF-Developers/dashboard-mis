@@ -217,17 +217,17 @@ class QuickConfig extends Component {
     }
 
     configViewData = {}
-    handleConfigUpdate = (configTab,id,value) => {
+    handleConfigUpdate = (configTab, id, value) => {
         var obj = this.configViewData[configTab];
-        if(obj === undefined) 
+        if (obj === undefined)
             obj = {};
 
         obj[id] = value
         this.configViewData[configTab] = obj;
-        console.log("_handleConfigUpdate",this.configViewData)
+        console.log("_handleConfigUpdate", this.configViewData)
     }
 
-    handleDataRequestConfigUpdate = () =>{
+    handleDataRequestConfigUpdate = () => {
 
     }
 

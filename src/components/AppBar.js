@@ -47,7 +47,8 @@ const AppBar = (props) => {
               <NavLink style={navLinkStyle}  onClick={() => {alert("This module will be deployed soon. Work in progress...") }}>Incidence</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink style={navLinkStyle} onClick={() => {alert("This module will be deployed soon. Work in progress...") }}>Reports</NavLink>
+              <NavLink style={navLinkStyle} onClick={() => { props.history.push("/reports") }}>Reports</NavLink>
+              {/* <NavLink style={navLinkStyle} onClick={() => {alert("This module will be deployed soon. Work in progress...") }}>Reports</NavLink> */}
             </NavItem>
             <NavItem>
               <NavLink style={navLinkStyle} onClick={() => { props.history.push("/administration") }}>Administration</NavLink>
