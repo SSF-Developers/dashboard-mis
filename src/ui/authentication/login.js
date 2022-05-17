@@ -54,7 +54,8 @@ class login2 extends React.Component {
       
       this.loadingDialog.current.closeDialog();
       this.props.history.push("/dashboard");
-      console.log("_login",result)
+      // this.props.history.push("/administration/addTeamMember")
+      console.log("_login",result);
     }catch(err){
       this.loadingDialog.current.closeDialog();
       this.messageDialog.current.showDialog(err.title,err.message)

@@ -45,3 +45,12 @@ export const QuickConfigTabs = Object.freeze({
     TAB_FAN_CONFIG: enumValue("QuickConfigTabs.TAB_FAN_CONFIG"),
     TAB_DATA_REQUEST_CONFIG: enumValue("QuickConfigTabs.TAB_DATA_REQUEST_CONFIG")
 });
+
+export const PUB_TOPIC = Object.freeze({
+    CLIENT_TOPIC_GENERIC: enumValue("PUB_TOPIC.CLIENT_TOPIC_GENERIC"),
+    CMS_CONFIG_GENERIC: enumValue("PUB_TOPIC.CMS_CONFIG_GENERIC"),
+    UCEMS_CONFIG_GENERIC: enumValue("PUB_TOPIC.UCEMS_CONFIG_GENERIC"),
+    ODS_CONFIG_GENERIC: enumValue("PUB_TOPIC.ODS_CONFIG_GENERIC"),
+    BWT_CONFIG_GENERIC: enumValue("PUB_TOPIC.BWT_CONFIG_GENERIC")
+    
+});
