@@ -26,12 +26,16 @@ import {
     DataRequestConfigView
 } from '../../components/QuickConfigLabels'
 import { QuickConfigTabs } from '../../nomenclature/nomenclature'
-
+import { validateConfigData, getLambdaPayload, getPublishTopicName } from "./quickConfig/utils/ConfigValidationHelper"
+import { executePublishConfigLambda } from "../../awsClients/quickConfigLambdas"
 //REDUX
 import { connect } from "react-redux";
+import { FastRewind } from "@material-ui/icons";
 
 
 class QuickConfig extends Component {
+
+    configViewData = {};
 
     constructor(props) {
         super(props);
@@ -39,6 +43,7 @@ class QuickConfig extends Component {
             cabinDetails: 'cabinDetailsData'
         };
 
+        this.messageDialog = React.createRef();
         this.loadingDialog = React.createRef();
         this.dialogQuickConfigUsageCharge = React.createRef();
         this.dialogQuickConfigFlush = React.createRef();
@@ -56,10 +61,12 @@ class QuickConfig extends Component {
             <div
                 className="animated fadeIn"
                 style={{ ...whiteSurface, background: 'white', marginTop: '20px' }}>
+                <MessageDialog ref={this.messageDialog} />
                 <LoadingDialog ref={this.loadingDialog} />
                 <QuickConfigDialog
                     ref={this.dialogQuickConfigUsageCharge}
                     handleUpdate={this.handleConfigUpdate}
+                    handleClick={this.handleSubmitConfig}
                     clientList={this.props.clientList}
                     activeTab={QuickConfigTabs.TAB_USAGE_CHARGE_CONFIG}
                     tabData={[
@@ -75,6 +82,7 @@ class QuickConfig extends Component {
                 <QuickConfigDialog
                     ref={this.dialogQuickConfigFlush}
                     handleUpdate={this.handleConfigUpdate}
+                    handleClick={this.handleSubmitConfig}
                     clientList={this.props.clientList}
                     activeTab={QuickConfigTabs.TAB_PRE_FLUSH_CONFIG}
                     tabData={[
@@ -99,6 +107,7 @@ class QuickConfig extends Component {
                 <QuickConfigDialog
                     ref={this.dialogQuickConfigFloorClean}
                     handleUpdate={this.handleConfigUpdate}
+                    handleClick={this.handleSubmitConfig}
                     clientList={this.props.clientList}
                     activeTab={QuickConfigTabs.TAB_FLOOR_CLEAN_CONFIG}
                     tabData={[
@@ -112,6 +121,7 @@ class QuickConfig extends Component {
                 <QuickConfigDialog
                     ref={this.dialogQuickConfigLightAndFan}
                     handleUpdate={this.handleConfigUpdate}
+                    handleClick={this.handleSubmitConfig}
                     clientList={this.props.clientList}
                     activeTab={QuickConfigTabs.TAB_LIGHT_CONFIG}
                     tabData={[
@@ -131,6 +141,7 @@ class QuickConfig extends Component {
                 <QuickConfigDialog
                     ref={this.dialogQuickConfigDataRequest}
                     handleUpdate={this.handleConfigUpdate}
+                    handleClick={this.handleSubmitConfig}
                     clientList={this.props.clientList}
                     activeTab={QuickConfigTabs.TAB_DATA_REQUEST_CONFIG}
                     tabData={[
@@ -283,6 +294,60 @@ class QuickConfig extends Component {
             this.loadingDialog.current.closeDialog();
             this.messageDialog.current.showDialog("Error Alert!", err.message)
         }
+    }
+
+    async submitConfig(configType, topic, payload, metadata) {
+        this.loadingDialog.current.showDialog();
+        try {
+            payload = JSON.stringify(payload);
+            metadata = JSON.stringify(metadata);
+            var result = await executePublishConfigLambda(topic, payload, metadata);
+            this.closeActiveQuickConfigDialogue(configType);
+            this.messageDialog.current.showDialog(
+                "Success",
+                'New config submitted successfully'
+            )
+            this.loadingDialog.current.closeDialog();
+        } catch (err) {
+            console.log('_fetchCabinDetails', "_err", err);
+            this.loadingDialog.current.closeDialog();
+            this.messageDialog.current.showDialog("Error Alert!", err.message)
+        }
+    }
+
+    handleConfigUpdate = (configTab, id, value) => {
+        var obj = this.configViewData[configTab];
+        if (obj === undefined)
+            obj = {};
+
+        obj[id] = value
+        this.configViewData[configTab] = obj;
+        console.log("_handleConfigUpdate", this.configViewData)
+    }
+
+    handleSubmitConfig = (configType) => {
+        var validationResult = validateConfigData(configType, this.configViewData);
+        console.log("_validateConfigData", "validationResult", validationResult);
+
+        if (validationResult.isValidated) {
+            var lambdaPayload = getLambdaPayload(configType, this.configViewData, this.props.userDetails);
+            var publishTopic = getPublishTopicName(configType, this.configViewData);
+            console.log("_lambdaPayload", publishTopic, lambdaPayload);
+
+            this.submitConfig(configType, publishTopic, lambdaPayload.lambdaPayload, lambdaPayload.lambdaPayloadInfo)
+        } else {
+            this.messageDialog.current.showDialog("Validation Alert!", validationResult.message)
+        }
+    }
+
+    closeActiveQuickConfigDialogue = (configType) => {
+        if (configType == QuickConfigTabs.TAB_USAGE_CHARGE_CONFIG) {
+            this.dialogQuickConfigUsageCharge.current.toggleDialog();
+        }
+    }
+
+    handleDataRequestConfigUpdate = () => {
+
     }
 }
 

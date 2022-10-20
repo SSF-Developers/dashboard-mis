@@ -68,7 +68,10 @@ class QuickConfigDialog extends Component {
   };
 
   onClick = () => {
-    this.submitConfig();
+    console.log("_handleSubmitConfig", "onClick()");
+    this.props.handleClick(
+      this.state.activeTab
+    );
   }
 
   updateConfig = (configName, configValue) => {
@@ -172,7 +175,7 @@ class QuickConfigDialog extends Component {
 
           <Button color="primary" onClick={this.onClick}>
             SUBMIT
-          </Button>{" "}
+          </Button>
 
         </ModalFooter>
       </Modal>
