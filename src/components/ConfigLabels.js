@@ -6,21 +6,20 @@ import Dropdown from "../components/DropDown"
 import RxInputText from '../components/RxInputText';
 import icCritical from '../assets/img/icons/ic_health_fault.png';
 import icNonCritical from '../assets/img/icons/ic_health_ok.png';
-
 export function UcemsConfigList(props) {
   return (
     <div style={{ margin: "10px 10px 10px 10px", width: "100%" }}>
-      
-      <EntryChargeLabel data={props.data.entryCharge} handleUpdate={props.handleUpdate}/>
 
-      <PaymentModeLabel data={props.data.paymentMode} handleUpdate={props.handleUpdate}/>
+      <EntryChargeLabel data={props.data.entryCharge} handleUpdate={props.handleUpdate} />
+
+      <PaymentModeLabel data={props.data.paymentMode} handleUpdate={props.handleUpdate} />
 
       {props.data.timerConfig.map((item, index) => {
-        return <DurationLabel data={item} handleUpdate={props.handleUpdate}/>
+        return <DurationLabel data={item} handleUpdate={props.handleUpdate} />
       })}
 
       {props.data.criticalityConfig.map((item, index) => {
-        return <CriticalityLabel data={item} handleUpdate={props.handleUpdate}/>
+        return <CriticalityLabel data={item} handleUpdate={props.handleUpdate} />
       })}
 
     </div>
@@ -32,7 +31,7 @@ export function CmsConfigList(props) {
     <div style={{ margin: "10px 10px 10px 10px", width: "100%" }}>
 
       {props.data.airDryerConfig.map((item, index) => {
-        return <DurationLabel data={item} handleUpdate={props.handleUpdate}/>
+        return <DurationLabel data={item} handleUpdate={props.handleUpdate} />
       })}
 
       {props.data.enabledConfig.map((item, index) => {
@@ -40,10 +39,10 @@ export function CmsConfigList(props) {
       })}
 
       {props.data.timerConfig.map((item, index) => {
-        return <DurationLabel data={item} handleUpdate={props.handleUpdate}/>
+        return <DurationLabel data={item} handleUpdate={props.handleUpdate} />
       })}
 
-      <CountLabel data={props.data.floorCleanCount} handleUpdate={props.handleUpdate}/>
+      <CountLabel data={props.data.floorCleanCount} handleUpdate={props.handleUpdate} />
 
     </div>
   );
@@ -54,22 +53,35 @@ export function OdsConfigList(props) {
     <div style={{ margin: "10px 10px 10px 10px", width: "100%" }}>
 
       {props.data.odsConfig.map((item, index) => {
-        return <ValueLabel data={item} handleUpdate={props.handleUpdate}/>
+        return <ValueLabel data={item} handleUpdate={props.handleUpdate} />
       })}
 
     </div>
   );
 }
 
+export function BwtConfigList(props) {
+  return (
+    <div style={{ margin: "10px 10px 10px 10px", width: "100%" }}>
+
+      {props.data.bwtConfig.map((item, index) => {
+        return <ValueLabel data={item} handleUpdate={props.handleUpdate} />
+      })}
+
+    </div>
+  );
+}
+
+
 function CriticalityLabel(props) {
 
   const [criticality, setCriticality] = useState(props.data.value);
   var options = ["Critical", "Non Critical"];
 
-  var getIndex = (value) =>{
-    if(props.data.name ==='Air Dryer')
-    console.log('_getIndex',value);
-    if(value==='0'){
+  var getIndex = (value) => {
+    if (props.data.name === 'Air Dryer')
+      console.log('_getIndex', value);
+    if (value === '0') {
       return 1;
     }
     return 0;
@@ -78,7 +90,7 @@ function CriticalityLabel(props) {
   return (
     <div
       className="row"
-      style={{ display: 'flex', alignItems: 'center', padding: "0", margin: '0px 0px 30px 0px'}}>
+      style={{ display: 'flex', alignItems: 'center', padding: "0", margin: '0px 0px 30px 0px' }}>
 
       <div
         className="col-md-2"
@@ -118,8 +130,8 @@ function CriticalityLabel(props) {
       >
         <Dropdown
           options={options}
-          onSelection={(index, value) => { setCriticality(value);  props.handleUpdate(props.data.name,value) }}
-          currentIndex = {getIndex(props.data.value)}
+          onSelection={(index, value) => { setCriticality(value); props.handleUpdate(props.data.name, value) }}
+          currentIndex={getIndex(props.data.value)}
         />
 
       </div>
@@ -142,7 +154,7 @@ function EnabledDisabledLabel(props) {
   return (
     <div
       className="row"
-      style={{ display: 'flex', alignItems: 'center', padding: "0", margin: '0px 0px 30px 0px'}}>
+      style={{ display: 'flex', alignItems: 'center', padding: "0", margin: '0px 0px 30px 0px' }}>
 
       <div
         className="col-md-2"
@@ -182,7 +194,7 @@ function EnabledDisabledLabel(props) {
       >
         <Dropdown
           options={["Enabled", "Disabled"]}
-          onSelection={(index, value) => { setCriticality(value); props.handleUpdate(props.data.name,value) }}
+          onSelection={(index, value) => { setCriticality(value); props.handleUpdate(props.data.name, value) }}
         />
 
       </div>
@@ -246,7 +258,7 @@ function DurationLabel(props) {
         <RxInputText
           text={props.data.value}
           placeholder={''}
-          onChange={(text) => { props.handleUpdate(props.data.name,text) }}
+          onChange={(text) => { props.handleUpdate(props.data.name, text) }}
         />
 
       </div>
@@ -309,7 +321,7 @@ function CountLabel(props) {
         <RxInputText
           text={props.data.value}
           placeholder={''}
-          onChange={(text) => { props.handleUpdate(props.data.name,text) }}
+          onChange={(text) => { props.handleUpdate(props.data.name, text) }}
         />
 
       </div>
@@ -325,7 +337,7 @@ function CountLabel(props) {
 }
 
 function ValueLabel(props) {
-
+  // console.log("Props-bwt:👉", props)
   const [duration, setDuration] = useState(props.data.value);
 
   return (
@@ -372,7 +384,7 @@ function ValueLabel(props) {
         <RxInputText
           text={props.data.value}
           placeholder={''}
-          onChange={(text) => { props.handleUpdate(props.data.name,text) }}
+          onChange={(text) => { props.handleUpdate(props.data.name, text) }}
         />
 
       </div>
@@ -428,10 +440,10 @@ function EntryChargeLabel(props) {
         <RxInputText
           text={props.data.value}
           placeholder={''}
-          onChange={(text) => { 
+          onChange={(text) => {
             console.log('_onChange', text)
             props.handleUpdate(props.data.name, text)
-           }}
+          }}
         />
 
       </div>
@@ -447,7 +459,7 @@ function PaymentModeLabel(props) {
   return (
     <div
       className="row"
-      style={{ display: 'flex', alignItems: 'center', padding: "0", margin: '0px 0px 30px 0px'}}>
+      style={{ display: 'flex', alignItems: 'center', padding: "0", margin: '0px 0px 30px 0px' }}>
 
       <div
         className="col-md-2"
@@ -487,10 +499,10 @@ function PaymentModeLabel(props) {
       >
         <Dropdown
           options={["None", "Coin", "RFID", "Coin and RF"]}
-          onSelection={(index, value) => { 
-            setPaymentMode(value); 
+          onSelection={(index, value) => {
+            setPaymentMode(value);
             props.handleUpdate(props.data.name, value)
-          
+
           }}
         // onSelection={(index,value) => {setCriticality(value); {props.onSelection(index,value)}}}
         />
@@ -508,7 +520,7 @@ export function CommandsSelectionLabel(props) {
   return (
     <div
       className="row"
-      style={{ display: 'flex', alignItems: 'center', padding: "0", margin: '0px 0px 30px 0px'}}>
+      style={{ display: 'flex', alignItems: 'center', padding: "0", margin: '0px 0px 30px 0px' }}>
 
       <div
         className="col-md-2"
@@ -530,7 +542,7 @@ export function CommandsSelectionLabel(props) {
           marginLeft: '12px'
         }}
       >
-        
+
 
       </div>
 
@@ -542,10 +554,10 @@ export function CommandsSelectionLabel(props) {
       >
         <Dropdown
           options={props.options}
-          onSelection={(index, value) => { 
-            setPaymentMode(value); 
+          onSelection={(index, value) => {
+            setPaymentMode(value);
             props.handleCommandSelection(value)
-          
+
           }}
         />
 
@@ -603,7 +615,7 @@ function TextLabel(props) {
         <RxInputText
           text={props.value}
           placeholder={''}
-          onChange={(text) => { props.handleUpdate(props.label,text) }}
+          onChange={(text) => { props.handleUpdate(props.label, text) }}
         />
 
       </div>
@@ -625,7 +637,7 @@ function DropDownLabel(props) {
   return (
     <div
       className="row"
-      style={{ display: 'flex', alignItems: 'center', padding: "0", margin: '0px 0px 30px 0px'}}>
+      style={{ display: 'flex', alignItems: 'center', padding: "0", margin: '0px 0px 30px 0px' }}>
 
       <div
         className="col-md-2"
@@ -665,10 +677,10 @@ function DropDownLabel(props) {
       >
         <Dropdown
           options={props.options}
-          onSelection={(index, value) => { 
-            setPaymentMode(value); 
+          onSelection={(index, value) => {
+            setPaymentMode(value);
             props.handleUpdate(props.label, value)
-          
+
           }}
         // onSelection={(index,value) => {setCriticality(value); {props.onSelection(index,value)}}}
         />
@@ -679,22 +691,43 @@ function DropDownLabel(props) {
   );
 }
 
-const actionOptions = ['Switch ON','Switch OFF'];
-const overrideOptions = ['Override Command','Do Not Override'];
+const actionOptions = ['Switch ON', 'Switch OFF'];
+const bwtactionOptions = ['Active mode', 'Drain mode', 'Rinse mode', 'BackWash mode'];
+const overrideOptions = ['Override Command', 'Do Not Override'];
 export function CommandsLabel(props) {
   return (
     <div style={{ margin: "10px 10px 10px 10px", width: "100%" }}>
-      <TextLabel label={'Duration'} value='10' unit='Sec' handleUpdate={props.handleUpdate}/>
-      <DropDownLabel label={'Action'} handleUpdate={props.handleUpdate} options={actionOptions}/>
-      <DropDownLabel label={'Ovveride'} handleUpdate={props.handleUpdate} options={overrideOptions}/>
+      <TextLabel label={'Duration'} value='10' unit='Sec' handleUpdate={props.handleUpdate} />
+      <DropDownLabel label={'Action'} handleUpdate={props.handleUpdate} options={actionOptions} />
+      <DropDownLabel label={'Override'} handleUpdate={props.handleUpdate} options={overrideOptions} />
     </div>
   );
 }
 
+
+export function BwtCommandsLabel(props) {
+  return (
+    <div style={{ margin: "10px 10px 10px 10px", width: "100%" }}>
+      <TextLabel label={'Duration'} value='10' unit='Sec' handleUpdate={props.handleUpdate} />
+      <DropDownLabel label={'Mode'} handleUpdate={props.handleUpdate} options={bwtactionOptions} />
+      <DropDownLabel label={'Override'} handleUpdate={props.handleUpdate} options={overrideOptions} />
+    </div>
+  );
+}
+
+export function BwtBlowerLabel(props) {
+  return (
+    <div style={{ margin: "10px 10px 10px 10px", width: "100%" }}>
+      <TextLabel label={'Duration'} value='10' unit='Sec' handleUpdate={props.handleUpdate} />
+      <DropDownLabel label={'Action'} handleUpdate={props.handleUpdate} options={actionOptions} />
+      <DropDownLabel label={'Override'} handleUpdate={props.handleUpdate} options={overrideOptions} />
+    </div>
+  );
+}
 export function CommandsLabelOverride(props) {
   return (
     <div style={{ margin: "10px 10px 10px 10px", width: "100%" }}>
-      <DropDownLabel label={'Ovveride'} handleUpdate={props.handleUpdate} options={overrideOptions}/>
+      <DropDownLabel label={'Override'} handleUpdate={props.handleUpdate} options={overrideOptions} />
     </div>
   );
 }

@@ -1,63 +1,59 @@
-//Core
-import React, { Component, Fragment } from "react";
-//Redux
-import { connect } from "react-redux";
-import GaugeChart from 'react-gauge-chart'
-//ReactUI
+import React from "react";
 import {
-    Table,
-    Card,
-    CardBody,
-    CardHeader,
-    Col,
-    Row,
-    Button
-} from "reactstrap";
-//JsStyles
-import {
-    colorTheme,
-    whiteSurface,
     usageAndFeedbackStyle,
-    cabinDetailsStyle,
-    whiteSurfaceCircularBorder
 } from "../../../jsStyles/Style"
-import NameValue from "../../../Entity/NameValue"
-import { getCabinHealthData } from "../utils/ComplexUtils";
 import UsageIcon from '../../../assets/img/icons/eco_home.png'
 import FeedbackIcon from '../../../assets/img/icons/ic_quick_access_active.png'
-
-
 
 export default function CabinUsageFeedback(props) {
 
     var totalUsage = 0
     var totalFeedback = 0
 
-    console.log('_usageAndFeedback', props.usageAndFeedback, props.usageAndFeedback.length)
-    if (props.usageAndFeedback  !== -1) {
+    console.log('_usageAndFeedback-2', props.usageAndFeedback)
+    if (props.usageAndFeedback === undefined) {
+        return null
+    } else if (props.usageAndFeedback !== -1 || props.usageAndFeedback == -1) {
         totalUsage = props.usageAndFeedback.TotalUsage;
         totalFeedback = props.usageAndFeedback.AverageFeedback;
-    }
+        return (
+            <div className="col-md-12" style={{ marginBottom: '20px' }}>
+                {
+                    (props.uiResult.total_usage === "true" && props.uiResult.average_feedback === "true") ?
+                        (
+                            <div className='row'>
+                                <div className="col-md-6" >
+                                    <Usage totalUsage={totalUsage} />
+                                </div>
+                                <div className="col-md-6" >
+                                    <Feedback totalFeedback={totalFeedback} />
+                                </div>
+                            </div>
 
-    return (
-        <div className="col-md-12" style={{ marginBottom: '20px' }}>
-
-            {/* <div style={{ ...cabinDetailsStyle.componentTitle }} >
-                Usage and Feedback
-            </div> */}
-
-            <div className='row' style={{}}>
-
-                <div className="col-md-6" style={{   }} >
-                    <Usage totalUsage={totalUsage} />
-                </div>
-
-                <div className="col-md-6" style={{   }} >
-                    <Feedback totalFeedback={totalFeedback} />
-                </div>
+                        ) : (
+                            <div className='row'>
+                                {
+                                    props.uiResult.total_usage === "true" &&
+                                    (
+                                        <div className="col-md-12" >
+                                            <Usage totalUsage={totalUsage} />
+                                        </div>
+                                    )
+                                }
+                                {
+                                    props.uiResult.average_feedback === "true" &&
+                                    (
+                                        <div className="col-md-12" >
+                                            <Feedback totalFeedback={totalFeedback} />
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        )
+                }
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 function Loader() {

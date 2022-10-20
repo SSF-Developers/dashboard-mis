@@ -1,5 +1,5 @@
 
-const enumValue = (name) => Object.freeze({toString: () => name});
+const enumValue = (name) => Object.freeze({ toString: () => name });
 
 export const UiAdminDestinations = Object.freeze({
     Home: enumValue("UiAdminDestinations.Home"),
@@ -44,4 +44,10 @@ export const QuickConfigTabs = Object.freeze({
     TAB_LIGHT_CONFIG: enumValue("QuickConfigTabs.TAB_LIGHT_CONFIG"),
     TAB_FAN_CONFIG: enumValue("QuickConfigTabs.TAB_FAN_CONFIG"),
     TAB_DATA_REQUEST_CONFIG: enumValue("QuickConfigTabs.TAB_DATA_REQUEST_CONFIG")
+});
+
+export const Priority = Object.freeze({
+    Normal: enumValue("Priority.Normal"),
+    Urgent: enumValue("Priority.Urgent"),
+    Possible: enumValue("Priority.Possible"),
 });

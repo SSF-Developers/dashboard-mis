@@ -19,8 +19,8 @@ import bg from "../../assets/img/brand/restroom.jpg";
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
 import AuthClient from "./authClient";
-import {setLoggedIn} from "../../redux/actions/authentication-actions"
-import {executeGetUserDetailsLambda} from "../../awsClients/administrationLambdas"
+import { setLoggedIn } from "../../redux/actions/authentication-actions";
+import { executeGetUserDetailsLambda } from "../../awsClients/administrationLambdas";
 
 class login2 extends React.Component {
   email = "";
@@ -43,22 +43,22 @@ class login2 extends React.Component {
   }
 
   async onSubmit() {
-    try{
+    try {
       this.loadingDialog.current.showDialog();
-      //var result = await new AuthClient().login(this.email, this.password);
-      var result = await new AuthClient().login("dev_000000","Changeme11!");
-      
-      //var userDetails = await executeGetUserDetailsLambda(this.email);
-      var userDetails = await executeGetUserDetailsLambda("dev_000000");
+      var result = await new AuthClient().login(this.email, this.password);
+      // var result = await new AuthClient().login("dev_000000", "Changeme11!");
+
+      var userDetails = await executeGetUserDetailsLambda(this.email);
+      // var userDetails = await executeGetUserDetailsLambda("dev_000000");
       this.props.setLoggedIn(userDetails);
-      
+
       this.loadingDialog.current.closeDialog();
       this.props.history.push("/dashboard");
-      console.log("_login",result)
-    }catch(err){
+      console.log("_login", result);
+    } catch (err) {
       this.loadingDialog.current.closeDialog();
-      this.messageDialog.current.showDialog(err.title,err.message)
-      console.log("_login",err)
+      this.messageDialog.current.showDialog(err.title, err.message);
+      console.log("_login", err);
     }
   }
 
@@ -191,7 +191,6 @@ class login2 extends React.Component {
       </div>
     );
   }
-
 }
 
 const mapStateToProps = (state) => {

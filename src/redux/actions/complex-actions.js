@@ -4,6 +4,7 @@ export const UPDATE_SELECTED_COMPLEX = "complex:update:selectedComplex";
 export const UPDATE_SELECTED_CABIN = "complex:update:selectedCabin";
 
 export function pushComplexComposition(hierarchy, complexDetails, complexComposition) {
+  console.log("_complexDetails", complexDetails);
   return {
     type: PUSH_COMPLEX_COMPOSITION,
     payload: { key: complexDetails.name, hierarchy: hierarchy, complexDetails: complexDetails, complexComposition: complexComposition }
@@ -17,16 +18,16 @@ export function removeComplexComposition(complexName) {
   };
 }
 
-export function updateSelectedComplex(complex,hierarchy) {
+export function updateSelectedComplex(complex, hierarchy) {
   return {
     type: UPDATE_SELECTED_COMPLEX,
-    payload: { complex: complex,hierarchy :hierarchy }
+    payload: { complex: complex, hierarchy: hierarchy }
   };
 }
 
 export function updateSelectedCabin(cabin) {
   return {
     type: UPDATE_SELECTED_CABIN,
-    payload: { cabin: cabin}
+    payload: { cabin: cabin }
   };
 }

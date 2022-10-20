@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import {
   Button, Modal, ModalBody, ModalFooter, ModalHeader, InputGroup,
-  InputGroupAddon,Input,
+  InputGroupAddon, Input,
   InputGroupText
 } from "reactstrap";
-import {OdsConfigList} from '../../../components/ConfigLabels'
+import { OdsConfigList } from '../../../components/ConfigLabels'
 import {
   getOdsConfigData,
   getKeyOdsConfig,
@@ -12,7 +12,7 @@ import {
   getPublishPayloadOds,
   getPublishMetadata
 } from '../utils/ComplexUtils'
-import {executePublishConfigLambda} from '../../../awsClients/complexLambdas'
+import { executePublishConfigLambda } from '../../../awsClients/complexLambdas'
 
 class ODSConfig extends Component {
 
@@ -33,22 +33,22 @@ class ODSConfig extends Component {
   async submitConfig() {
     this.props.loadingDialog.current.showDialog();
     try {
-        var topic = getTopicName('ODS_CONFIG',this.props.complex.complexDetails,this.props.cabin,this.props.complex.hierarchy)
-        var payload = getPublishPayloadOds(this.odsConfig,this.props.complex.complexDetails,this.props.cabin)
-        var metadata = getPublishMetadata('ODS',this.props.complex.complexDetails,this.props.cabin,this.props.user)
-        var result = await executePublishConfigLambda(topic,payload,metadata);
-        this.props.messageDialog.current.showDialog("Success", 'New config submitted successfully',this.toggle())
-      
+      var topic = getTopicName('ODS_CONFIG', this.props.complex.complexDetails, this.props.cabin, this.props.complex.hierarchy)
+      var payload = getPublishPayloadOds(this.odsConfig, this.props.complex.complexDetails, this.props.cabin)
+      var metadata = getPublishMetadata('ODS', this.props.complex.complexDetails, this.props.cabin, this.props.user)
+      var result = await executePublishConfigLambda(topic, payload, metadata);
+      this.props.messageDialog.current.showDialog("Success", 'New config submitted successfully', this.toggle())
 
-        this.props.loadingDialog.current.closeDialog();
-        
+
+      this.props.loadingDialog.current.closeDialog();
+
 
     } catch (err) {
-        console.log('_fetchCabinDetails',"_err", err);
-        this.props.loadingDialog.current.closeDialog();
-        this.props.messageDialog.current.showDialog("Error Alert!", err.message)
+      console.log('_fetchCabinDetails', "_err", err);
+      this.props.loadingDialog.current.closeDialog();
+      this.props.messageDialog.current.showDialog("Error Alert!", err.message)
     }
-}
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== undefined)
@@ -61,20 +61,20 @@ class ODSConfig extends Component {
     }));
   };
 
-  showDialog = (odsConfig,onClickAction) => {
+  showDialog = (odsConfig, onClickAction) => {
     this.odsConfig = odsConfig;
 
-      this.title = 'ODS Config';
-      if(onClickAction !== undefined)
-        this.onClickAction = onClickAction
+    this.title = 'ODS Config';
+    if (onClickAction !== undefined)
+      this.onClickAction = onClickAction
     else
-    this.onClickAction = undefined
+      this.onClickAction = undefined
     this.setState((state, props) => ({
       visibility: !state.visibility
     }));
   };
 
-  onClick = () =>{
+  onClick = () => {
     this.submitConfig();
   }
 
@@ -84,17 +84,17 @@ class ODSConfig extends Component {
         isOpen={this.state.visibility}
         toggle={this.toggle}
         className={"modal-la"}
-        style={{ width: "900px"}}
+        style={{ width: "900px" }}
       >
-        <ModalHeader style={{background:'#5DC0A6', color: `white`}} toggle={this.toggle}>{this.title}</ModalHeader>
+        <ModalHeader style={{ background: '#5DC0A6', color: `white` }} toggle={this.toggle}>{this.title}</ModalHeader>
         <ModalBody
           style={{
             width: "100%",
-            height:'600px', 
-            overflowY:'scroll'
+            height: '600px',
+            overflowY: 'scroll'
           }}
         >
-          
+
           <this.ComponentSelector />
 
         </ModalBody>
@@ -102,7 +102,7 @@ class ODSConfig extends Component {
           <Button color="primary" onClick={this.onClick}>
             OK
           </Button>{" "}
-          
+
         </ModalFooter>
       </Modal>
     );
@@ -112,17 +112,17 @@ class ODSConfig extends Component {
     return this.renderData();
   }
 
-  updateConfig = (configName, configValue) =>{
+  updateConfig = (configName, configValue) => {
     this.odsConfig.data[getKeyOdsConfig(configName)] = configValue
   }
 
-  ComponentSelector = () =>{
-    if(this.odsConfig === undefined)
-    return(<div></div>)
+  ComponentSelector = () => {
+    if (this.odsConfig === undefined)
+      return (<div></div>)
 
-    return(
+    return (
       <div>
-        <OdsConfigList data={getOdsConfigData(this.odsConfig.data)}/>
+        <OdsConfigList handleUpdate={this.updateConfig} data={getOdsConfigData(this.odsConfig.data)} />
       </div>
     )
   }

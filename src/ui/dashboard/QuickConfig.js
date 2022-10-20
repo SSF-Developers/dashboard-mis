@@ -14,6 +14,7 @@ import LoadingDialog from "../../dialogs/LoadingDialog";
 import MessageDialog from "../../dialogs/MessageDialog";
 import QuickConfigDialog from "./quickConfig/QuickConfigDialog"
 import { executelistClientsLambda } from "../../awsClients/administrationLambdas"
+import { setConfigData } from "../../redux/actions/dashboard-actions"
 import { dashboardStyle, whiteSurface, colorTheme, whiteSurfaceCircularBorder } from "../../jsStyles/Style"
 import {
     UsageChargeConfigView,
@@ -68,6 +69,8 @@ class QuickConfig extends Component {
                             configView: this.usageChargeConfigView
                         }
                     ]}
+                    configData={this.props.configData}
+
                 />
                 <QuickConfigDialog
                     ref={this.dialogQuickConfigFlush}
@@ -91,6 +94,7 @@ class QuickConfig extends Component {
                             configView: this.fullFlushConfigView
                         }
                     ]}
+                    configData={this.props.configData}
                 />
                 <QuickConfigDialog
                     ref={this.dialogQuickConfigFloorClean}
@@ -122,6 +126,7 @@ class QuickConfig extends Component {
                             configView: this.fanConfigView
                         }
                     ]}
+                    configData={this.props.configData}
                 />
                 <QuickConfigDialog
                     ref={this.dialogQuickConfigDataRequest}
@@ -135,17 +140,23 @@ class QuickConfig extends Component {
                             configView: this.dataRequestConfigView
                         }
                     ]}
+                    configData={this.props.configData}
                 />
 
                 <div style={{ ...dashboardStyle.title }}>
                     Quick Config
                 </div>
                 <div className='row' style={{ width: "100%", padding: "10px", height: '200px', display: "flexbox", alignItems: "center", overflowY: 'auto' }}>
-                    <this.DescriptionItem
-                        title={"Usage Charge Config"}
-                        label={"Configure payment charge and payment mode settings in one go."}
-                        onClick={() => { this.dialogQuickConfigUsageCharge.current.showDialog() }}
-                    />
+                    {
+                        this.props.uiResult.usage_charge === "true" &&
+                        (
+                            <this.DescriptionItem
+                                title={"Usage Charge Config"}
+                                label={"Configure payment charge and payment mode settings in one go."}
+                                onClick={() => { this.dialogQuickConfigUsageCharge.current.showDialog() }}
+                            />
+                        )
+                    }
                     <this.DescriptionItem
                         title={"Flush Config"}
                         label={"Configure payment charge and payment mode settings in one go."}
@@ -217,17 +228,18 @@ class QuickConfig extends Component {
     }
 
     configViewData = {}
-    handleConfigUpdate = (configTab,id,value) => {
+    handleConfigUpdate = (configTab, id, value) => {
         var obj = this.configViewData[configTab];
-        if(obj === undefined) 
+        if (obj === undefined)
             obj = {};
 
         obj[id] = value
         this.configViewData[configTab] = obj;
-        console.log("_handleConfigUpdate",this.configViewData)
+        console.log("_handleConfigUpdate", this.configViewData)
+        this.props.setConfigData(this.configViewData)
     }
 
-    handleDataRequestConfigUpdate = () =>{
+    handleDataRequestConfigUpdate = () => {
 
     }
 
@@ -277,10 +289,11 @@ class QuickConfig extends Component {
 const mapStateToProps = (state) => {
     return {
         userDetails: state.authentication.user,
-        clientList: state.administration.clientList
+        clientList: state.administration.clientList,
+        configData: state.dashboard.configData
     };
 };
 
-const mapActionsToProps = {};
+const mapActionsToProps = { setConfigData: setConfigData };
 
 export default connect(mapStateToProps, mapActionsToProps)(QuickConfig);

@@ -2,24 +2,11 @@
 import React, { Component } from "react";
 //Redux
 import { connect } from "react-redux";
-//ReactUI
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    Col,
-    Row,
-    Button
-} from "reactstrap";
-//CustomUI
+
 import ComplexComposition from "./ComplexComposition";
 import ComplexNavigationCompact from "./ComplexNavigationCompact";
 import CabinDetails from "./CabinDetails";
 import MessageDialog from "../../dialogs/MessageDialog";
-import LoadingDialog from "../../dialogs/LoadingDialog";
-//JsStyles
-import { whiteSurface } from "../../jsStyles/Style"
-//Functionality
 
 class ComplexDetails extends Component {
 
@@ -41,17 +28,17 @@ class ComplexDetails extends Component {
                 }}>
 
                 <div className="row" >
-                <div className="col-md-2" 
-                style={{}}>
-                    <MessageDialog ref={this.messageDialog} />
-                    <ComplexNavigationCompact />
-                    <ComplexComposition />
+                    <div className="col-md-2"
+                        style={{}}>
+                        <MessageDialog ref={this.messageDialog} />
+                        <ComplexNavigationCompact />
+                        <ComplexComposition />
 
+                    </div>
+                    <div className="col-md-10" style={{}}>
+                        <CabinDetails />
+                    </div>
                 </div>
-                <div className="col-md-10" style={{}}>
-                    <CabinDetails />
-                </div>
-            </div>
             </div>
         );
     }

@@ -20,9 +20,14 @@ import iccc_dataReducer from "./redux/reducers/iccc-dashboard-reducer";
 
 import { BrowserRouter, HashRouter, Route, Switch } from "react-router-dom";
 import DefaultLayout from "./containers/DefaultLayout/DefaultLayout";
+import IncidenceReducer from "./redux/reducers/incidence-reducers";
+import reportReducer from "./redux/reducers/report-reducer";
+import extraReducer from "./redux/reducers/extra-reducer";
+import vendorReducer from "./redux/reducers/vendor-reducer";
+
 const loginComponent = React.lazy(() => import("./ui//authentication/login"));
 
-const allStoreEnhancers = compose(applyMiddleware(thunk));
+const allStoreEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const allReducers = combineReducers({
   authentication: authenticationReducer,
@@ -30,22 +35,23 @@ const allReducers = combineReducers({
   clientData: iccc_dataReducer,
   historyStore: historyReducer,
   complexStore: complexReducer,
-  dashboard: dashboardReducer
+  dashboard: dashboardReducer,
+  incidence: IncidenceReducer,
+  report: reportReducer,
+  extra: extraReducer,
+  vendor: vendorReducer
 });
 
 const loading = () => (
   <div className="animated fadeIn pt-3 text-center">Loading...</div>
 );
 
-const store = createStore(allReducers, allStoreEnhancers);
+const store = createStore(allReducers, allStoreEnhancers(applyMiddleware(thunk)));
 ReactDOM.render(
-
-
   <Provider store={store}>
     <BrowserRouter>
       <React.Suspense fallback={loading()}>
         <Switch>
-
           <Route
             path={"/login"}
             exact={true}
@@ -58,7 +64,6 @@ ReactDOM.render(
             name="Home"
             render={(props) => <DefaultLayout {...props} />}
           />
-
         </Switch>
       </React.Suspense>
     </BrowserRouter>

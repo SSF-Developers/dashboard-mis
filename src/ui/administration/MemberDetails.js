@@ -9,13 +9,13 @@ import { fromUserDetails } from "../../parsers/listDataParsers"
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
 import ConfirmationDialog from "../../dialogs/ConfirmationDialog";
-import { 
-    executeEnableUserLambda, 
-    executeDisableUserLambda, 
-    executeDeleteUserLambda 
+import {
+    executeEnableUserLambda,
+    executeDisableUserLambda,
+    executeDeleteUserLambda
 } from "../../awsClients/administrationLambdas";
 import { pushComponentProps } from "../../redux/actions/history-actions"
-import {UiAdminDestinations} from "../../nomenclature/nomenclature"
+import { UiAdminDestinations } from "../../nomenclature/nomenclature"
 
 class MemberDetails extends React.Component {
 

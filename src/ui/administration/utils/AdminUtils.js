@@ -1,25 +1,32 @@
-import {UserRoles} from "../../../nomenclature/nomenclature";
+import { UserRoles } from "../../../nomenclature/nomenclature";
 
 
 export function getCreateUserRoleList(userRole) {
-    console.log("_getCreateUserRoleList",userRole);
+    console.log("_getCreateUserRoleList", userRole);
+    console.log("_UserRole", UserRoles);
+
     var roleList = [];
-    if (userRole === UserRoles.SuperAdmin) {
+    if (userRole === "Super Admin") {
+        // roleList.push("Client Super Admin");
+        // roleList.push("Vendor Admin");
         roleList.push("Client Super Admin");
         roleList.push("Vendor Admin");
-    }else if (userRole === UserRoles.ClientSuperAdmin) {
         roleList.push("Client Admin");
         roleList.push("Client Manager");
-    }else if (userRole === UserRoles.VendorAdmin) {
+        roleList.push("Vendor Manager");
+    } else if (userRole === "Client Super Admin") {
+        roleList.push("Client Admin");
+        roleList.push("Client Manager");
+    } else if (userRole === "Vendor Admin") {
         roleList.push("Client Super Admin");
         roleList.push("Vendor Manager");
-    } else if (userRole === UserRoles.ClientAdmin) {
+    } else if (userRole === "Client Admin") {
         roleList.push("Client Manager");
-    } else if (userRole === UserRoles.ClientManager) {
+    } else if (userRole === "Client Manager") {
 
-    } else if (userRole === UserRoles.VendorManager) {
+    } else if (userRole === "Vendor Manager") {
 
-    }else{
+    } else {
         //Developer
         roleList.push("Client Super Admin");
         roleList.push("Vendor Admin");
@@ -32,12 +39,12 @@ export function getCreateUserRoleList(userRole) {
 };
 
 export function getRole(roleName) {
-    console.log("_getRole",roleName);
+    console.log("_getRole", roleName);
     if (roleName === "Super Admin") {
         return UserRoles.SuperAdmin;
-    }else if (roleName === "Client Super Admin") {
+    } else if (roleName === "Client Super Admin") {
         return UserRoles.ClientSuperAdmin;
-    }else if (roleName === "Vendor Admin") {
+    } else if (roleName === "Vendor Admin") {
         return UserRoles.VendorAdmin;
     } else if (roleName === "Client Admin") {
         return UserRoles.ClientAdmin;
@@ -45,18 +52,18 @@ export function getRole(roleName) {
         return UserRoles.ClientManager;
     } else if (roleName === "Vendor Manager") {
         return UserRoles.VendorManager;
-    }  
+    }
 
     return UserRoles.Undefined;
 };
 
 export function getRoleName(role) {
-    console.log("_getRole",role);
+    console.log("_getRole", role);
     if (role === UserRoles.SuperAdmin) {
         return "Super Admin";
-    }else if (role === UserRoles.ClientSuperAdmin) {
+    } else if (role === UserRoles.ClientSuperAdmin) {
         return "Client Super Admin";
-    }else if (role === UserRoles.VendorAdmin) {
+    } else if (role === UserRoles.VendorAdmin) {
         return "Vendor Admin";
     } else if (role === UserRoles.ClientAdmin) {
         return "Client Admin";
@@ -64,7 +71,7 @@ export function getRoleName(role) {
         return "Client Manager";
     } else if (role === UserRoles.VendorManager) {
         return "Vendor Manager";
-    }  
+    }
 
     return "Undefined";
 };
@@ -73,9 +80,9 @@ export function isClientSpecificRole(userRole) {
     var isClientSpecificRole;
     if (userRole === UserRoles.SuperAdmin) {
         return false;
-    }else if (userRole === UserRoles.ClientSuperAdmin) {
+    } else if (userRole === UserRoles.ClientSuperAdmin) {
         return true;
-    }else if (userRole === UserRoles.VendorAdmin) {
+    } else if (userRole === UserRoles.VendorAdmin) {
         return false;
     } else if (userRole === UserRoles.ClientAdmin) {
         return true;
@@ -83,8 +90,8 @@ export function isClientSpecificRole(userRole) {
         return true;
     } else if (userRole === UserRoles.VendorManager) {
         return false;
-    } 
+    }
 
-    console.log("_isClientSpecificRole",userRole,isClientSpecificRole);
+    console.log("_isClientSpecificRole", userRole, isClientSpecificRole);
     return isClientSpecificRole;
 };

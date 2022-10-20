@@ -5,16 +5,16 @@ import { UserRoles } from "../../nomenclature/nomenclature";
 import Dropdown from "../../components/DropDown"
 import RxInputText from "../../components/RxInputText"
 import * as Styles from "../../jsStyles/Style"
-import {addTeamMember,setClientList} from "../../redux/actions/administration-actions"
+import { addTeamMember, setClientList } from "../../redux/actions/administration-actions"
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
-import {executelistClientsLambda,executeCreateUserLambda} from "../../awsClients/administrationLambdas"
+import { executelistClientsLambda, executeCreateUserLambda } from "../../awsClients/administrationLambdas"
 
-import {   
+import {
   Button,
   Card,
   CardBody,
-  CardGroup,   
+  CardGroup,
   Col,
   Container,
   Form,
@@ -34,7 +34,7 @@ class AddTeamMember extends React.Component {
     selectedRole: UserRoles.Undefined
   };
 
-  formDetails = { }
+  formDetails = {}
 
   constructor(props) {
     super(props);
@@ -46,11 +46,9 @@ class AddTeamMember extends React.Component {
     this.organisationNameRef = React.createRef();
   }
 
-
-
   componentWillReceiveProps(nextProps) {
     if (nextProps !== undefined) {
-      
+
     }
   }
 
@@ -60,65 +58,65 @@ class AddTeamMember extends React.Component {
 
   async fetchAndInitClientList() {
     this.loadingDialog.current.showDialog();
-    try{
+    try {
       var result = await executelistClientsLambda();
       this.props.setClientList(result.clientList);
       this.loadingDialog.current.closeDialog();
-    }catch(err){
+    } catch (err) {
       this.loadingDialog.current.closeDialog();
-      this.messageDialog.current.showDialog("Error Alert!",err.message)
+      this.messageDialog.current.showDialog("Error Alert!", err.message)
     }
   }
 
   async initCreateUserRequest(createUserRequest) {
-    
-    this.loadingDialog.current.showDialog();
-    try{
-      var roleName= getRoleName(createUserRequest.userRole);
-      var requestCopy = {...createUserRequest};
-      requestCopy['userRole'] = roleName;
-      console.log("newUser-11",requestCopy, this.props.userDetails);
 
-      await executeCreateUserLambda(requestCopy,this.props.userDetails);
-      this.messageDialog.current.showDialog("Success","User added successfully", ()=>{this.props.history.goBack()})
+    this.loadingDialog.current.showDialog();
+    try {
+      var roleName = getRoleName(createUserRequest.userRole);
+      var requestCopy = { ...createUserRequest };
+      requestCopy['userRole'] = roleName;
+      console.log("newUser-11", requestCopy, this.props.userDetails);
+
+      await executeCreateUserLambda(requestCopy, this.props.userDetails);
+      this.messageDialog.current.showDialog("Success", "User added successfully", () => { this.props.history.goBack() })
       this.loadingDialog.current.closeDialog();
-    }catch(err){
+    } catch (err) {
       this.loadingDialog.current.closeDialog();
-      this.messageDialog.current.showDialog("Error Alert!",err.message)
+      this.messageDialog.current.showDialog("Error Alert!", err.message)
     }
   }
 
-  initializeFormDetails(){
+  initializeFormDetails() {
     this.formDetails = {
-    userName: "",
-    tempPassword: "",
-    userRole: getRole(getCreateUserRoleList(this.props.userDetails.userRole)[0]),
-    clientName: "",
-    organisationName: ""
-  }
-
+      userName: "",
+      tempPassword: "",
+      userRole: getRole(getCreateUserRoleList(this.props.userDetails.userRole)[0]),
+      clientName: "",
+      organisationName: ""
+    }
     //this.formDetails['userRole'] = getRole(getCreateUserRoleList(this.props.userDetails.userRole)[0])
   }
+
   onRoleSelected = (index, value) => {
-    console.log("_selected","onRoleSelected",value)
+    console.log("_selected", "onRoleSelected", value)
     this.formDetails.userRole = getRole(value)
     this.setState({
       selectedRole: this.formDetails.userRole
     });
   }
 
-  onClientSelected = (index, value) => {  
+  onClientSelected = (index, value) => {
     var selectedRole = this.formDetails.userRole;
     var selectedClient = {}
     if (isClientSpecificRole(selectedRole)) {
-       selectedClient = this.props.clientList[index];
+      selectedClient = this.props.clientList[index];
     } else {
       selectedClient = Client.getSSF();
     }
-    console.log("_onClientSelected",selectedClient)
+    console.log("_onClientSelected", selectedClient)
     this.formDetails.clientName = selectedClient.name;
     this.formDetails.organisationName = selectedClient.organisation;
-    console.log("_onClientSelected-2",this.formDetails)
+    console.log("_onClientSelected-2", this.formDetails)
 
     this.organisationNameRef.current.setText(this.formDetails.organisationName);
   }
@@ -133,7 +131,6 @@ class AddTeamMember extends React.Component {
       clientList.push(Client.getSSF());
     }
 
-    
     var client = [];
     if (clientList.length == 0)
       client = Client.getInstance();
@@ -142,14 +139,19 @@ class AddTeamMember extends React.Component {
 
     this.formDetails.clientName = client.name;
     this.formDetails.organisationName = client.organisation;
-    if(this.organisationNameRef.current !== null)
-    this.organisationNameRef.current.setText(this.formDetails.organisationName);
+    if (this.organisationNameRef.current !== null)
+      this.organisationNameRef.current.setText(this.formDetails.organisationName);
 
-    console.log("_list",this.formDetails)
+    console.log("_list", this.formDetails)
     var clientNameList = []
     for (let mClient of clientList) {
-    //for (const mClient in clientList) {
-      clientNameList.push(mClient.name);
+      if (mClient.name === this.props.userDetails.clientName) {
+        clientNameList.push(mClient.name);
+      }
+      if (this.props.userDetails.clientName === "SSF") {
+        clientNameList.push(mClient.name);
+      }
+      //for (const mClient in clientList) {
     }
 
     return clientNameList;
@@ -157,12 +159,12 @@ class AddTeamMember extends React.Component {
 
   onSubmit = () => {
 
-    if(this.formDetails.userName === ""){
-      this.messageDialog.current.showDialog("Validation Error","Please enter a valid user name.")
-    }else if(this.formDetails.tempPassword === ""){
-      this.messageDialog.current.showDialog("Validation Error","Please enter a valid temporary password.")
+    if (this.formDetails.userName === "") {
+      this.messageDialog.current.showDialog("Validation Error", "Please enter a valid user name.")
+    } else if (this.formDetails.tempPassword === "") {
+      this.messageDialog.current.showDialog("Validation Error", "Please enter a valid temporary password.")
     }
-    else{
+    else {
       this.initCreateUserRequest(this.formDetails);
       //this.props.addMember(User.getTestTeamUser(this.formDetails.userName))
       //this.props.addMember(newUser)
@@ -170,8 +172,10 @@ class AddTeamMember extends React.Component {
     }
   };
 
-
   render() {
+    //👇
+    console.log('this.props.userDetails -:👉', this.props.userDetails)
+    //👆
     return (
       <div className="col-md-12">
         <MessageDialog
@@ -188,7 +192,6 @@ class AddTeamMember extends React.Component {
                 <CardBody>
                   <Form>
                     <p style={Styles.formLabel}>User Details</p>
-
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
@@ -239,7 +242,6 @@ class AddTeamMember extends React.Component {
                 <CardBody>
                   <Form>
                     <p style={Styles.formLabel}>Client Selection</p>
-
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
@@ -258,14 +260,11 @@ class AddTeamMember extends React.Component {
                         </InputGroupText>
                       </InputGroupAddon>
                       <RxInputText
-                        ref = {this.organisationNameRef}
+                        ref={this.organisationNameRef}
                         text={this.formDetails.organisationName}
                         placeholder="Organisation Name"
                       />
                     </InputGroup>
-
-
-
                   </Form>
                 </CardBody>
               </Card>
@@ -273,15 +272,16 @@ class AddTeamMember extends React.Component {
           </Row>
 
           <div className={"row justiy-content-center"}
-          style={{width: "100%"}}>
-            
-              <Button
-              style={{margin:"auto"}}
-                color="primary"
-                className="px-4"
-                onClick={this.onSubmit}>
-                Submit
-              </Button>
+            style={{ width: "100%" }}>
+
+            <Button
+              style={{ margin: "auto" }}
+              color="primary"
+              className="px-4"
+              onClick={this.onSubmit}>
+              Submit
+            </Button>
+
           </div>
 
         </Container>
@@ -293,9 +293,9 @@ const mapStateToProps = (state) => {
   return {
     userDetails: state.authentication.user,
     clientList: state.administration.clientList,
-    x:1
+    x: 1
   };
 };
 
-const mapActionsToProps = {addMember: addTeamMember, setClientList:setClientList };
+const mapActionsToProps = { addMember: addTeamMember, setClientList: setClientList };
 export default connect(mapStateToProps, mapActionsToProps)(AddTeamMember);

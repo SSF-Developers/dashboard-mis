@@ -4,13 +4,11 @@ import { connect } from "react-redux";
 import List from "../../components/list/userList/List";
 import { setTeamList } from "../../redux/actions/administration-actions";
 import { removeComponentProps } from "../../redux/actions/history-actions";
-import {executelistTeamLambda} from "../../awsClients/administrationLambdas"
+import { executelistTeamLambda } from "../../awsClients/administrationLambdas";
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
-import NoDataComponent from "../../components/NoDataComponent"
-import {UiAdminDestinations} from "../../nomenclature/nomenclature"
-
-
+import NoDataComponent from "../../components/NoDataComponent";
+import { UiAdminDestinations } from "../../nomenclature/nomenclature";
 class AdministrationHome extends Component {
   constructor(props) {
     super(props);
@@ -21,31 +19,27 @@ class AdministrationHome extends Component {
     this.fetchAndInitTeam = this.fetchAndInitTeam.bind(this);
   }
 
-
-  state = {
-    
-  };
-
+  state = {};
   async fetchAndInitTeam() {
     this.loadingDialog.current.showDialog();
-    try{
-      console.log("_user",this.props.user);
+    try {
       var result = await executelistTeamLambda(this.props.user.userName);
       this.props.setTeamList(result.teamDetails);
       this.loadingDialog.current.closeDialog();
-    }catch(err){
+    } catch (err) {
       this.loadingDialog.current.closeDialog();
-      this.messageDialog.current.showDialog("Error Alert!",err.message)
+      this.messageDialog.current.showDialog("Error Alert!", err.message);
     }
   }
 
-   componentDidMount (){
+  componentDidMount() {
     this.props.removeComponentProps(UiAdminDestinations.MemberAccess);
     this.props.removeComponentProps(UiAdminDestinations.MemberDetails);
-     this.fetchAndInitTeam();
-  };
+    this.fetchAndInitTeam();
+  }
 
   render() {
+
     return (
       <div
         className="animated fadeIn"
@@ -62,12 +56,9 @@ class AdministrationHome extends Component {
               <CardHeader>
                 <h1>Administration</h1>
               </CardHeader>
-
               <CardBody>
-                <this.FooterComponent teamSize={this.props.teamList.length}/>
+                <this.FooterComponent teamSize={this.props.teamList.length} />
               </CardBody>
-
-
             </Card>
           </Col>
         </Row>
@@ -90,63 +81,92 @@ class AdministrationHome extends Component {
       return <NoDataComponent />;
     }
     return <List data={props.teamList} />;
-  }
+  };
 
   FooterComponent(props) {
-    console.log("_footer",props)
+    console.log("_footer", props);
     return (
-      <div
-        className={"row"}
-        style={{ margin: "0px", width: "100%" }}
-      >
+      <div className={"row"} style={{ margin: "0px", width: "100%" }}>
         <div
-          className={"col-md-4"}
+          className={"col-md-8"}
           style={{
             justifyContent: "right",
             alignItems: "right",
-            float: "right"
+            float: "right",
           }}
         >
           <div className={"row-md-12"}>
-            <b>Team Size: </b><i>{props.teamSize}</i>
+            <b>Team Size: </b>
+            <i>{props.teamSize}</i>
           </div>
         </div>
-
-        <div
-          className={"col-md-4 offset-md-4"}
-          style={{
-            justifyContent: "right",
-            alignItems: "right",
-            float: "right"
-          }}
-        >
-          <Button
-            onClick={() => {
-              this.props.history.push("/administration/addTeamMember")
-            }
-            }
-            outline
-            color="primary"
-            className="px-4"
+        {this.props.user.userRole == "Super Admin" ?
+          <div
+            className={"col-md-4"}
             style={{
-
-              float: "right"
+              display: "flex",
+              justifyContent: "space-around"
             }}
-          >Add Team Member
-          </Button>
-        </div>
+          >
+            <Button
+              onClick={() => {
+                this.props.history.push("/administration/addTeamMember");
+              }}
+              outline
+              color="primary"
+              className="px-4"
+              style={{
+                float: "right",
+              }}
+            >
+              Add Team Member
+            </Button>
+            <Button
+              onClick={() => {
+                this.props.history.push("/administration/grantPermissions");
+              }}
+              outline
+              color="primary"
+              className="px-4"
+              style={{
+                float: "right",
+              }}
+            >
+              Grant Permission
+            </Button>
+          </div>
+          : <div
+            className={"col-md-4"}
+          >
+            <Button
+              onClick={() => {
+                this.props.history.push("/administration/addTeamMember");
+              }}
+              outline
+              color="primary"
+              className="px-4"
+              style={{
+                float: "right",
+              }}
+            >
+              Add Team Member
+            </Button>
+          </div>
+        }
       </div>
     );
   }
-
 }
 const mapStateToProps = (state) => {
   return {
     teamList: state.administration.teamList,
-    user: state.authentication.user
+    user: state.authentication.user,
   };
 };
 
-const mapActionsToProps = { setTeamList: setTeamList, removeComponentProps:removeComponentProps };
+const mapActionsToProps = {
+  setTeamList: setTeamList,
+  removeComponentProps: removeComponentProps,
+};
 
 export default connect(mapStateToProps, mapActionsToProps)(AdministrationHome);

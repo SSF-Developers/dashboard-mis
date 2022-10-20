@@ -5,7 +5,6 @@ import AWS from "aws-sdk";
 import auth from "./auth";
 import Result from "../../Entity/User/Result";
 
-
 class AuthClient {
 
 

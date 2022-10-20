@@ -17,7 +17,7 @@ import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
 import { NameValueList } from "../../components/DisplayLabels"
 //JsStyles
-import { colorTheme, whiteSurface, complexCompositionStyle, whiteSurfaceCircularBorder,selectedSurface } from "../../jsStyles/Style"
+import { colorTheme, whiteSurface, complexCompositionStyle, whiteSurfaceCircularBorder, selectedSurface } from "../../jsStyles/Style"
 import icToilet from "../../assets/img/icons/ic_toilet.png"
 import icHome from "../../assets/img/icons/eco_home.png"
 import NameValue from "../../Entity/NameValue";
@@ -41,8 +41,8 @@ class ComplexComposition extends Component {
             this.fetchComplexComposition();
     }
 
-    componentDidUpdate(){
-        if (this.props.complex !== undefined &&  this.props.complexStore[this.props.complex.name] == undefined)
+    componentDidUpdate() {
+        if (this.props.complex !== undefined && this.props.complexStore[this.props.complex.name] == undefined)
             this.fetchComplexComposition();
     }
 
@@ -60,7 +60,7 @@ class ComplexComposition extends Component {
 
     render() {
         return (
-            <div className="row" style={{marginTop:'10px', background:'white', padding:'5px'}}>
+            <div className="row" style={{ marginTop: '10px', background: 'white', padding: '5px' }}>
                 <MessageDialog ref={this.messageDialog} />
                 <LoadingDialog ref={this.loadingDialog} />
                 <this.ComponentSelector />
@@ -72,14 +72,14 @@ class ComplexComposition extends Component {
     ComponentSelector = () => {
 
         var complex = undefined;
-        if(this.props.complex !== undefined)
+        if (this.props.complex !== undefined)
             complex = this.props.complexStore[this.props.complex.name];
         //var complex = this.props.complexStore['TEST_AWS'];
         if (complex !== undefined)
             return (
                 <Fragment>
                     <this.ComplexHeader />
-                    <this.CabinList/>
+                    <this.CabinList />
                 </Fragment>
             );
         return (<div></div>)
@@ -130,44 +130,48 @@ class ComplexComposition extends Component {
         var complex = this.props.complexStore[this.props.complex.name];
         //var complex = this.props.complexStore['TEST_AWS'];
         var cabinList = [];
-        if(complex.complexComposition.mwcCabins !== undefined)
-        complex.complexComposition.mwcCabins.forEach(cabinDetails => {
-            cabinList.push(cabinDetails)
-        });
+        if (complex.complexComposition.mwcCabins !== undefined)
+            complex.complexComposition.mwcCabins.forEach(cabinDetails => {
+                cabinList.push(cabinDetails)
+            });
 
-        if(complex.complexComposition.fwcCabins !== undefined)
-        complex.complexComposition.fwcCabins.forEach(cabinDetails => {
-            cabinList.push(cabinDetails)
-        });
+        if (complex.complexComposition.fwcCabins !== undefined)
+            complex.complexComposition.fwcCabins.forEach(cabinDetails => {
+                cabinList.push(cabinDetails)
+            });
 
-        if(complex.complexComposition.pwcCabins !== undefined)
-        complex.complexComposition.pwcCabins.forEach(cabinDetails => {
-            cabinList.push(cabinDetails)
-        });
+        if (complex.complexComposition.pwcCabins !== undefined)
+            complex.complexComposition.pwcCabins.forEach(cabinDetails => {
+                cabinList.push(cabinDetails)
+            });
 
-        if(complex.complexComposition.murCabins !== undefined)
-        complex.complexComposition.murCabins.forEach(cabinDetails => {
-            cabinList.push(cabinDetails)
-        });
+        if (complex.complexComposition.murCabins !== undefined)
+            complex.complexComposition.murCabins.forEach(cabinDetails => {
+                cabinList.push(cabinDetails)
+            });
+        if (complex.complexComposition.bwtCabins !== undefined)
+            complex.complexComposition.bwtCabins.forEach(cabinDetails => {
+                cabinList.push(cabinDetails)
+            });
 
-        console.log("_cabinList",""+cabinList.length)
+        console.log("_cabinList", "" + cabinList.length)
 
-        if(cabinList.length !== 0)
-        return cabinList.map((cabinDetails, index) => {
-            
-            if(this.props.cabin!== undefined && this.props.cabin.thingName === cabinDetails.thingName)
-                return (<this.CabinSelected cabin={cabinDetails}/>)
-            return (<this.Cabin cabin={cabinDetails}/>)
-        })
+        if (cabinList.length !== 0)
+            return cabinList.map((cabinDetails, index) => {
 
-        return(<div></div>)
-        
+                if (this.props.cabin !== undefined && this.props.cabin.thingName === cabinDetails.thingName)
+                    return (<this.CabinSelected cabin={cabinDetails} />)
+                return (<this.Cabin cabin={cabinDetails} />)
+            })
+
+        return (<div></div>)
+
     }
 
     Cabin = (props) => {
         return (
 
-            <div style={{...whiteSurface,background:'white', width: "100%", padding: "10px",  display: "flexbox", alignItems: "center" }}>
+            <div style={{ ...whiteSurface, background: 'white', width: "100%", padding: "10px", display: "flexbox", alignItems: "center" }}>
 
                 <div style={{ ...complexCompositionStyle.cabinTitle, float: "left" }}>{props.cabin.shortThingName}</div>
 
@@ -175,7 +179,7 @@ class ComplexComposition extends Component {
                     style={{ float: "right", padding: "0px 0px 0px 0px" }}
                     color="primary"
                     className="px-4"
-                    onClick = {()=>this.setSelectedCabin(props.cabin)}
+                    onClick={() => this.setSelectedCabin(props.cabin)}
 
                 >
                     Details
@@ -187,7 +191,7 @@ class ComplexComposition extends Component {
     CabinSelected = (props) => {
         return (
 
-            <div style={{...selectedSurface,background:'white', width: "100%", padding: "10px",  display: "flexbox", alignItems: "center" }}>
+            <div style={{ ...selectedSurface, background: 'white', width: "100%", padding: "10px", display: "flexbox", alignItems: "center" }}>
 
                 <div style={{ ...complexCompositionStyle.cabinTitle, float: "left" }}>{props.cabin.shortThingName}</div>
 
@@ -195,8 +199,7 @@ class ComplexComposition extends Component {
                     style={{ float: "right", padding: "0px 0px 0px 0px" }}
                     color="primary"
                     className="px-4"
-                    onClick = {()=>this.setSelectedCabin(props.cabin)}
-
+                    onClick={() => this.setSelectedCabin(props.cabin)}
                 >
                     Details
                 </Button>
@@ -204,17 +207,17 @@ class ComplexComposition extends Component {
         );
     }
 
-    setSelectedCabin = (cabin)=> {
+    setSelectedCabin = (cabin) => {
         this.props.updateSelectedCabin(cabin)
     }
-    
+
 }
 
 
 
 
 const mapStateToProps = (state) => {
-    console.log("_onComplexSelection", state.complexStore);
+    // console.log("_onComplexSelection", state.complexStore);
 
     return {
         complexStore: state.complexStore,

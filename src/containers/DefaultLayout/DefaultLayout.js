@@ -23,14 +23,56 @@ import navigation from "../../_nav";
 import routes from "../../routes";
 import { Route53Domains } from "aws-sdk";
 
-const administrationHome = React.lazy(() => import("../../ui/administration/AdministrationHome"));
-const memberDetails = React.lazy(() => import("../../ui/administration/MemberDetailsHome"));
-const addTeamMember = React.lazy(() => import("../../ui/administration/AddTeamMember"));
-const defineMemberAccess = React.lazy(() => import("../../ui/administration/DefineMemberAccess"));
-const complexNavigation = React.lazy(() => import("../../ui/complexes/ComplexNavigation"));
-const complexDetails = React.lazy(() => import("../../ui/complexes/ComplexDetails"));
+const administrationHome = React.lazy(() =>
+  import("../../ui/administration/AdministrationHome")
+);
+const memberDetails = React.lazy(() =>
+  import("../../ui/administration/MemberDetailsHome")
+);
+const addTeamMember = React.lazy(() =>
+  import("../../ui/administration/AddTeamMember")
+);
+const grantPermissions = React.lazy(() =>
+  import("../../ui/administration/GrantPermissions")
+);
+const defineMemberAccess = React.lazy(() =>
+  import("../../ui/administration/DefineMemberAccess")
+);
+
+// VENDOR
+const vendorHome = React.lazy(() =>
+  import("../../ui/vendor/VendorHome")
+);
+const addVendorMember = React.lazy(() =>
+  import("../../ui/vendor/AddVendorMember")
+);
+const vendorDetails = React.lazy(() =>
+  import("../../ui/vendor/VendorDetailsHome")
+);
+const updateVendorMember = React.lazy(() =>
+  import("../../ui/vendor/UpdateVendorMember")
+);
+
+const complexNavigation = React.lazy(() =>
+  import("../../ui/complexes/ComplexNavigation")
+);
+const complexDetails = React.lazy(() =>
+  import("../../ui/complexes/ComplexDetails")
+);
 const dashboard = React.lazy(() => import("../../ui/dashboard/Home"));
 const reportsHome = React.lazy(() => import("../../ui/reports/ReportsHome"));
+const incidenceTicket = React.lazy(() =>
+  import("../../ui/incidence/IncidenceHome")
+);
+const createNewTicket = React.lazy(() =>
+  import("../../ui/incidence/CreateNewTicket")
+);
+const incidenceTicketDetails = React.lazy(() =>
+  import("../../ui/incidence/IncidenceTicketDetails")
+);
+
+const logout = React.lazy(() => import("../../ui/authentication/logout"));
+
 
 const DefaultAside = React.lazy(() => import("./DefaultAside"));
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
@@ -49,7 +91,7 @@ class DefaultLayout extends Component {
   render() {
     return (
       <div className="app">
-        <AppBar style={{width:'100%'}} history={this.props.history}/>
+        <AppBar style={{ width: "100%" }} history={this.props.history} />
 
         {/* <AppHeader fixed>
           <Suspense fallback={this.loading()}>
@@ -71,14 +113,13 @@ class DefaultLayout extends Component {
             <AppSidebarFooter />
             <AppSidebarMinimizer />
           </AppSidebar> */}
- 
+
           <main className="main">
-          
             {/* <AppBreadcrumb appRoutes={routes} router={router} /> */}
 
             <Container fluid>
               <Suspense fallback={this.loading()}>
-              <Switch>
+                <Switch>
                   {/* <Route
                     path={"/login"}
                     exact={true}
@@ -104,11 +145,45 @@ class DefaultLayout extends Component {
                     component={addTeamMember}
                   />
                   <Route
+                    path={"/administration/grantPermissions"}
+                    exact={true}
+                    name={"Grant Permissions"}
+                    component={grantPermissions}
+                  />
+                  <Route
                     path={"/administration/defineAccess"}
                     exact={true}
                     name={"Define Access"}
                     component={defineMemberAccess}
                   />
+
+                  {/* VENDOR */}
+
+                  <Route
+                    path={"/vendor"}
+                    exact={true}
+                    name={"Vendor"}
+                    component={vendorHome}
+                  />
+                  <Route
+                    path={"/vendor/addVendorMember"}
+                    exact={true}
+                    name={"Add Vendor Member"}
+                    component={addVendorMember}
+                  />
+                  <Route
+                    path={"/vendor/vendorDetails"}
+                    exact={true}
+                    name={"Vendor Details"}
+                    component={vendorDetails}
+                  />
+                  <Route
+                    path={"/vendor/updateVendor"}
+                    exact={true}
+                    name={"Update Vendor Member"}
+                    component={updateVendorMember}
+                  />
+
                   <Route
                     path={"/complex/complexTree"}
                     exact={true}
@@ -121,20 +196,43 @@ class DefaultLayout extends Component {
                     name={"Complex Details"}
                     component={complexDetails}
                   />
-
+                  <Route
+                    path={"/authentication/logout"}
+                    exact={true}
+                    name={"Logout"}
+                    component={logout}
+                  />
                   <Route
                     path={"/dashboard"}
                     exact={true}
                     name={"Dashboard"}
                     component={dashboard}
                   />
-
                   <Route
                     path={"/reports"}
                     exact={true}
                     name={"Reports"}
                     component={reportsHome}
                   />
+                  <Route
+                    path={"/incidence/tickets"}
+                    exact={true}
+                    name={"Incidence"}
+                    component={incidenceTicket}
+                  />
+                  <Route
+                    path={"/Incidence/TicketDetails/:id"}
+                    exact={true}
+                    name={"Ticket Details"}
+                    component={incidenceTicketDetails}
+                  />
+                  <Route
+                    path={"/incidence/raiseNewTicket"}
+                    exact={true}
+                    name={"Icidence"}
+                    component={createNewTicket}
+                  />
+
                   {/* <ProtectedRoute
                     path={"/dashboard"}
                     exact={true}

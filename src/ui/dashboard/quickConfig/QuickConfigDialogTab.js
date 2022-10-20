@@ -21,7 +21,7 @@ class QuickConfigDialogTab extends Component {
     this.initClientNameList();
   }
 
-  selectedScope = { 'CabinType.MWC': false , 'CabinType.FWC': false , 'CabinType.PD': false ,'CabinType.MUR': false }
+  selectedScope = { 'CabinType.MWC': false, 'CabinType.FWC': false, 'CabinType.PD': false, 'CabinType.MUR': false }
   clientNameList = []
   title = ""
   onClickAction
@@ -57,8 +57,6 @@ class QuickConfigDialogTab extends Component {
             </td>
           </tr>
 
-
-
           <tr>
             <td style={{ width: '100%' }}>
               <div style={{
@@ -68,7 +66,6 @@ class QuickConfigDialogTab extends Component {
                 <this.ClientSelection />
                 <this.ScopeConfig />
               </div>
-
             </td>
           </tr>
 
@@ -101,6 +98,12 @@ class QuickConfigDialogTab extends Component {
     this.clientNameList = [];
     this.props.clientList.forEach(client => {
       this.clientNameList.push(client.name)
+      // if (client.name === this.props.userDetails.clientName) {
+      //   clientNameList.push(mClient.name);
+      // }
+      // if (this.props.userDetails.clientName === "SSF") {
+      //   clientNameList.push(mClient.name);
+      // }
     });
     return this.clientNameList;
   }
@@ -108,11 +111,14 @@ class QuickConfigDialogTab extends Component {
 
   setSelectedClient = (client) => {
     this.selectedClient = client;
-    this.props.handleUpdate(this.props.configTab,"configClient",this.selectedClient)
+    this.props.handleUpdate(this.props.configTab, "configClient", this.selectedClient)
   }
 
 
   ClientSelection = () => {
+    //👇
+    console.log(' this_props-:👉', this.props)
+    //👆
     return (
       <div className="row">
         <div className='col-md-4' >
@@ -136,6 +142,10 @@ class QuickConfigDialogTab extends Component {
   }
 
   ScopeConfig = () => {
+    //👇
+    console.log(' CabinType.MWC-:👉', CabinType.MWC)
+    console.log(' CabinType-:👉', CabinType)
+    //👆
     return (
       <div className="row" style={{ marginTop: '20px' }}>
         <div className="col-md-4">
@@ -145,8 +155,11 @@ class QuickConfigDialogTab extends Component {
         </div>
 
         <div className="col-md-8">
+
           <table style={{ width: "100%" }}>
+
             <tbody>
+
               <tr >
                 <td style={{ width: '50%' }}>
                   <div >
@@ -160,12 +173,12 @@ class QuickConfigDialogTab extends Component {
                   </div>
                 </td>
               </tr>
+
               <tr >
                 <td style={{ width: '50%' }}>
                   <div >
                     <RxInputCheckbox withLabel label={'PD WC'} selected={false} onChange={e => this.onScopeSelected(e, CabinType.PD)} />
                   </div>
-
                 </td>
 
                 <td style={{ width: '50%' }}>
@@ -174,9 +187,13 @@ class QuickConfigDialogTab extends Component {
                   </div>
                 </td>
               </tr>
+
             </tbody>
+
           </table>
+
         </div>
+
       </div>
     );
   }
@@ -194,9 +211,9 @@ class QuickConfigDialogTab extends Component {
         break;
       case CabinType.MUR:
         this.selectedScope['CabinType.MUR'] = selected;
-        break;   
+        break;
     }
-    this.props.handleUpdate(this.props.configTab,"configScope",this.selectedScope);
+    this.props.handleUpdate(this.props.configTab, "configScope", this.selectedScope);
   }
 
 }

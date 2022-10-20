@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 import { Col, Row, Label, Input, Button } from "reactstrap";
 
 class DropDown extends React.Component {
-  
-    state = {
-        dropdownList: [],
-        selectedItem: ""
-      };
-  
-    constructor(props) {
+
+  state = {
+    dropdownList: [],
+    selectedItem: ""
+  };
+
+  constructor(props) {
 
     super(props);
 
-    console.log('_getIndex2',props.currentIndex,props.options[props.currentIndex]);
+    console.log('_getIndex2', props.currentIndex, props.options[props.currentIndex]);
 
     if (props !== undefined) {
       this.state = {
@@ -21,11 +21,11 @@ class DropDown extends React.Component {
         selectedItem: props.options[props.currentIndex]
       };
 
-        // this.setState({
-        //   dropdownList: props.options,
-        //   selectedItem: props.options[props.currentIndex]
-        // });
-      }
+      // this.setState({
+      //   dropdownList: props.options,
+      //   selectedItem: props.options[props.currentIndex]
+      // });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,16 +46,18 @@ class DropDown extends React.Component {
     this.setState({
       selectedItem: this.props.options[selectedIndex]
     });
+    console.log(selectedIndex, "selectedIndex")
   }
 
   helper(mOption, index) {
-    
 
-    if (this.state.selectedItem === mOption){
-      console.log('_getIndex3',this.state.selectedItem);
+
+    if (this.state.selectedItem === mOption) {
+      console.log('_getIndex3', this.state.selectedItem);
       return <option selected>{mOption}</option>;
+
     }
-      
+
     else return <option>{mOption}</option>;
   }
 
@@ -74,8 +76,8 @@ class DropDown extends React.Component {
 }
 
 DropDown.propTypes = {
-    options: PropTypes.array.isRequired,
-    onSelection: PropTypes.func.isRequired
-  };
+  options: PropTypes.array.isRequired,
+  onSelection: PropTypes.func.isRequired
+};
 
 export default DropDown;

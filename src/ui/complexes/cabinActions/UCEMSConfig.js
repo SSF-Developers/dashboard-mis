@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import {
   Button, Modal, ModalBody, ModalFooter, ModalHeader, InputGroup,
-  InputGroupAddon,Input,
+  InputGroupAddon, Input,
   InputGroupText
 } from "reactstrap";
-import {UcemsConfigList} from '../../../components/ConfigLabels'
-import {getUcemsConfigData,getPublishPayloadUcems,getTopicName,getKeyUcemsConfig,getPublishMetadata} from '../utils/ComplexUtils'
-import {settingsModal} from '../../../jsStyles/Style'
-import {executePublishConfigLambda} from '../../../awsClients/complexLambdas'
+import { UcemsConfigList } from '../../../components/ConfigLabels'
+import { getUcemsConfigData, getPublishPayloadUcems, getTopicName, getKeyUcemsConfig, getPublishMetadata } from '../utils/ComplexUtils'
+import { settingsModal } from '../../../jsStyles/Style'
+import { executePublishConfigLambda } from '../../../awsClients/complexLambdas'
 
 class UCEMSConfig extends Component {
 
@@ -28,22 +28,21 @@ class UCEMSConfig extends Component {
   async submitConfig() {
     this.props.loadingDialog.current.showDialog();
     try {
-        var topic = getTopicName('UCEMS_CONFIG',this.props.complex.complexDetails,this.props.cabin,this.props.complex.hierarchy)
-        var payload = getPublishPayloadUcems(this.ucemsConfig,this.props.complex.complexDetails,this.props.cabin)
-        var metadata = getPublishMetadata('UCEMS',this.props.complex.complexDetails,this.props.cabin,this.props.user)
-        var result = await executePublishConfigLambda(topic,payload,metadata);
-        this.props.messageDialog.current.showDialog("Success", 'New config submitted successfully',this.toggle())
-      
+      var topic = getTopicName('UCEMS_CONFIG', this.props.complex.complexDetails, this.props.cabin, this.props.complex.hierarchy)
+      var payload = getPublishPayloadUcems(this.ucemsConfig, this.props.complex.complexDetails, this.props.cabin)
+      var metadata = getPublishMetadata('UCEMS', this.props.complex.complexDetails, this.props.cabin, this.props.user)
+      var result = await executePublishConfigLambda(topic, payload, metadata);
+      this.props.messageDialog.current.showDialog("Success", 'New config submitted successfully', this.toggle())
 
-        this.props.loadingDialog.current.closeDialog();
-           
+      this.props.loadingDialog.current.closeDialog();
+
 
     } catch (err) {
-        console.log('_fetchCabinDetails',"_err", err);
-        this.props.loadingDialog.current.closeDialog();
-        this.props.messageDialog.current.showDialog("Error Alert!", err.message)
+      console.log('_fetchCabinDetails', "_err", err);
+      this.props.loadingDialog.current.closeDialog();
+      this.props.messageDialog.current.showDialog("Error Alert!", err.message)
     }
-}
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data !== undefined)
@@ -56,22 +55,22 @@ class UCEMSConfig extends Component {
     }));
   };
 
-  showDialog = (ucemsConfig,onClickAction) => {
+  showDialog = (ucemsConfig, onClickAction) => {
     this.ucemsConfig = ucemsConfig;
 
-      this.title = 'UCEMS Config#@';
-      if(onClickAction !== undefined)
-        this.onClickAction = onClickAction
+    this.title = 'UCEMS Config';
+    if (onClickAction !== undefined)
+      this.onClickAction = onClickAction
     else
-    this.onClickAction = undefined
+      this.onClickAction = undefined
     this.setState((state, props) => ({
       visibility: !state.visibility
     }));
   };
 
-  onClick = () =>{
+  onClick = () => {
     this.submitConfig();
-      
+
   }
 
   renderData() {
@@ -80,17 +79,17 @@ class UCEMSConfig extends Component {
         isOpen={this.state.visibility}
         toggle={this.toggle}
         className={"modal-la"}
-        style={{ width: "900px"}}
+        style={{ width: "900px" }}
       >
-        <ModalHeader style={{background:'#5DC0A6', color: `white`}} toggle={this.toggle}>{this.title}</ModalHeader>
+        <ModalHeader style={{ background: '#5DC0A6', color: `white` }} toggle={this.toggle}>{this.title}</ModalHeader>
         <ModalBody
           style={{
             width: "100%",
-            height:'600px', 
-            overflowY:'scroll'
+            height: '600px',
+            overflowY: 'scroll'
           }}
         >
-          
+
           <this.ComponentSelector />
 
         </ModalBody>
@@ -98,7 +97,7 @@ class UCEMSConfig extends Component {
           <Button color="primary" onClick={this.onClick}>
             OK
           </Button>{" "}
-          
+
         </ModalFooter>
       </Modal>
     );
@@ -108,20 +107,20 @@ class UCEMSConfig extends Component {
     return this.renderData();
   }
 
-  updateConfig = (configName, configValue) =>{
+  updateConfig = (configName, configValue) => {
     //console.log('_updateConfig',getKeyUcemsConfig(configName),configName,configValue)
     this.ucemsConfig.data[getKeyUcemsConfig(configName)] = configValue
-    console.log('_updateConfig',this.ucemsConfig)
+    console.log('_updateConfig', this.ucemsConfig)
   }
 
-  ComponentSelector = () =>{
-    if(this.ucemsConfig === undefined)
-    return(<div></div>)
+  ComponentSelector = () => {
+    if (this.ucemsConfig === undefined)
+      return (<div></div>)
 
-    return(
+    return (
       <div>
-        <div style={{...settingsModal.labelTimestamp, width:'100%', textAlign:'right'}}>Default Values</div>
-        <UcemsConfigList handleUpdate ={ this.updateConfig } data={getUcemsConfigData(this.ucemsConfig.data)}/>
+        <div style={{ ...settingsModal.labelTimestamp, width: '100%', textAlign: 'right' }}>Default Values</div>
+        <UcemsConfigList handleUpdate={this.updateConfig} data={getUcemsConfigData(this.ucemsConfig.data)} />
       </div>
     )
   }

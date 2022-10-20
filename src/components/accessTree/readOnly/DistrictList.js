@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import TreeItem from "./TreeItem";
 import CityList from "./CityList"
 import { districtFont } from "../../../jsStyles/Style"
-import {TreeItemType} from "../../../nomenclature/nomenclature"
+import { TreeItemType } from "../../../nomenclature/nomenclature"
 
 class DistrictList extends React.Component {
 
@@ -13,7 +13,7 @@ class DistrictList extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log("_identify","DistrictList: constructor(2)");
+    console.log("_identify", "DistrictList: constructor(2)");
   }
 
   componentDidMount() {
@@ -35,10 +35,14 @@ class DistrictList extends React.Component {
 
 
   render() {
-    console.log("_identify","DistrictList: render(2)");
+    console.log("_identify", "DistrictList: render(2)");
+    let jsonObject = this.props.listData.map(JSON.stringify);
+    console.log(jsonObject);
+    let uniqueSet = new Set(jsonObject);
+    let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
     return (
-      <div style={{ padding: "10px 10px 10px 10px", overflow:"auto" }}>
-        {this.props.listData.map((item, index) => {
+      <div style={{ padding: "10px 10px 10px 10px", overflow: "auto" }}>
+        {uniqueArray.map((item, index) => {
           return this.renderRow(item, index);
           // return <this.DetailsElement data={item} />;
 
@@ -55,21 +59,21 @@ class DistrictList extends React.Component {
   renderRow = (item, index) => {
     return (
       <TreeItem
-      stateIndex = {index}
-      type = {TreeItemType.District}
-      recursiveAccess={item.recursive==1}
-      expanded={false}
-      displayData={item.name}
-      displayDataStyle={districtFont}
-      listComponent={this.getListComponent(item)}/>
+        stateIndex={index}
+        type={TreeItemType.District}
+        recursiveAccess={item.recursive == 1}
+        expanded={false}
+        displayData={item.name}
+        displayDataStyle={districtFont}
+        listComponent={this.getListComponent(item)} />
     )
   }
 
   getListComponent = (item) => {
-  
+
     return (
-          < CityList listData={item.cities}/>
-          
+      < CityList listData={item.cities} />
+
     );
   }
 }

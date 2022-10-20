@@ -4,11 +4,14 @@ import {
   SET_CLIENT_LIST,
   SET_TEAM_LIST,
   ACTION_ADD_MEMBER,
+  SET_UI_LIST,
+  SET_UI_RESET
 } from "../actions/administration-actions";
 
 var defaultState = {
   clientList: [],
-  teamList: []
+  teamList: [],
+  data: []
 }
 
 //  var defaultState = { 
@@ -32,6 +35,16 @@ export default function administrationReducer(
       return {
         ...state,
         clientList: payload.clientList
+      };
+    case SET_UI_LIST:
+      return {
+        ...state,
+        data: payload.data
+      };
+    case SET_UI_RESET:
+      return {
+        ...state,
+        data: []
       };
     case ACTION_ADD_MEMBER:
       var mTeamList = state.teamList;

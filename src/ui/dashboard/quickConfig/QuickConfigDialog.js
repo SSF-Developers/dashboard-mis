@@ -38,6 +38,10 @@ class QuickConfigDialog extends Component {
   };
 
   async submitConfig() {
+    // topic, config, metadata
+    let topic = {}
+    let config = {}
+    let metadata = {}
 
   }
 
@@ -82,19 +86,22 @@ class QuickConfigDialog extends Component {
   }
 
   tabPane() {
+    //👇
+    console.log('this.props.config -:👉', this.props)
+    //👆
     return (
       <>
-      {this.props.tabData.map((item, index) => {
-        return <TabPane tabId={item.type}>
-        <QuickConfigDialogTab 
-        configTab = {item.type}
-        handleUpdate = {this.props.handleUpdate}
-        configView = {item.configView}
-        clientList = {this.props.clientList}
-        />
-      </TabPane>
-        
-      })}
+        {this.props.tabData.map((item, index) => {
+          return <TabPane tabId={item.type}>
+            <QuickConfigDialogTab
+              configTab={item.type}
+              handleUpdate={this.props.handleUpdate}
+              configView={item.configView}
+              clientList={this.props.clientList}
+            />
+          </TabPane>
+
+        })}
       </>
     );
   }
@@ -140,7 +147,7 @@ class QuickConfigDialog extends Component {
                                   {item.label}
                                 </NavLink>
                               </NavItem>
-                              
+
                             })}
 
 

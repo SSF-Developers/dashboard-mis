@@ -3,8 +3,27 @@ import { Table } from "reactstrap";
 import Button from "reactstrap/lib/Button";
 
 export default function UsageProfileList(props) {
+  console.log(props.data[0], "PROPS-PROPS.data[0]");
+
+  if (props.uiResult) {
+    props.data.map((rowData, index) => {
+      if (props.uiResult.air_dryer_profile === "false") {
+        delete rowData['Air Dryer'];
+      }
+      if (props.uiResult.usage_charge_profile === "false") {
+        delete rowData['Usage Charge'];
+      }
+      if (props.uiResult.rfid_profile === "false") {
+        delete rowData['RFID'];
+      }
+      if (props.uiResult.turbidity_value === "false") {
+        delete rowData['Turbidity Value'];
+      }
+    })
+  }
+
   return (
-    <div style={{ height:'400px',width:'100%', overflowY:'scroll' }}>
+    <div style={{ height: '400px', width: '100%', overflowY: 'scroll' }}>
       <Table
         hover
         striped

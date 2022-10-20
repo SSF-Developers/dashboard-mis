@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TreeItem from "./TreeItem";
-import {TreeItemType} from "../../../nomenclature/nomenclature";
+import { TreeItemType } from "../../../nomenclature/nomenclature";
 import ComplexList from "./ComplexList";
 import { cityFont } from "../../../jsStyles/Style";
 import TreeEdge from "../../../Entity/TreeEdge";
@@ -35,9 +35,14 @@ class CityList extends React.Component {
 
 
   render() {
+    console.log("_identify", "DistrictList: render(2)");
+    let jsonObject = this.props.listData.map(JSON.stringify);
+    console.log(jsonObject);
+    let uniqueSet = new Set(jsonObject);
+    let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
     return (
-      <div style={{ padding: "10px 10px 10px 10px", overflow:"auto" }}>
-        {this.props.listData.map((item, cityIndex) => {
+      <div style={{ padding: "10px 10px 10px 10px", overflow: "auto" }}>
+        {uniqueArray.map((item, cityIndex) => {
           return this.renderRow(item, cityIndex);
           // return <this.DetailsElement data={item} />;
 
@@ -51,27 +56,27 @@ class CityList extends React.Component {
   }
 
   renderRow = (item, cityIndex) => {
-    var treeEdge = new TreeEdge(this.props.treeEdge.stateIndex,this.props.treeEdge.districtIndex,cityIndex);
+    var treeEdge = new TreeEdge(this.props.treeEdge.stateIndex, this.props.treeEdge.districtIndex, cityIndex);
     return (
       <TreeItem
-      treeEdge = {new TreeEdge(this.props.treeEdge.stateIndex,this.props.treeEdge.districtIndex,cityIndex)}
-      type = {TreeItemType.City}
-      recursiveAccess={item.recursive==1}
-      selected = {item.selected}
-      expanded={false}
-      displayData={item.name}
-      displayDataStyle={cityFont}
-      listComponent={this.getListComponent(item,cityIndex)}
-      handleUserSelection = {this.props.handleUserSelection}/>
+        treeEdge={new TreeEdge(this.props.treeEdge.stateIndex, this.props.treeEdge.districtIndex, cityIndex)}
+        type={TreeItemType.City}
+        recursiveAccess={item.recursive == 1}
+        selected={item.selected}
+        expanded={false}
+        displayData={item.name}
+        displayDataStyle={cityFont}
+        listComponent={this.getListComponent(item, cityIndex)}
+        handleUserSelection={this.props.handleUserSelection} />
     )
   }
 
-  getListComponent = (item,cityIndex) => {
+  getListComponent = (item, cityIndex) => {
     return (
-          < ComplexList 
-          listData={item.complexes}
-          treeEdge = {new TreeEdge(this.props.treeEdge.stateIndex,this.props.treeEdge.districtIndex,cityIndex)}
-          handleUserSelection = {this.props.handleUserSelection}/>
+      < ComplexList
+        listData={item.complexes}
+        treeEdge={new TreeEdge(this.props.treeEdge.stateIndex, this.props.treeEdge.districtIndex, cityIndex)}
+        handleUserSelection={this.props.handleUserSelection} />
     );
   }
 }

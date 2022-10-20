@@ -15,6 +15,7 @@ class DistrictList extends React.Component {
   constructor(props) {
     super(props);
     console.log("_identify", "DistrictList: constructor(2)");
+    console.log(this.props, "DistrictList: constructor(2)");
   }
 
   componentDidMount() {
@@ -37,9 +38,18 @@ class DistrictList extends React.Component {
 
   render() {
     console.log("_identify", "DistrictList: render(2)");
+
+    // Create an array of objects
+    let jsonObject = this.props.listData.map(JSON.stringify);
+    console.log(jsonObject);
+    let uniqueSet = new Set(jsonObject);
+    let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+    console.log(uniqueArray, "uniqueArray");
     return (
       <div style={{ overflow: "auto" }}>
-        {this.props.listData.map((item, index) => {
+
+        {uniqueArray.map((item, index) => {
+          console.log(item, "DistrictList: render(2)");
           return this.renderRow(item, index);
           // return <this.DetailsElement data={item} />;
 

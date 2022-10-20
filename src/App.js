@@ -23,9 +23,9 @@ const loading = () => (
 
 class App extends Component {
   constructor(props) {
-  
+
     super(props);
-    
+
   }
 
   state = {};

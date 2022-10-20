@@ -40,19 +40,19 @@ class ComplexNavigation extends Component {
             this.initFetchCompletedUserAccessTreeAction();
     }
 
-    
+
     handleComplexSelection = (treeEdge) => {
-        console.log("_handleComplexSelection", treeEdge);
+        // console.log("_handleComplexSelection", treeEdge);
         var stateIndex = treeEdge.stateIndex;
         var districtIndex = treeEdge.districtIndex;
         var cityIndex = treeEdge.cityIndex;
         var complexIndex = treeEdge.complexIndex;
 
         var complex = this.props.accessTree.country
-        .states[stateIndex]
-        .districts[districtIndex]
-        .cities[cityIndex]
-        .complexes[complexIndex];
+            .states[stateIndex]
+            .districts[districtIndex]
+            .cities[cityIndex]
+            .complexes[complexIndex];
 
         var bundle = {
             "history": this.props.history,
@@ -68,7 +68,7 @@ class ComplexNavigation extends Component {
             var result = await executeFetchCompletedUserAccessTree(this.props.user.userName);
             this.props.setOwnAccessTree(result);
             this.loadingDialog.current.closeDialog();
-            console.log("_defineAccess", JSON.stringify(result));
+            // console.log("_defineAccess", JSON.stringify(result));
         } catch (err) {
             console.log("_err", err);
             this.loadingDialog.current.closeDialog();
@@ -95,7 +95,7 @@ class ComplexNavigation extends Component {
                             </CardHeader>
 
                             <CardBody>
-                                
+
                             </CardBody>
 
 
@@ -107,10 +107,10 @@ class ComplexNavigation extends Component {
                     <Col xs="12" sm="12" lg="12">
                         <Card>
                             <CardBody>
-                                <div className="col-md-10 offset-md-2" style={{  width: "80%", margin: "auto" }}>
+                                <div className="col-md-10 offset-md-2" style={{ width: "80%", margin: "auto" }}>
 
                                     <div>
-                
+
 
                                         <div class="col-md-2" style={{ float: "right" }}>
                                             <RxAccessSummary ref={this.selectionSummary} accessSummary={this.props.accessSummary} />
@@ -135,7 +135,7 @@ class ComplexNavigation extends Component {
         if (this.props.accessTree == undefined) {
             return (<NoDataComponent />);
         } else {
-            console.log("_accessTree", this.props.accessTree);
+            // console.log("_accessTree", this.props.accessTree);
             return (<StateList ref={this.stateList} listData={this.props.accessTree} handleComplexSelection={this.handleComplexSelection} />);
         }
     }

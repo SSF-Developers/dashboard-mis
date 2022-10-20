@@ -12,9 +12,6 @@ import {
 } from "reactstrap";
 import MemberDetails from "./MemberDetails";
 import MemberAccess from "./MemberAccess"
-
-
-
 class MemberDetailsHome extends Component {
 
   constructor(props) {
@@ -55,8 +52,8 @@ class MemberDetailsHome extends Component {
   tabPane() {
     return (
       <>
-        <TabPane tabId="2"><MemberAccess user={this.props.location.data} history={this.props.history}/></TabPane>
-        <TabPane tabId="1"><MemberDetails history={this.props.history} user={this.props.location.data}/></TabPane>
+        <TabPane tabId="2"><MemberAccess user={this.props.location.data} history={this.props.history} /></TabPane>
+        <TabPane tabId="1"><MemberDetails history={this.props.history} user={this.props.location.data} /></TabPane>
         {/* <TabPane tabId="1"><MemberDetails user={this.testUser}/></TabPane> */}
       </>
     );
@@ -97,7 +94,7 @@ class MemberDetailsHome extends Component {
       </div>
     );
   }
-  
+
 }
 
 

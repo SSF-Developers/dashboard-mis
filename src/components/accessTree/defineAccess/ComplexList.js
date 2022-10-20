@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TreeItem from "./TreeItem";
-import {TreeItemType} from "../../../nomenclature/nomenclature";
+import { TreeItemType } from "../../../nomenclature/nomenclature";
 import { complexFont } from "../../../jsStyles/Style";
 import TreeEdge from "../../../Entity/TreeEdge";
 
@@ -34,9 +34,9 @@ class ComplexList extends React.Component {
 
 
   render() {
-    console.log("_storeUpdatedState","render: ComplexList");
+    console.log("_storeUpdatedState", "render: ComplexList");
     return (
-      <div style={{ padding: "10px 10px 10px 10px", overflow:"auto" }}>
+      <div style={{ padding: "10px 10px 10px 10px", overflow: "auto" }}>
         {this.props.listData.map((item, complexIndex) => {
           return this.renderRow(item, complexIndex);
           // return <this.DetailsElement data={item} />;
@@ -51,16 +51,16 @@ class ComplexList extends React.Component {
   }
 
   renderRow = (item, complexIndex) => {
-    var treeEdge = new TreeEdge(this.props.treeEdge.stateIndex,this.props.treeEdge.districtIndex,this.props.treeEdge.cityIndex,complexIndex);
-    
+    var treeEdge = new TreeEdge(this.props.treeEdge.stateIndex, this.props.treeEdge.districtIndex, this.props.treeEdge.cityIndex, complexIndex);
+    console.log(this.props, "THIS_props_P");
     return (
-      <TreeItem  
-      treeEdge = {new TreeEdge(this.props.treeEdge.stateIndex,this.props.treeEdge.districtIndex,this.props.treeEdge.cityIndex,complexIndex)}
-      type = {TreeItemType.Complex}
-      selected = {item.selected}
-      displayData={item.name}
-      displayDataStyle={complexFont}
-      handleUserSelection = {this.props.handleUserSelection}/>
+      <TreeItem
+        treeEdge={new TreeEdge(this.props.treeEdge.stateIndex, this.props.treeEdge.districtIndex, this.props.treeEdge.cityIndex, complexIndex)}
+        type={TreeItemType.Complex}
+        selected={item.selected}
+        displayData={item.name}
+        displayDataStyle={complexFont}
+        handleUserSelection={this.props.handleUserSelection} />
     )
   }
 

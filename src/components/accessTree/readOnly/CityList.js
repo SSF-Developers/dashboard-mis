@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TreeItem from "./TreeItem";
-import {TreeItemType} from "../../../nomenclature/nomenclature"
+import { TreeItemType } from "../../../nomenclature/nomenclature"
 import ComplexList from "./ComplexList"
 import { cityFont } from "../../../jsStyles/Style"
 
@@ -35,12 +35,15 @@ class CityList extends React.Component {
 
 
   render() {
+    let jsonObject = this.props.listData.map(JSON.stringify);
+    console.log(jsonObject);
+    let uniqueSet = new Set(jsonObject);
+    let uniqueArray = Array.from(uniqueSet).map(JSON.parse);
     return (
-      <div style={{ padding: "10px 10px 10px 10px", overflow:"auto" }}>
-        {this.props.listData.map((item, index) => {
+      <div style={{ padding: "10px 10px 10px 10px", overflow: "auto" }}>
+        {uniqueArray.map((item, index) => {
           return this.renderRow(item, index);
           // return <this.DetailsElement data={item} />;
-
         })}
       </div>
 
@@ -54,20 +57,20 @@ class CityList extends React.Component {
   renderRow = (item, index) => {
     return (
       <TreeItem
-      stateIndex = {index}
-      type = {TreeItemType.City}
-      recursiveAccess={item.recursive==1}
-      expanded={false}
-      displayData={item.name}
-      displayDataStyle={cityFont}
-      listComponent={this.getListComponent(item)}/>
+        stateIndex={index}
+        type={TreeItemType.City}
+        recursiveAccess={item.recursive == 1}
+        expanded={false}
+        displayData={item.name}
+        displayDataStyle={cityFont}
+        listComponent={this.getListComponent(item)} />
     )
   }
 
   getListComponent = (item) => {
-  
+
     return (
-          < ComplexList listData={item.complexes}/>
+      < ComplexList listData={item.complexes} />
     );
   }
 }

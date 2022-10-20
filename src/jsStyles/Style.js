@@ -3,8 +3,8 @@ export const colorTheme = {
   primaryDark: "#7AFFDC",
   primaryLight: "#94FFE2",
   accent: "#FFF76E",
-  primaryText: "#212121"
-}
+  primaryText: "#212121",
+};
 
 //Contqiners
 export const whiteSurface = {
@@ -12,28 +12,41 @@ export const whiteSurface = {
   transition: "0.3s",
   margin: "10px 0px 0px 0px",
   borderRadius: "5px",
-  padding: "10px 10px 10px 10px"
-}
+  padding: "10px 10px 10px 10px",
+};
+export const whiteSurface2 = {
+  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+  transition: "0.3s",
+  margin: "10px 0px 0px 0px",
+  borderRadius: "5px",
+};
+export const whiteSurface3 = {
+  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+  transition: "0.3s",
+  borderBottomRightRadius: "5px",
+  borderBottomLeftRadius: "5px",
+  padding: "10px 10px 10px 10px",
+};
 export const selectedSurface = {
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
   transition: "0.3s",
   margin: "10px 0px 0px 0px",
   padding: "10px 10px 10px 10px",
   borderRadius: "5px",
-  border:'2px solid #5DC0A6'
-}
+  border: "2px solid #5DC0A6",
+};
 
 export const whiteSurfaceNoMargin = {
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
   transition: "0.3s",
   margin: "0px 0px 0px 0px",
-  padding: "0px 0px 0px 0px"
-}
+  padding: "0px 0px 0px 0px",
+};
 
 export const treeItemBox = {
   margin: "10px 0px 0px 0px",
-  padding: "10px 10px 10px 10px"
-}
+  padding: "10px 10px 10px 10px",
+};
 
 export const whiteCircleSurface = {
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
@@ -43,8 +56,8 @@ export const whiteCircleSurface = {
   height: "40px",
   display: "flex",
   justifyContent: "center",
-  alignItems: "center"
-}
+  alignItems: "center",
+};
 
 export const whiteSurfaceCircularBorder = {
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
@@ -54,8 +67,8 @@ export const whiteSurfaceCircularBorder = {
   height: "40px",
   display: "flex",
   justifyContent: "center",
-  alignItems: "center"
-}
+  alignItems: "center",
+};
 
 export const complexSelectedCircleSurface = {
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
@@ -65,8 +78,8 @@ export const complexSelectedCircleSurface = {
   height: "10px",
   display: "flex",
   justifyContent: "center",
-  alignItems: "center"
-}
+  alignItems: "center",
+};
 
 //Text
 export const formLabel = {
@@ -83,7 +96,7 @@ export const stateFont = {
   fontWeight: "normal",
   fontStyle: "normal",
   textAlign: "left",
-  padding: "0"
+  padding: "0",
 };
 
 export const districtFont = {
@@ -108,34 +121,33 @@ export const complexFont = {
 };
 
 export const compactComplexnavStyle = {
-
-  stateFont : {
+  stateFont: {
     color: `black`,
     fontSize: "12px",
     fontWeight: "normal",
     fontStyle: "normal",
     textAlign: "left",
-    padding: "0"
+    padding: "0",
   },
-  districtFont : {
+  districtFont: {
     color: `black`,
     fontSize: "12px",
     fontWeight: "normal",
     fontStyle: "normal",
   },
-  cityFont : {
+  cityFont: {
     color: `black`,
     fontSize: "10px",
     fontWeight: "normal",
     fontStyle: "normal",
   },
-  
-  complexFont : {
+
+  complexFont: {
     color: `black`,
     fontSize: "8px",
     fontWeight: "normal",
     fontStyle: "normal",
-  }
+  },
 };
 
 export const complexCompositionStyle = {
@@ -145,14 +157,20 @@ export const complexCompositionStyle = {
     fontWeight: "bold",
     fontStyle: "bold",
   },
+  complexTitleClientMax: {
+    color: `white`,
+    fontSize: "18px",
+    fontWeight: "bold",
+    fontStyle: "bold",
+  },
   complexTitle: {
     color: `white`,
-    fontSize: "10px"
+    fontSize: "10px",
   },
   complexSubTitle: {
     color: `white`,
     fontSize: "10px",
-    fontWeight: "normal"
+    fontWeight: "normal",
   },
   complexDetails: {
     color: `black`,
@@ -169,7 +187,7 @@ export const complexCompositionStyle = {
   cabinTypeSubTitle: {
     color: `black`,
     fontSize: "10px",
-    fontWeight: "normal"
+    fontWeight: "normal",
   },
   cabinTitle: {
     color: `black`,
@@ -179,7 +197,7 @@ export const complexCompositionStyle = {
   },
   cabinDetails: {
     color: `black`,
-    fontSize: "10px"
+    fontSize: "10px",
   },
 };
 
@@ -199,8 +217,8 @@ export const cabinDetailsStyle = {
     },
     gaugeValue: {
       color: `black`,
-      fontSize: "10px"
-    }
+      fontSize: "10px",
+    },
   },
   cabinHealth: {
     itemTitle: {
@@ -211,9 +229,9 @@ export const cabinDetailsStyle = {
     },
     itemValue: {
       color: `black`,
-      fontSize: "10px"
-    }
-  }
+      fontSize: "10px",
+    },
+  },
 };
 
 export const settingsModal = {
@@ -225,14 +243,14 @@ export const settingsModal = {
   },
   itemValue: {
     color: `black`,
-    fontSize: "12px"
+    fontSize: "12px",
   },
   labelTimestamp: {
     color: `black`,
     fontSize: "12px",
     fontWeight: "italic",
     fontStyle: "italic",
-  }
+  },
 };
 
 export const usageAndFeedbackStyle = {
@@ -241,13 +259,13 @@ export const usageAndFeedbackStyle = {
     fontSize: "24px",
     fontWeight: "bold",
     fontStyle: "bold",
-    marginTop:"10px"
+    marginTop: "10px",
   },
   value: {
     color: `white`,
-    fontSize: "32px",
+    fontSize: "28px",
     fontWeight: "bold",
-    fontStyle: "bold"
+    fontStyle: "bold",
   },
   circleSurface: {
     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
@@ -256,34 +274,34 @@ export const usageAndFeedbackStyle = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding:'10px 10px 10px 10px'
+    padding: "10px 10px 10px 10px",
   },
   bottomRightCurvedSurface: {
-    height:'160px',
-    display: 'flex',
-    justifyContent: "left",
+    height: "160px",
+    display: "flex",
+    justifyContent: "space-around",
     alignItems: "center",
-    boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)',
-    borderBottomRightRadius: '50px',
+    boxShadow: "0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
+    borderBottomRightRadius: "50px",
     backgroundColor: "white",
-    padding:'0px 0px 0px 20px'
+    padding: "0px 0px 0px 20px",
   },
   topLeftCurvedSurface: {
-    height:'160px',
-    display: 'flex',
-    justifyContent: "left",
+    height: "160px",
+    display: "flex",
+    justifyContent: "space-around",
     alignItems: "center",
-    boxShadow: '0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)',
-    borderTopLeftRadius: '50px',
+    boxShadow: "0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
+    borderTopLeftRadius: "50px",
     backgroundColor: "white",
-    padding:'0px 0px 0px 20px'
-  }
+    padding: "0px 0px 0px 20px",
+  },
 };
 
 export const statsStyle = {
   elementTitle: {
     color: `white`,
-    fontSize: "20px"
+    fontSize: "20px",
   },
   pieLabel: {
     color: `black`,
@@ -291,12 +309,19 @@ export const statsStyle = {
     fontWeight: "bold",
     fontStyle: "bold",
   },
+  cardLabel: {
+    color: `black`,
+    fontSize: "14px",
+    fontWeight: "bold",
+    fontStyle: "bold",
+    margin: "auto"
+  },
   labelTimestamp: {
     color: `black`,
     fontSize: "12px",
     fontWeight: "italic",
     fontStyle: "italic",
-  }
+  },
 };
 
 export const dashboardStyle = {
@@ -305,6 +330,11 @@ export const dashboardStyle = {
     fontSize: "16px",
     fontWeight: "bold",
     fontStyle: "bold",
+  },
+  titleblack: {
+    color: `black`,
+    fontSize: "14px",
+    fontStyle: "normal",
   },
   label: {
     color: colorTheme.primary,
@@ -336,12 +366,23 @@ export const dashboardStyle = {
     fontWeight: "bold",
     fontStyle: "bold",
   },
+  itemDescriprtionBold2: {
+    color: `black`,
+    fontSize: "14px",
+    fontWeight: "bold",
+    fontStyle: "bold",
+  },
   colorCodes: {
-    total: '#E94700',
-    mwc: '#AC1600',
-    fwc: '#37A51C',
-    pwc: '#5DC0A6',
-    mur: '#329AD6',
-    bwt: '#E10753'
-  }
+    total: "#E94700",
+    mwc: "#AC1600",
+    fwc: "#37A51C",
+    pwc: "#5DC0A6",
+    mur: "#329AD6",
+    bwt: "#E10753",
+  },
+  itemTitleBa: {
+    color: `black`,
+    fontSize: "18px",
+    fontWeight: "500",
+  },
 };

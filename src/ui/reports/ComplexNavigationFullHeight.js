@@ -3,8 +3,8 @@ import React, { Component } from "react";
 //Redux
 import { connect } from "react-redux";
 import { setOwnAccessTree } from "../../redux/actions/authentication-actions";
-import {updateSelectedComplex} from '../../redux/actions/complex-actions';
-import {whiteSurfaceNoMargin,colorTheme,whiteSurfaceCircularBorder,complexCompositionStyle} from '../../jsStyles/Style';
+import { updateSelectedComplex } from '../../redux/actions/complex-actions';
+import { whiteSurfaceNoMargin, colorTheme, whiteSurfaceCircularBorder, complexCompositionStyle } from '../../jsStyles/Style';
 import icToilet from "../../assets/img/icons/ic_toilet.png"
 //ReactUI
 import {
@@ -30,7 +30,6 @@ import { getAccessSummary, getComplexHierarchy } from "../../components/accessTr
 
 class ComplexNavigationFullHeight extends Component {
 
-    
     constructor(props) {
         super(props);
 
@@ -46,19 +45,17 @@ class ComplexNavigationFullHeight extends Component {
             this.initFetchCompletedUserAccessTreeAction();
     }
 
-    
     handleComplexSelection = (treeEdge) => {
         console.log("_handleComplexSelection", treeEdge);
         var stateIndex = treeEdge.stateIndex;
         var districtIndex = treeEdge.districtIndex;
         var cityIndex = treeEdge.cityIndex;
         var complexIndex = treeEdge.complexIndex;
-
         var complex = this.props.accessTree.country
-        .states[stateIndex]
-        .districts[districtIndex]
-        .cities[cityIndex]
-        .complexes[complexIndex];
+            .states[stateIndex]
+            .districts[districtIndex]
+            .cities[cityIndex]
+            .complexes[complexIndex];
 
         var hierarchy = getComplexHierarchy(this.props.accessTree, treeEdge);
         this.props.setComplexSelection(complex);
@@ -67,17 +64,18 @@ class ComplexNavigationFullHeight extends Component {
     async initFetchCompletedUserAccessTreeAction() {
         try {
             var result = await executeFetchCompletedUserAccessTree(this.props.user.userName);
+            console.log(result, "RESULT_RESULT");
             this.props.setOwnAccessTree(result);
-            console.log("_defineAccess", JSON.stringify(result));
+            console.log("_defineAccess", result);
         } catch (err) {
-            console.log('_defineAccess',"_err", err);
+            console.log('_defineAccess', "_err", err);
         }
     }
 
     render() {
         return (
 
-            <div style={{background:'white',width:'100%', padding:'5px'}}>
+            <div style={{ background: 'white', width: '100%', padding: '5px' }}>
                 <this.Header />
                 <this.ComponentSelector />
             </div>
@@ -88,7 +86,7 @@ class ComplexNavigationFullHeight extends Component {
         if (this.props.accessTree == undefined) {
             return (<NoDataComponent />);
         } else {
-            
+
             return (<StateList ref={this.stateList} listData={this.props.accessTree} handleComplexSelection={this.handleComplexSelection} />);
         }
     }
@@ -133,14 +131,7 @@ const mapStateToProps = (state) => {
         accessTree: state.authentication.accessTree,
         accessSummary: getAccessSummary(state.authentication.accessTree)
     };
-
-    // return {
-    //     user: state.authentication.user,
-    //     accessTree: accessTreeData.accessTree,
-    //     accessSummary: getAccessSummary(accessTreeData.accessTree)
-    // };
-    
 };
 
-const mapActionsToProps = { setOwnAccessTree: setOwnAccessTree,updateSelectedComplex:updateSelectedComplex };
+const mapActionsToProps = { setOwnAccessTree: setOwnAccessTree, updateSelectedComplex: updateSelectedComplex };
 export default connect(mapStateToProps, mapActionsToProps)(ComplexNavigationFullHeight);
