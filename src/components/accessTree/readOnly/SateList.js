@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import DistrictList from "./DistrictList"
 import TreeItem from "./TreeItem";
 import { stateFont } from "../../../jsStyles/Style"
-import {TreeItemType} from "../../../nomenclature/nomenclature"
+import { TreeItemType } from "../../../nomenclature/nomenclature"
 
 class SateList extends React.Component {
 
@@ -36,7 +36,7 @@ class SateList extends React.Component {
 
   render() {
     return (
-      <div style={{ padding: "10px 10px 10px 10px", overflowY:"auto", height:"500px"}}>
+      <div style={{ padding: "10px 10px 10px 10px", overflowY: "auto", height: "500px" }}>
         {this.props.listData.map((item, index) => {
           return this.renderRow(item, index);
         })}
@@ -50,20 +50,20 @@ class SateList extends React.Component {
 
   renderRow = (item, index) => {
     return (
-      <TreeItem  
-      stateIndex = {index}
-      type = {TreeItemType.State}
-      recursiveAccess={item.recursive==1}
-      expanded={false}
-      displayData={item.name}
-      displayDataStyle={stateFont}
-      listComponent={this.getListComponent(item,index)}/>
+      <TreeItem
+        stateIndex={index}
+        type={TreeItemType.State}
+        recursiveAccess={item.recursive == 1}
+        expanded={false}
+        displayData={item.name}
+        displayDataStyle={stateFont}
+        listComponent={this.getListComponent(item, index)} />
     )
   }
 
-  getListComponent = (item,index) => {
+  getListComponent = (item, index) => {
     return (
-          < DistrictList stateIndex = {index} listData={item.districts}/>
+      < DistrictList stateIndex={index} listData={item.districts} />
     );
   }
 

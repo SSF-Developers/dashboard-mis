@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader, FormGroup, Form, Label, Input, InputGroup } from "reactstrap";
 import { setDashboardData } from "../../redux/actions/dashboard-actions";
-import { setReportData } from "../../redux/actions/report-actions";
+import { setReportData, setReportReset } from "../../redux/actions/report-actions";
 import { setResetData } from "../../redux/actions/extra-actions";
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
@@ -43,11 +43,11 @@ class ReportsHome extends Component {
                 ScheduleEndDate: "",
                 selectedDate: ""
             },
-            usageStats: false,
-            collectionStats: false,
-            upiStats: false,
-            feedbackStats: false,
-            bwtStats: false,
+            usageStats: true,
+            collectionStats: true,
+            upiStats: true,
+            feedbackStats: true,
+            bwtStats: true,
             minEndDate: null,
             isEndDateEnabled: false
         };
@@ -78,11 +78,25 @@ class ReportsHome extends Component {
             complex: complex
         });
     }
+    // _handleChange = (event) => {
+    //     console.log("_handleChange", event)
+    //     this.setState({
+    //         checked: !this.state.checked,
+    //     });
+    // };
 
     _handleChange = (event) => {
         const { name, checked } = event.target;
         this.setState({ [name]: checked });
     }
+    // _handleChange = (event) => {
+    //     const { name, checked } = event.target;
+    //     this.setState((prevState) => {
+    //         const newState = { ...prevState, [name]: checked };
+    //         const anyChecked = Object.values(newState).some((value) => value);
+    //         return { ...newState, defaultState: anyChecked };
+    //     });
+    // }
 
     toggleDialog = () => {
         this.setState((state, props) => ({
@@ -198,7 +212,35 @@ class ReportsHome extends Component {
             });
         }
     };
+    // updateAssignDetailsField = (field, value) => {
+    //     let updatedAssignDetails = { ...this.state.AssignDetails };
 
+    //     if (field === 'duration') {
+    //         updatedAssignDetails.duration = value
+    //         const calculatedDay = moment(this.state.startDate);
+    //         const calculatedDay2 = moment(value);
+    //         const dayDifference = calculatedDay2.diff(calculatedDay, 'days');
+    //         updatedAssignDetails.duration = Math.abs(dayDifference)
+    //     } else if (field === 'email') {
+    //         updatedAssignDetails.email = value;
+    //     } else if (field === 'schedule') {
+    //         updatedAssignDetails.schedule = value;
+    //     } else if (field === 'rateValue') {
+    //         updatedAssignDetails.rateValue = value;
+    //     } else if (field === 'rateUnit') {
+    //         updatedAssignDetails.rateUnit = value;
+    //     } else if (field === 'scheduleDuration') {
+    //         updatedAssignDetails.scheduleDuration = value;
+    //     } else if (field === 'ScheduleStartDate') {
+    //         updatedAssignDetails.ScheduleStartDate = value;
+    //     } else if (field === 'ScheduleEndDate') {
+    //         updatedAssignDetails.ScheduleEndDate = value;
+    //     }
+
+    //     this.setState({ AssignDetails: updatedAssignDetails }, () => {
+    //         console.log('AssignDetails updated:', updatedAssignDetails);
+    //     });
+    // };
     updateAssignDetailsField = (field, value) => {
         const { AssignDetails } = this.state;
         const updatedAssignDetails = { ...AssignDetails };
@@ -346,7 +388,7 @@ class ReportsHome extends Component {
                                     <InputDatePicker
                                         value={this.state.AssignDetails.selectedDate}
                                         onSelect={(value) => this.updateAssignDetailsField("duration", value)}
-                                        minDate={new Date("01-02-2020")}
+                                        minDate={new Date("01-02-2023")}
                                         maxDate={new Date()}
                                         onlyDate
                                         label="Select Past Date"
@@ -370,7 +412,7 @@ class ReportsHome extends Component {
                                                 style={{
                                                     width: "200px"
                                                 }}
-                                                type="email"
+                                                type="text"
                                                 placeholder="Email"
                                                 onChange={(event) => this.updateAssignDetailsField("email", event.target.value)}
                                             />
@@ -398,6 +440,7 @@ class ReportsHome extends Component {
                                                             name="usageStats"
                                                             className="React__checkbox--input"
                                                             onChange={this._handleChange}
+                                                            defaultChecked
                                                         />
                                                         <span
                                                             className="React__checkbox--span"
@@ -405,37 +448,36 @@ class ReportsHome extends Component {
                                                     </Label>
                                                 </div>
 
-                                                {this.props.dashboardData.uiResult.data.collection_stats === "true" && <>
-                                                    <div className="React__checkbox">
-                                                        <Label>
-                                                            Collection&nbsp;&nbsp;
-                                                            <Input
-                                                                type="checkbox"
-                                                                name="collectionStats"
-                                                                className="React__checkbox--input"
-                                                                onChange={this._handleChange}
-                                                            />
-                                                            <span
-                                                                className="React__checkbox--span"
-                                                            />
-                                                        </Label>
-                                                    </div>
-                                                    <div className="React__checkbox">
-                                                        <Label>
-                                                            UPI&nbsp;&nbsp;
-                                                            <Input
-                                                                type="checkbox"
-                                                                name="upiStats"
-                                                                className="React__checkbox--input"
-                                                                onChange={this._handleChange}
-                                                            />
-                                                            <span
-                                                                className="React__checkbox--span"
-                                                            />
-                                                        </Label>
-                                                    </div>
-
-                                                </>}
+                                                <div className="React__checkbox">
+                                                    <Label>
+                                                        Collection&nbsp;&nbsp;
+                                                        <Input
+                                                            type="checkbox"
+                                                            name="collectionStats"
+                                                            className="React__checkbox--input"
+                                                            onChange={this._handleChange}
+                                                            defaultChecked
+                                                        />
+                                                        <span
+                                                            className="React__checkbox--span"
+                                                        />
+                                                    </Label>
+                                                </div>
+                                                <div className="React__checkbox">
+                                                    <Label>
+                                                        UPI&nbsp;&nbsp;
+                                                        <Input
+                                                            type="checkbox"
+                                                            name="upiStats"
+                                                            className="React__checkbox--input"
+                                                            onChange={this._handleChange}
+                                                            defaultChecked
+                                                        />
+                                                        <span
+                                                            className="React__checkbox--span"
+                                                        />
+                                                    </Label>
+                                                </div>
                                                 <div className="React__checkbox">
                                                     <Label>
                                                         Feedback&nbsp;&nbsp;
@@ -444,31 +486,66 @@ class ReportsHome extends Component {
                                                             name="feedbackStats"
                                                             className="React__checkbox--input"
                                                             onChange={this._handleChange}
+                                                            defaultChecked
                                                         />
                                                         <span
                                                             className="React__checkbox--span"
                                                         />
                                                     </Label>
                                                 </div>
-                                                {this.props.dashboardData.uiResult.data.bwt_stats === "true" && (
-                                                    <div className="React__checkbox">
-                                                        <Label>
-                                                            BWT&nbsp;&nbsp;
-                                                            <Input
-                                                                type="checkbox"
-                                                                name="bwtStats"
-                                                                className="React__checkbox--input"
-                                                                onChange={this._handleChange}
-                                                            />
-                                                            <span
-                                                                className="React__checkbox--span"
-                                                            />
-                                                        </Label>
-                                                    </div>
-
-                                                )}
-                                                {/* {this.props.dashboardData.uiResult.data} */}
+                                                <div className="React__checkbox">
+                                                    <Label>
+                                                        BWT&nbsp;&nbsp;
+                                                        <Input
+                                                            type="checkbox"
+                                                            name="bwtStats"
+                                                            className="React__checkbox--input"
+                                                            onChange={this._handleChange}
+                                                            defaultChecked
+                                                        />
+                                                        <span
+                                                            className="React__checkbox--span"
+                                                        />
+                                                    </Label>
+                                                </div>
                                             </div>
+
+                                            {/* <div style={{
+                                                ...statsStyle.scheduleTitle,
+                                                width: '34%'
+                                            }}>
+                                                <p>BWT</p>
+
+                                            </div>
+                                            <div style={{ display: "flex" }}>
+                                                <Label
+                                                    className="container-report"
+                                                >
+                                                    YES&nbsp;&nbsp;
+                                                    <Input
+                                                        type="radio"
+                                                        className="radio-input"
+                                                        value="yesbwt"
+                                                        name="radio1"
+                                                        onChange={this.bwtShowFields}
+                                                    />
+                                                    <span class="checkmark"></span>
+                                                </Label>
+                                                <Label
+                                                    className="container-report"
+                                                    style={{ marginLeft: "170%" }}
+                                                >NO&nbsp;&nbsp;
+                                                    <Input
+                                                        type="radio"
+                                                        className="radio-input"
+                                                        value="nobwt"
+                                                        name="radio1"
+                                                        onChange={this.bwtShowFields}
+                                                        defaultChecked
+                                                    />
+                                                    <span class="checkmark"></span>
+                                                </Label>
+                                            </div> */}
                                         </InputGroup>
                                     </FormGroup>
                                 </Form>
@@ -545,6 +622,7 @@ class ReportsHome extends Component {
                                                             type="number"
                                                             placeholder="Value"
                                                             min="0"
+                                                            // onChange={(event) => this.updateAssignDetailsField("rateValue", event.target.value)}
                                                             onChange={(event) => {
                                                                 const inputValue = event.target.value;
                                                                 if (inputValue >= 0) {
@@ -552,6 +630,16 @@ class ReportsHome extends Component {
                                                                 }
                                                             }}
                                                         />
+                                                        {/* <Input
+                                                            type="select"
+                                                            name="select"
+                                                            id="exampleSelect"
+                                                            onChange={(event) => this.updateAssignDetailsField("rateUnit", event.target.value)}>
+                                                            <option >Select</option>
+                                                            <option>Minutes</option>
+                                                            <option>Hours</option>
+                                                            <option>Days</option>
+                                                        </Input> */}
                                                         <Input
                                                             type="text"
                                                             id="exampleSelect"
@@ -651,15 +739,13 @@ class ReportsHome extends Component {
 
     async fetchReportData() {
         const complexData = this.props.complexData
-        const {
-            duration,
-            schedule,
-            rateValue,
-            scheduleDuration,
-            ScheduleStartDate,
-            ScheduleEndDate,
-            email,
-        } = this.state.AssignDetails;
+        const duration = this.state.AssignDetails.duration;
+        const schedule = this.state.AssignDetails.schedule;
+        const rateValue = this.state.AssignDetails.rateValue;
+        const scheduleDuration = this.state.AssignDetails.scheduleDuration;
+        const ScheduleStartDate = this.state.AssignDetails.ScheduleStartDate;
+        const ScheduleEndDate = this.state.AssignDetails.ScheduleEndDate;
+        const email = this.state.AssignDetails.email;
         const usageStats = this.state.usageStats;
         const collectionStats = this.state.collectionStats;
         const upiStats = this.state.upiStats;
@@ -667,43 +753,34 @@ class ReportsHome extends Component {
         const bwtStats = this.state.bwtStats;
 
         try {
+            // Validation check
             if (!complexData.length) {
                 this.messageDialog.current.showDialog("Validation Error", "Please Select Complex.");
                 return;
-            }
-
-            if (duration === null) {
+            } else if (duration === null) {
                 this.messageDialog.current.showDialog("Validation Error", "Please Select Past Date.");
                 return;
-            }
-
-            if (!usageStats && !collectionStats && !upiStats && !feedbackStats && !bwtStats) {
-                this.messageDialog.current.showDialog("Validation Error", "Please Select at least one stat.");
+            } else if (usageStats === false && collectionStats === false && upiStats === false && feedbackStats === false && bwtStats === false) {
+                this.messageDialog.current.showDialog("Validation Error", "Please Select atleast one stats.");
                 return;
-            }
-
-            if (
-                schedule &&
-                (rateValue === "" ||
-                    scheduleDuration === "" ||
-                    ScheduleStartDate === "" ||
-                    email === "" ||
-                    ScheduleEndDate === "")
-            ) {
+            } else if (schedule === true) {
                 if (rateValue === "") {
                     this.messageDialog.current.showDialog("Validation Error", "Please Select Schedule Rate Value.");
+                    return;
                 } else if (scheduleDuration === "") {
                     this.messageDialog.current.showDialog("Validation Error", "Please Select Schedule Duration.");
+                    return;
                 } else if (ScheduleStartDate === "") {
                     this.messageDialog.current.showDialog("Validation Error", "Please Select Schedule Start Date.");
+                    return;
                 } else if (email === "") {
                     this.messageDialog.current.showDialog("Validation Error", "Please enter an email address if you wish to schedule a report.");
+                    return;
                 } else if (ScheduleEndDate === "") {
                     this.messageDialog.current.showDialog("Validation Error", "Please Select Schedule End Date.");
+                    return;  // Exit function if validation error occurs
                 }
-                return;
             }
-
 
             this.loadingDialog.current.showDialog();
 
@@ -767,6 +844,8 @@ class ReportsHome extends Component {
         }
     }
 
+
+
     resetData() {
         this.setState({
             AssignDetails: {
@@ -783,11 +862,11 @@ class ReportsHome extends Component {
             }
         });
         this.setState({
-            usageStats: false,
-            collectionStats: false,
-            upiStats: false,
-            feedbackStats: false,
-            bwtStats: false,
+            usageStats: true,
+            collectionStats: true,
+            upiStats: true,
+            feedbackStats: true,
+            bwtStats: true,
         })
     }
 
@@ -806,6 +885,9 @@ class ReportsHome extends Component {
 
     getPDF() {
         this.fetchReportData();
+        // this.setState((state, props) => ({
+        //     visibility: !state.visibility
+        // }));
     };
 }
 

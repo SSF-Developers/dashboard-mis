@@ -128,3 +128,29 @@ export function executelistVendorAdminsLambda() {
         });
     });
 }
+
+export function executeRazorpayLambda(vendorDetailsData) {
+    return new Promise(function (resolve, reject) {
+        var payload = { action: "linkedAccount", payload: vendorDetailsData }
+        var lambda = new AWS.Lambda({
+            region: "ap-south-1",
+            apiVersion: "2015-03-31",
+        });
+        var pullParams = {
+            FunctionName: "razorpay_webhook",
+            Payload: JSON.stringify(payload)
+        };
+
+        lambda.invoke(pullParams, function (err, data) {
+            if (err) {
+                console.log("_lambda", err);
+                reject(err);
+            } else {
+                var pullResults = JSON.parse(data.Payload);
+                console.log("_lambda", pullResults);
+                // if (pullResults.status != 1) reject(pullResults);
+                resolve(pullResults);
+            }
+        });
+    });
+}

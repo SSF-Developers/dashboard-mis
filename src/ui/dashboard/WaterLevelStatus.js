@@ -1,20 +1,8 @@
-//Core
 import React, { Component } from "react";
-
-//ReactUI
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    Col,
-    Row,
-    Button
-} from "reactstrap";
-
 import { dashboardStyle, whiteSurface, colorTheme, whiteSurfaceCircularBorder } from "../../jsStyles/Style"
 import icToilet from "../../assets/img/icons/ic_toilet.png"
 import icEarth from "../../assets/img/icons/eco_status.png"
-import {NoFaultElement, FaultHeader,NoFaultHeader } from '../../components/DisplayLabels'
+import { NoFaultElement, FaultHeader, NoFaultHeader } from '../../components/DisplayLabels'
 
 class WaterLevelStatus extends Component {
 
@@ -42,12 +30,12 @@ class WaterLevelStatus extends Component {
 
     HeaderSelector = () => {
         if (this.props.data !== undefined && this.props.data.length > 0) {
-            return (<FaultHeader title='Water Level Status' label={this.props.data.length+' Complexes with low water level'  }/>)
+            return (<FaultHeader title='Water Level Status' label={this.props.data.length + ' Complexes with low water level'} />)
         }
-        return (<NoFaultHeader title='Water Level Status' label='All units have sufficient water level'/>)
+        return (<NoFaultHeader title='Water Level Status' label='All units have sufficient water level' />)
 
     }
-    
+
     ComponentSelector = () => {
 
         if (this.props.data !== undefined && this.props.data.length !== 0) {
@@ -66,7 +54,7 @@ class WaterLevelStatus extends Component {
         }
         return (
             <div className='col-md-12' style={{ margin: '10px 0px 0px 0px', padding: '0px 0px 0px 0px' }}>
-                <NoFaultElement icon={icEarth} title='No units with low water level listed. Complexes with low water level once detected will be listed here.'/>
+                <NoFaultElement icon={icEarth} title='No units with low water level listed. Complexes with low water level once detected will be listed here.' />
             </div>)
     }
 
@@ -89,6 +77,7 @@ class WaterLevelStatus extends Component {
                             }}>
                             <img
                                 src={icToilet}
+                                alt=""
                                 style={{
                                     width: "20px",
                                     height: "20px",
@@ -98,7 +87,7 @@ class WaterLevelStatus extends Component {
                         </div>
 
                         <div style={{ ...dashboardStyle.itemTitle, float: 'left', marginLeft: '10px' }}>
-                        {props.complex.name}
+                            {props.complex.name}
                         </div>
 
                     </div>

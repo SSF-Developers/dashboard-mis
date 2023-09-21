@@ -3,17 +3,18 @@ import { array } from "prop-types";
 import React, { forwardRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "./InputDatePicker.css"
+
 const InputDatePicker = forwardRef(
     (
-        { name, label, placeholder, id, onSelect, value, maxDate, className, includedDates, ...props },
+        { name, label, placeholder, id, onSelect, value, maxDate, minDate, className, includedDates, ...props },
         ref
     ) => {
         return (
             <React.Fragment>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                    <i className="calendarDates"></i>
+                <div style={{ display: "flex" }}>
                     {label && (
-                        <label className="animLabel" htmlFor={id}>
+                        <label className="animLabel" style={{ width: '50%' }} htmlFor={id}>
                             {label}
                         </label>
                     )}
@@ -25,7 +26,7 @@ const InputDatePicker = forwardRef(
                         onChange={(date) => {
                             onSelect(date);
                         }}
-                        minDate={new Date("02-01-2020")}
+                        minDate={minDate}
                         maxDate={maxDate}
                         peekNextMonth
                         showMonthDropdown

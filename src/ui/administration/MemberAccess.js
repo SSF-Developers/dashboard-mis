@@ -3,18 +3,14 @@ import { connect } from "react-redux";
 import { whiteSurface } from "../../jsStyles/Style"
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
-import { Col, Row, Label, Input, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import { NameValueList } from "../../components/DisplayLabels";
-import { 
-    executeEnableUserLambda, 
-    executeDisableUserLambda, 
-    executeDeleteUserLambda 
-} from "../../awsClients/administrationLambdas"
+import { executeDisableUserLambda } from "../../awsClients/administrationLambdas"
 import StateList from "../../components/accessTree/readOnly/SateList"
 import NoDataComponent from "../../components/NoDataComponent"
 import { getAccessSummary } from "../../components/accessTree/accessTreeUtils"
 import { pushComponentProps } from "../../redux/actions/history-actions"
-import {UiAdminDestinations} from "../../nomenclature/nomenclature"
+import { UiAdminDestinations } from "../../nomenclature/nomenclature"
 
 class MemberAccess extends React.Component {
 
@@ -52,14 +48,14 @@ class MemberAccess extends React.Component {
         //   });
     }
 
-    
+
 
     handleDefineAccessAction = () => {
         var bundle = {
             "user": this.props.user,
             "history": this.props.history
         };
-        this.props.pushComponentProps(UiAdminDestinations.MemberAccess,this.props);
+        this.props.pushComponentProps(UiAdminDestinations.MemberAccess, this.props);
         this.props.history.push({ pathname: "/administration/defineAccess", bundle: bundle })
     }
 
@@ -75,9 +71,6 @@ class MemberAccess extends React.Component {
                         color="primary"
                         className="px-4"
                         onClick={() => this.handleDefineAccessAction()}
-                    // onClick={() => {
-
-                    //   }}
                     >
                         Define Access
                     </Button>
@@ -99,7 +92,7 @@ class MemberAccess extends React.Component {
     }
 
     ComponentSelector = () => {
-        if(this.props.user != undefined){
+        if (this.props.user != undefined) {
             if (this.props.user.permissions.country.recursive == 1) {
                 return <this.SuperAdminAcceess />
             } else if (this.props.user.permissions.country.states.length == 0) {
@@ -108,9 +101,9 @@ class MemberAccess extends React.Component {
                 console.log("_accessTree", this.props.user.permissions.country.states)
                 return (<StateList listData={this.props.user.permissions.country.states} />);
             }
-        }else
+        } else
 
-        return (<NoDataComponent />);
+            return (<NoDataComponent />);
     }
 
     SuperAdminAcceess = () => {

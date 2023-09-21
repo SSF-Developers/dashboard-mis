@@ -117,6 +117,7 @@ function IconNameValuelLabel(props) {
 
         <img
           src={props.data.icon}
+          alt=""
           style={{
             width: "30px",
             height: "30px",
@@ -221,6 +222,7 @@ export function NoFaultElement(props) {
                 }}>
                 <img
                   src={props.icon}
+                  alt=""
                   style={{
                     width: "120px",
                     height: "120px",
@@ -265,6 +267,7 @@ export function FaultHeader(props) {
           }}>
           <img
             src={icToilet}
+            alt=""
             style={{
               width: "20px",
               height: "20px",
@@ -301,6 +304,7 @@ export function NoFaultHeader(props) {
           }}>
           <img
             src={icSmile}
+            alt=""
             style={{
               width: "20px",
               height: "20px",

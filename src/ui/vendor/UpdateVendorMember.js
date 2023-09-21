@@ -16,7 +16,6 @@ import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
 import ConfirmationDialog from "../../dialogs/ConfirmationDialog";
 import { executeUpdateVendorLambda } from "../../awsClients/vendorLambda";
-import DropDown from "../../components/DropDown";
 
 class UpdateVendorMember extends React.Component {
 
@@ -85,7 +84,8 @@ class UpdateVendorMember extends React.Component {
             userName: this.props.location.data.userName,
             vendor_admin: this.props.location.data.vendor_admin,
             accountNumber: this.props.location.data.accountNumber,
-            prev_admin: this.props.location.data.vendor_name
+            prev_admin: this.props.location.data.vendor_name,
+            account_id: this.props.location.data.account_id
         }
     }
 
@@ -105,8 +105,8 @@ class UpdateVendorMember extends React.Component {
     };
     changeRole = (e) => {
         console.log(e.target.value);
+        console.log(e.target.value);
     };
-
 
     render() {
         return (
@@ -116,6 +116,30 @@ class UpdateVendorMember extends React.Component {
                 <ConfirmationDialog ref={this.confirmationDialog} />
 
                 <div className="" style={{ margin: "50px", clear: "both" }}>
+                    <Row className="justify-content-center">
+                        <Col md="8">
+                            <Card>
+                                <CardHeader>
+                                    <b style={{ margin: "auto" }} className="text-muted">Vendor Linked Account ID</b>
+                                </CardHeader>
+                                <CardBody>
+                                    <Form>
+                                        <InputGroup className="mb-3">
+                                            <Input
+                                                type="text"
+                                                placeholder="Linked Account"
+                                                defaultValue={this.props.location.data.account_id}
+                                                disabled="true"
+                                            // onChange={(event) =>
+                                            //     (this.formDetails.account_id = event.target.value)
+                                            // }
+                                            />
+                                        </InputGroup>
+                                    </Form>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
                     <Row className="justify-content-center">
                         <Col md="8">
                             <Card>
@@ -163,6 +187,7 @@ class UpdateVendorMember extends React.Component {
                                                 }
                                                 defaultValue={this.props.location.data.buisnessName}
                                             />
+
                                         </InputGroup>
                                     </Form>
                                 </CardBody>

@@ -48,7 +48,7 @@ function getStatusIcon(status) {
 
 function getStatusName(status) {
     var statusNames = {
-        1: "Feature is not installed",
+        1: "Feature is not available",
         2: "Fault detected in the unit",
         3: "Working fine",
         0: "Feature is not installed"
@@ -141,6 +141,7 @@ export function getPublishPayloadUcems(ucemsConfig, complex, cabin) {
     Object.keys(ucemsConfig.data).forEach(function (key) {
         payload[key] = ucemsConfig.data[key]
     });
+    payload['SendToDevic'] = "0";
     payload['THING_NAME'] = cabin.thingName;
     payload['cabin_type'] = getCabinType(cabin.shortThingName);
     payload['user_type'] = getUserType(cabin.shortThingName);
@@ -298,6 +299,7 @@ export function getPublishPayloadOds(odsConfig, complex, cabin) {
     Object.keys(odsConfig.data).forEach(function (key) {
         payload[key] = odsConfig.data[key]
     });
+    payload['SendToDevic'] = "0";
     payload['THING_NAME'] = cabin.thingName;
     payload['cabin_type'] = getCabinType(cabin.shortThingName);
     payload['user_type'] = getUserType(cabin.shortThingName);
@@ -310,8 +312,8 @@ export function getUsageProfileDisplayData(usageProfile) {
     usageProfile.usageProfile.forEach(element => {
         data.push(
             {
-                'Date': getUiDate(element['SERVER_TIMESTAMP']),
-                'Time': getUiTime(element['SERVER_TIMESTAMP']),
+                'Date': moment(parseInt(element.DEVICE_TIMESTAMP)).format("D/M/YYYY"),
+                'Time': moment(parseInt(element.DEVICE_TIMESTAMP)).format("hh:mm:ss a"),
                 'Cabin Type': getCabinType(element['SHORT_THING_NAME']),
                 'Duration': element['Duration'],
                 'Usage Charge': element['Amountcollected'],
@@ -342,17 +344,78 @@ export function getResetProfileDisplayData(resetProfile) {
     var data = [];
 
     resetProfile.forEach(element => {
-        // console.log(element.DEVICE_TIMESTAMP, "DEVICE_TIMESTAMP-element");
-        // console.log(moment(element.DEVICE_TIMESTAMP).format("ddd Do-MM-YYYY"), "element-element");
-        // { }
-
         data.push(
             {
+                'Date': moment(parseInt(element.DEVICE_TIMESTAMP)).format("D/M/YYYY"),
+                'Time': moment(parseInt(element.DEVICE_TIMESTAMP)).format("hh:mm:ss a"),
                 'Board ID': element['BoardId'],
                 'Short Name': element['SHORT_THING_NAME'],
-                // 'Complex name': element['COMPLEX'],
                 'Reset Code': element['Resetsource'],
-                'Date': element['TimeStamp']
+            }
+        );
+    });
+    return data;
+};
+
+export function getUpiPaymentDisplayData(upiProfile) {
+    var data = [];
+
+    upiProfile.forEach(element => {
+        data.push(
+            {
+                'Date': moment(parseInt(element.timestamp)).format("D/M/YYYY"),
+                'Time': moment(parseInt(element.timestamp)).format("hh:mm:ss a"),
+                'Amount Received': element['amount_received'],
+                'Amount Transferred': element['amount_transferred'],
+                'Vendor Fee': element['vendor_fee'],
+                'Sukriti Fee': element['sukriti_fee'],
+                'Tax': element['tax'],
+                'Vpa': element['vpa']
+            }
+        );
+    });
+    return data;
+};
+
+// 'Cabin Type': element.THING_NAME.includes("MWC")
+//     ? "Male Cabin (MWC)"
+//     : element.THING_NAME.includes("FWC") ? "Female Cabin (FWC)"
+//         : element.THING_NAME.includes("PWC") ? "PD Cabin (PWC)"
+//             : element.THING_NAME.includes("MUR") ? "Male Urinal (MUR)"
+//                 : element.THING_NAME.includes("BWT") && "BWT Cabin",
+
+export function getLiveStatusData(upiProfile) {
+    var data = [];
+    upiProfile.forEach(element => {
+        if (element != null)
+            data.push(
+                {
+                    'Cabin Type': element.THING_NAME.includes("MWC")
+                        ? `Male Cabin (${element.THING_NAME.split("").slice(-7).join("")})`
+                        : element.THING_NAME.includes("FWC") ? `Female Cabin (${element.THING_NAME.split("").slice(-7).join("")})`
+                            : element.THING_NAME.includes("PWC") ? `PD Cabin (${element.THING_NAME.split("").slice(-7).join("")})`
+                                : element.THING_NAME.includes("MUR") ? `Male Urinal (${element.THING_NAME.split("").slice(-7).join("")})`
+                                    : element.THING_NAME.includes("BWT") && `BWT Cabin (${element.THING_NAME.split("").slice(-7).join("")})`,
+
+                    'Connection Status': element.CONNECTION_STATUS,
+                    'Disconnect Reason': element.DISCONNECT_REASON,
+                    'Date': moment(parseInt(element.timestamp)).format("D/M/YYYY"),
+                    'Time': moment(parseInt(element.timestamp)).format("hh:mm:ss a"),
+                }
+            );
+    });
+    return data;
+};
+
+
+
+export function getLiveComplexData(upiProfile) {
+    var data = [];
+
+    upiProfile.forEach(element => {
+        data.push(
+            {
+                'Complex': element['name'],
             }
         );
     });
@@ -381,19 +444,30 @@ function getUiTime(timestamp) {
     var ms = (u.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5);
     return (hh + ':' + mm + ':' + ss);
 }
-
 function getCabinType(shortThingName) {
     if (shortThingName.toUpperCase().includes('mwc'.toUpperCase()))
-        return 'MWC'
+        return 'WC'
     if (shortThingName.toUpperCase().includes('fwc'.toUpperCase()))
-        return 'FWC'
+        return 'WC'
     if (shortThingName.toUpperCase().includes('pwc'.toUpperCase()))
-        return 'PWC'
+        return 'WC'
     if (shortThingName.toUpperCase().includes('mur'.toUpperCase()))
-        return 'MUR'
+        return 'UR'
     // if (shortThingName.toUpperCase().includes('bwt'.toUpperCase()))
     //     return 'BWT'
 }
+// function getCabinType(shortThingName) {
+//     if (shortThingName.toUpperCase().includes('mwc'.toUpperCase()))
+//         return 'MWC'
+//     if (shortThingName.toUpperCase().includes('fwc'.toUpperCase()))
+//         return 'FWC'
+//     if (shortThingName.toUpperCase().includes('pwc'.toUpperCase()))
+//         return 'PWC'
+//     if (shortThingName.toUpperCase().includes('mur'.toUpperCase()))
+//         return 'MUR'
+//     // if (shortThingName.toUpperCase().includes('bwt'.toUpperCase()))
+//     //     return 'BWT'
+// }
 
 function getUserType(shortThingName) {
     if (shortThingName.toUpperCase().includes('mwc'.toUpperCase()))
@@ -407,14 +481,14 @@ function getUserType(shortThingName) {
 }
 
 export function getTopicName(type, complex, cabin, complexHierarchy) {
-    var stateCode = complexHierarchy.state;
+    var stateCode = complexHierarchy.stateCode;
     var districtCode = complexHierarchy.districtCode;
     var cityCode = complexHierarchy.cityCode;
     var clientName = complex.client;
     var complexName = complex.name;
-    var thingName = cabin.thingName.substring(0, 7);
+    var thingName = cabin.thingName.substring(20, 27);
 
-    var START = "TEST/"; //"TOILETS/"
+    var START = "TOILETS/"; //"TOILETS/"
     var topicPrefix = START +
         stateCode + "/" + districtCode + "/" + cityCode + "/" +
         clientName + "/" + complexName + "/" + thingName + "/";
@@ -476,6 +550,7 @@ export function getCommandNames() {
 };
 
 export function getPublishPayloadCommand(command, commandData, complex, cabin) {
+    console.group("data", [command, commandData, complex, cabin])
     var payload = {}
 
     payload['commandName'] = command.name;

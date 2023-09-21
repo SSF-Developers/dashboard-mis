@@ -37,6 +37,7 @@ export function fromVendorList(userList) {
       "GST Number": mUser.gstNumber,
       "Beneficiary": mUser.beneficiary,
       "Created": (moment(parseInt(mUser.timestamp)).format("M/D/YYYY")),
+      "Linked Account": mUser.account_id,
     };
     dataList.push(item);
   }
@@ -48,6 +49,7 @@ export function fromVendorDetails(mUser) {
   console.log("_fromUserDetails", mUser);
   var item = {};
   item = {
+    "Linked Account": mUser.account_id,
     "Vendor Name": mUser.vendor_name,
     "Account Number": mUser.accountNumber,
     "User Name": mUser.userName,
@@ -55,7 +57,6 @@ export function fromVendorDetails(mUser) {
     "GST Number": mUser.gstNumber,
     "Beneficiary": mUser.beneficiary,
     "Created": (moment(parseInt(mUser.timestamp)).format("M/D/YYYY")),
-    // "Role": mUser.memberRole,
     "Email": mUser.email,
     "Phone Number": mUser.contact,
     "Buisness Name": mUser.buisnessName,

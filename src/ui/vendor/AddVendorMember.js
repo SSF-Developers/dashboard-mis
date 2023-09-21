@@ -9,7 +9,9 @@ import {
     Input,
     InputGroup,
     Row,
-    CardHeader
+    CardHeader,
+    FormFeedback,
+    FormGroup
 } from "reactstrap";
 import { whiteSurface } from "../../jsStyles/Style"
 import MessageDialog from "../../dialogs/MessageDialog";
@@ -17,7 +19,8 @@ import LoadingDialog from "../../dialogs/LoadingDialog";
 import ConfirmationDialog from "../../dialogs/ConfirmationDialog";
 import {
     executelistVendorAdminsLambda,
-    executeCreateVendorLambda
+    executeCreateVendorLambda,
+    executeRazorpayLambda
 } from "../../awsClients/vendorLambda";
 import { pushComponentProps } from "../../redux/actions/history-actions"
 import { UiAdminDestinations } from "../../nomenclature/nomenclature"
@@ -35,6 +38,7 @@ class AddVendorMember extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            linkedResponse: ''
         };
         this.initializeFormDetails();
         this.messageDialog = React.createRef();
@@ -79,6 +83,7 @@ class AddVendorMember extends React.Component {
     handleDeleteAction = () => {
 
         this.confirmationDialog.current.showDialog("Confirm Action", "To delete the user permenently, type 'DELETE' below", "DELETE", this.initAdminDeleteAction)
+
     }
 
     onClientSelected = (index, value) => {
@@ -96,41 +101,72 @@ class AddVendorMember extends React.Component {
 
     initializeFormDetails() {
         this.formDetails = {
-            vendor_name: "Vendor",
+            vendor_name: "",
             admin: "ssf_developer",
             adminRole: "Super Admin",
             assigned_by: "ssf_developer",
             beneficiary: "asdf",
             buisnessName: "TOKYO",
-            contact: "11 1110 1110",
+            contact: "",
             email: "tokyo@tokyo.com",
             gstNumber: "GST11111GST",
             ifsc_code: "HDFC00000",
             userName: "asdfghjkl",
             vendor_admin: "",
-            accountNumber: ""
+            accountNumber: "",
+            account_id: ""
         }
     }
 
+    async fetchRazorpayLinkedAcc() {
+        this.loadingDialog.current.showDialog();
+        try {
+            let linkedAccountId = this.formDetails.account_id
+            let result = await executeRazorpayLambda(linkedAccountId);
+            this.setState({ linkedResponse: result })
+            this.loadingDialog.current.closeDialog();
+        } catch (err) {
+            this.loadingDialog.current.closeDialog();
+            this.messageDialog.current.showDialog("Error Alert!", err.message)
+        }
+    }
+
+    onVerify = () => {
+
+        if (this.formDetails.account_id === "") {
+            this.messageDialog.current.showDialog("Validation Error", "Please enter a valid Linked Account ID.")
+        } else {
+            // this.setState({ linkedResponse: '' })
+            this.fetchRazorpayLinkedAcc()
+        }
+    };
+
     onSubmit = () => {
 
-        // if (this.formDetails.userName === "") {
-        //     this.messageDialog.current.showDialog("Validation Error", "Please enter a valid user name.")
-        // } else if (this.formDetails.tempPassword === "") {
-        //     this.messageDialog.current.showDialog("Validation Error", "Please enter a valid temporary password.")
-        // }
-        // else {
-        this.initCreateVendorRequest(this.formDetails);
-        //this.props.addMember(User.getTestTeamUser(this.formDetails.userName))
-        //this.props.addMember(newUser)
-        //this.messageDialog.current.showDialog("Success","User added successfully", ()=>{this.props.history.goBack()})
-        // }
+        if (this.formDetails.account_id === "") {
+            this.messageDialog.current.showDialog("Validation Error", "Please enter a valid Linked Account ID.")
+        } else if (this.state.linkedResponse.message != "success") {
+            this.messageDialog.current.showDialog("Validation Error", "Please verify your Linked Account ID.")
+        } else if (this.formDetails.vendor_admin === "") {
+            this.messageDialog.current.showDialog("Validation Error", "Please select a Vendor Admin.")
+        } else if (this.formDetails.accountNumber === "") {
+            this.messageDialog.current.showDialog("Validation Error", "Please enter a valid Account Number.")
+        } else if (this.formDetails.gstNumber === "") {
+            this.messageDialog.current.showDialog("Validation Error", "Please enter a GST Number.")
+        }
+        else {
+            this.initCreateVendorRequest(this.formDetails);
+            //this.props.addMember(User.getTestTeamUser(this.formDetails.userName))
+            //this.props.addMember(newUser)
+            // this.messageDialog.current.showDialog("Success", "Vendor added successfully", () => { this.props.history.goBack() })
+        }
     };
 
 
     render() {
         //👇
         console.log('USER -:👉', this.props.user)
+        console.log('USER -:👉', this.formDetails.account_id)
         //👆
         return (
             <div className="col-md-10 offset-md-2" style={{ ...whiteSurface, width: "80%", margin: "10px auto", background: "white" }}>
@@ -143,46 +179,98 @@ class AddVendorMember extends React.Component {
                         <Col md="8">
                             <Card>
                                 <CardHeader>
+                                    <b style={{ margin: "auto" }} className="text-muted">Vendor Linked Account ID</b>
+                                </CardHeader>
+                                <CardBody style={{
+                                    display: "flex",
+                                    justifyContent: "space-between"
+                                }}>
+                                    <Form>
+                                        <FormGroup>
+                                            <InputGroup className="mb-3">
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Linked Account"
+                                                    onChange={(event) =>
+                                                        (this.formDetails.account_id = event.target.value)
+                                                    }
+                                                    valid={this.state.linkedResponse.message === 'success' ? true : false}
+                                                    invalid={this.state.linkedResponse.message === 'failure' ? true : false}
+                                                />
+                                                <FormFeedback
+                                                    tooltip
+                                                    valid={this.state.linkedResponse.message === 'success' ? true : false}
+                                                >
+                                                    This is a verified account
+                                                </FormFeedback>
+                                                <FormFeedback
+                                                    tooltip
+                                                    invalid={this.state.linkedResponse.message === 'failure' ? true : false}
+                                                >
+                                                    Try Again! that I'd is not valid
+                                                </FormFeedback>
+                                            </InputGroup>
+
+                                        </FormGroup>
+                                    </Form>
+                                    <Button
+                                        style={{ marginBottom: "auto" }}
+                                        outline
+                                        color="primary"
+                                        className="px-4"
+                                        onClick={this.onVerify}>
+                                        Verify
+                                    </Button>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+                    <Row className="justify-content-center">
+                        <Col md="8">
+                            <Card>
+                                <CardHeader>
                                     <b style={{ margin: "auto" }} className="text-muted">Vendor Details</b>
                                 </CardHeader>
                                 <CardBody>
                                     <Form>
-                                        <InputGroup className="mb-3">
-                                            <Input
-                                                type="text"
-                                                placeholder="Contact Name"
-                                                onChange={(event) =>
-                                                    (this.formDetails.vendor_name = event.target.value)
-                                                }
-                                            />
-                                        </InputGroup>
-                                        <InputGroup className="mb-4">
-                                            <Input
-                                                type="text"
-                                                placeholder="Contact Email"
-                                                onChange={(event) =>
-                                                    (this.formDetails.email = event.target.value)
-                                                }
-                                            />
-                                        </InputGroup>
-                                        <InputGroup className="mb-4">
-                                            <Input
-                                                type="text"
-                                                placeholder="Contact Number"
-                                                onChange={(event) =>
-                                                    (this.formDetails.contact = event.target.value)
-                                                }
-                                            />
-                                        </InputGroup>
-                                        <InputGroup>
-                                            <Input
-                                                type="text"
-                                                placeholder="Business Name"
-                                                onChange={(event) =>
-                                                    (this.formDetails.buisnessName = event.target.value)
-                                                }
-                                            />
-                                        </InputGroup>
+                                        <FormGroup>
+                                            <InputGroup className="mb-3">
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Contact Name"
+                                                    onChange={(event) =>
+                                                        (this.formDetails.vendor_name = event.target.value)
+                                                    }
+                                                />
+                                            </InputGroup>
+                                            <InputGroup className="mb-4">
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Contact Email"
+                                                    onChange={(event) =>
+                                                        (this.formDetails.email = event.target.value)
+                                                    }
+                                                />
+                                            </InputGroup>
+                                            <InputGroup className="mb-4">
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Contact Number"
+                                                    onChange={(event) =>
+                                                        (this.formDetails.contact = event.target.value)
+                                                    }
+                                                />
+                                            </InputGroup>
+                                            <InputGroup>
+                                                <Input
+                                                    type="text"
+                                                    placeholder="Business Name"
+                                                    onChange={(event) =>
+                                                        (this.formDetails.buisnessName = event.target.value)
+                                                    }
+                                                />
+                                            </InputGroup>
+                                        </FormGroup>
                                     </Form>
                                 </CardBody>
                             </Card>
@@ -277,6 +365,16 @@ class AddVendorMember extends React.Component {
                             </Card>
                         </Col>
                     </Row>
+                    {/* <div className={"row justiy-content-center"}
+                        style={{ width: "100%" }}>
+                        <p
+                            style={{
+                                margin: "auto",
+                                color: "red"
+                            }}>
+                            To create a Vendor, you need to verify your linked account.
+                        </p>
+                    </div> */}
                     <div className={"row justiy-content-center"}
                         style={{ width: "100%" }}>
 
@@ -285,7 +383,7 @@ class AddVendorMember extends React.Component {
                             color="primary"
                             className="px-4"
                             onClick={this.onSubmit}>
-                            Submit
+                            Create
                         </Button>
                     </div>
                 </div>

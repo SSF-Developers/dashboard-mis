@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import {
-    Button, Modal, ModalBody, ModalFooter, ModalHeader, InputGroup,
-    InputGroupAddon, Input,
-    InputGroupText
+    Button, Modal, ModalBody, ModalFooter, ModalHeader
 } from "reactstrap";
 import { BwtConfigList } from '../../../components/ConfigLabels'
 import {

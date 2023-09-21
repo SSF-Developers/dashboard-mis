@@ -110,6 +110,7 @@ function Usage(props) {
                 <div style={{ ...usageAndFeedbackStyle.circleSurface, margin: 'auto', width: '90px', height: '90px' }}>
                     <img
                         src={UsageIcon}
+                        alt="UsageIcon"
                         style={{
                             width: "80px",
                             height: "80px",
@@ -162,6 +163,7 @@ function Feedback(props) {
                 <div style={{ ...usageAndFeedbackStyle.circleSurface, margin: 'auto', width: '90px', height: '90px' }}>
                     <img
                         src={FeedbackIcon}
+                        alt="FeedbackIcon"
                         style={{
                             width: "80px",
                             height: "80px",

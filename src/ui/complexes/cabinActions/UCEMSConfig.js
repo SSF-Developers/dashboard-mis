@@ -108,7 +108,7 @@ class UCEMSConfig extends Component {
   }
 
   updateConfig = (configName, configValue) => {
-    //console.log('_updateConfig',getKeyUcemsConfig(configName),configName,configValue)
+    console.log('_updateConfig', getKeyUcemsConfig(configName), configName, configValue)
     this.ucemsConfig.data[getKeyUcemsConfig(configName)] = configValue
     console.log('_updateConfig', this.ucemsConfig)
   }

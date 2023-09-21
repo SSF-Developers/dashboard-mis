@@ -6,6 +6,7 @@ import Dropdown from "../components/DropDown"
 import RxInputText from '../components/RxInputText';
 import icCritical from '../assets/img/icons/ic_health_fault.png';
 import icNonCritical from '../assets/img/icons/ic_health_ok.png';
+
 export function UcemsConfigList(props) {
   return (
     <div style={{ margin: "10px 10px 10px 10px", width: "100%" }}>
@@ -71,8 +72,6 @@ export function BwtConfigList(props) {
     </div>
   );
 }
-
-
 function CriticalityLabel(props) {
 
   const [criticality, setCriticality] = useState(props.data.value);
@@ -112,14 +111,15 @@ function CriticalityLabel(props) {
           marginLeft: '12px'
         }}
       >
-        <img
+        {/* <img
           src={getCriticalityIcon(criticality)}
+          alt=""
           style={{
             width: "30px",
             height: "30px",
             borderRadius: "5%"
 
-          }} />
+          }} /> */}
 
       </div>
       <div
@@ -130,7 +130,7 @@ function CriticalityLabel(props) {
       >
         <Dropdown
           options={options}
-          onSelection={(index, value) => { setCriticality(value); props.handleUpdate(props.data.name, value) }}
+          onSelection={(index, value) => { setCriticality(value); props.handleUpdate(props.data.name, index) }}
           currentIndex={getIndex(props.data.value)}
         />
 
@@ -146,6 +146,92 @@ function getCriticalityIcon(criticality) {
 
   return icNonCritical;
 }
+
+// function CriticalityLabel(props) {
+//   console.log(' props.data.value-:👉', props.data)
+//   const [criticality, setCriticality] = useState(props.data.value);
+//   console.log(' props.criticality, setCriticality.value-:👉', criticality)
+
+//   var options = ["Critical", "Non Critical"];
+
+//   var getIndex = (value) => {
+//     if (props.data.name === 'Air Dryer')
+//       console.log('_getIndex', value);
+//     if (value === '0') {
+//       return 1;
+//     }
+//     return 0;
+//   }
+
+//   return (
+//     <div
+//       className="row"
+//       style={{ display: 'flex', alignItems: 'center', padding: "0", margin: '0px 0px 30px 0px' }}>
+
+//       <div
+//         className="col-md-2"
+//         style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: "0" }}>
+
+//         <div
+//           style={{
+//             ...cabinDetailsStyle.cabinHealth.itemTitle,
+//             textAlign: 'end'
+//           }}>
+//           {props.data.name}
+//         </div>
+
+//       </div>
+
+//       <div
+//         className="col-md-1"
+//         style={{
+//           marginLeft: '12px'
+//         }}
+//       >
+//         <img
+//           src={getCriticalityIcon(criticality)}
+//           alt=""
+//           style={{
+//             width: "30px",
+//             height: "30px",
+//             borderRadius: "5%"
+
+//           }} />
+
+//       </div>
+//       <div
+//         className="col-md-6"
+//         style={{
+//           marginLeft: '8px'
+//         }}
+//       >
+//         <Dropdown
+//           options={options}
+//           onSelection={(index, value) => {
+//             setCriticality(value);
+//             props.handleUpdate(props.data.name, value)
+//           }}
+//         // value={options[criticality]}
+//         // currentIndex={getIndex(props.data.value)}
+//         />
+
+//       </div>
+
+//     </div>
+//   );
+// }
+
+// function getCriticalityIcon(criticality) {
+//   console.log(' criticality-:👉', criticality)
+//   if (criticality == 0)
+//     return icCritical;
+//   else if (criticality == 1)
+//     return icNonCritical;
+//   else if (criticality == "Critical")
+//     return icCritical
+//   else if (criticality == "Non Critical")
+//     return icNonCritical
+// }
 
 function EnabledDisabledLabel(props) {
 
@@ -176,14 +262,15 @@ function EnabledDisabledLabel(props) {
           marginLeft: '12px'
         }}
       >
-        <img
+        {/* <img
           src={getEnabledIcon(criticality)}
+          alt=""
           style={{
             width: "30px",
             height: "30px",
             borderRadius: "5%"
 
-          }} />
+          }} /> */}
 
       </div>
       <div
@@ -194,7 +281,7 @@ function EnabledDisabledLabel(props) {
       >
         <Dropdown
           options={["Enabled", "Disabled"]}
-          onSelection={(index, value) => { setCriticality(value); props.handleUpdate(props.data.name, value) }}
+          onSelection={(index, value) => { setCriticality(value); props.handleUpdate(props.data.name, index) }}
         />
 
       </div>
@@ -239,14 +326,14 @@ function DurationLabel(props) {
           marginLeft: '12px'
         }}
       >
-        <img
+        {/* <img
           src={icNonCritical}
           style={{
             width: "30px",
             height: "30px",
             borderRadius: "5%"
 
-          }} />
+          }} /> */}
 
       </div>
       <div
@@ -302,14 +389,14 @@ function CountLabel(props) {
           marginLeft: '12px'
         }}
       >
-        <img
+        {/* <img
           src={icNonCritical}
           style={{
             width: "30px",
             height: "30px",
             borderRadius: "5%"
 
-          }} />
+          }} /> */}
 
       </div>
       <div
@@ -365,14 +452,14 @@ function ValueLabel(props) {
           marginLeft: '12px'
         }}
       >
-        <img
+        {/* <img
           src={icNonCritical}
           style={{
             width: "30px",
             height: "30px",
             borderRadius: "5%"
 
-          }} />
+          }} /> */}
 
       </div>
       <div
@@ -481,14 +568,15 @@ function PaymentModeLabel(props) {
           marginLeft: '12px'
         }}
       >
-        <img
+        {/* <img
           src={icNonCritical}
+          alt=""
           style={{
             width: "30px",
             height: "30px",
             borderRadius: "5%"
 
-          }} />
+          }} /> */}
 
       </div>
       <div
@@ -501,7 +589,7 @@ function PaymentModeLabel(props) {
           options={["None", "Coin", "RFID", "Coin and RF"]}
           onSelection={(index, value) => {
             setPaymentMode(value);
-            props.handleUpdate(props.data.name, value)
+            props.handleUpdate(props.data.name, index)
 
           }}
         // onSelection={(index,value) => {setCriticality(value); {props.onSelection(index,value)}}}
@@ -556,7 +644,7 @@ export function CommandsSelectionLabel(props) {
           options={props.options}
           onSelection={(index, value) => {
             setPaymentMode(value);
-            props.handleCommandSelection(value)
+            props.handleCommandSelection(index)
 
           }}
         />
@@ -596,14 +684,14 @@ function TextLabel(props) {
           marginLeft: '12px'
         }}
       >
-        <img
+        {/* <img
           src={icNonCritical}
           style={{
             width: "30px",
             height: "30px",
             borderRadius: "5%"
 
-          }} />
+          }} /> */}
 
       </div>
       <div
@@ -659,14 +747,14 @@ function DropDownLabel(props) {
           marginLeft: '12px'
         }}
       >
-        <img
+        {/* <img
           src={icNonCritical}
           style={{
             width: "30px",
             height: "30px",
             borderRadius: "5%"
 
-          }} />
+          }} /> */}
 
       </div>
       <div
@@ -679,7 +767,7 @@ function DropDownLabel(props) {
           options={props.options}
           onSelection={(index, value) => {
             setPaymentMode(value);
-            props.handleUpdate(props.label, value)
+            props.handleUpdate(props.label, index)
 
           }}
         // onSelection={(index,value) => {setCriticality(value); {props.onSelection(index,value)}}}

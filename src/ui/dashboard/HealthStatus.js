@@ -1,9 +1,4 @@
-//Core
 import React, { Component } from "react";
-
-//ReactUI
-import { Card, CardBody, CardHeader, Col, Row, Button } from "reactstrap";
-
 import {
   dashboardStyle,
   whiteSurface,
@@ -120,6 +115,7 @@ class HealthStatus extends Component {
             >
               <img
                 src={icToilet}
+                alt=""
                 style={{
                   width: "20px",
                   height: "20px",

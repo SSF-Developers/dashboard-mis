@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Collapse,
   Navbar,
@@ -26,6 +27,13 @@ const AppBar = (props) => {
 
   const navLinkStyle = { cursor: "pointer", fontSize: "16px" };
 
+  const { userRole } = useSelector((state) => {
+    return {
+      userRole: state.authentication.user.userRole,
+    };
+  });
+  console.log("userRole-userRole", userRole)
+
   // var messageDialog = React.createRef();
   // const signOut = (e) => {
   //   e.preventDefault();
@@ -35,10 +43,10 @@ const AppBar = (props) => {
   // }
 
   return (
-    <div>
+    < div >
       <Navbar color="white" light expand="md">
         <NavbarBrand href="/">
-          <img src={logo} style={{ width: 180 }} />
+          <img src={logo} style={{ width: 180 }} alt="" />
         </NavbarBrand>
 
         <NavbarToggler onClick={toggle} />
@@ -95,16 +103,22 @@ const AppBar = (props) => {
                 Administration
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink
-                style={navLinkStyle}
-                onClick={() => {
-                  props.history.push("/vendor");
-                }}
-              >
-                Vendor
-              </NavLink>
-            </NavItem>
+
+            {
+              userRole === "Super Admin" ?
+                <NavItem>
+                  <NavLink
+                    style={navLinkStyle}
+                    onClick={() => {
+                      props.history.push("/vendor");
+                    }}
+                  >
+                    Vendor
+                  </NavLink>
+                </NavItem>
+                : null
+            }
+
           </Nav>
           <Button
             outline
@@ -121,7 +135,7 @@ const AppBar = (props) => {
           </Button>
         </Collapse>
       </Navbar>
-    </div>
+    </div >
   );
 };
 

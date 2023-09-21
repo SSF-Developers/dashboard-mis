@@ -2,7 +2,7 @@ import { thingShadow } from "aws-iot-device-sdk";
 import React, { Component } from "react";
 import {
   Button, Modal, ModalBody, ModalFooter, ModalHeader, InputGroup,
-  InputGroupAddon,Input,
+  InputGroupAddon, Input,
   InputGroupText
 } from "reactstrap";
 
@@ -34,7 +34,7 @@ class ConfirmationDialog extends Component {
     }));
   };
 
-  showDialog = (title, message,action, onClickAction) => {
+  showDialog = (title, message, action, onClickAction) => {
     this.action = action;
     this.title = title;
     this.message = message;
@@ -82,16 +82,16 @@ class ConfirmationDialog extends Component {
         >
           <div
             className={"row justify-content-center"}
-            style={{ margin: "auto", width:"90%" }}
+            style={{ margin: "auto", width: "90%" }}
           >
             {this.message}
           </div>
-          
-          <InputGroup className="mb-3" style={{marginTop:"20px"}}>
+
+          <InputGroup className="mb-3" style={{ marginTop: "20px" }}>
             <Input
               type="text"
               placeholder="Action"
-              style={{textTransform:"uppercase"}}
+              style={{ textTransform: "uppercase" }}
               onChange={(event) => this.checkConfirmation(event.target.value)}
             />
           </InputGroup>

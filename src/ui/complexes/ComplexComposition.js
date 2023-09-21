@@ -1,30 +1,26 @@
 //Core
 import React, { Component, Fragment } from "react";
+
 //Redux
 import { connect } from "react-redux";
 import { pushComplexComposition, updateSelectedCabin } from "../../redux/actions/complex-actions";
+
 //ReactUI
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    Col,
-    Row,
-    Button
-} from "reactstrap";
+import { Button } from "reactstrap";
+
 //CustomUI
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
-import { NameValueList } from "../../components/DisplayLabels"
+
 //JsStyles
-import { colorTheme, whiteSurface, complexCompositionStyle, whiteSurfaceCircularBorder, selectedSurface } from "../../jsStyles/Style"
-import icToilet from "../../assets/img/icons/ic_toilet.png"
-import icHome from "../../assets/img/icons/eco_home.png"
-import NameValue from "../../Entity/NameValue";
+import { colorTheme, whiteSurface, complexCompositionStyle, whiteSurfaceCircularBorder, selectedSurface } from "../../jsStyles/Style";
+import icToilet from "../../assets/img/icons/ic_toilet.png";
 
 //Functionality
 import { executeGetComplexCompositionLambda } from "../../awsClients/complexLambdas";
-import { thingShadow } from "aws-iot-device-sdk";
+
+// import { thingShadow } from "aws-iot-device-sdk";
+import "./ComplexComposition.css";
 
 class ComplexComposition extends Component {
 
@@ -61,6 +57,7 @@ class ComplexComposition extends Component {
     render() {
         return (
             <div className="row" style={{ marginTop: '10px', background: 'white', padding: '5px' }}>
+
                 <MessageDialog ref={this.messageDialog} />
                 <LoadingDialog ref={this.loadingDialog} />
                 <this.ComponentSelector />
@@ -100,6 +97,7 @@ class ComplexComposition extends Component {
                 }}>
                     <img
                         src={icToilet}
+                        alt=""
                         style={{
                             width: "30px",
                             height: "30px",
@@ -107,7 +105,6 @@ class ComplexComposition extends Component {
                         }}
                     />
                 </div>
-
 
                 <div style={{ float: "left", marginLeft: "10px" }}>
                     <div style={{ ...complexCompositionStyle.complexTitleClient }}>
@@ -119,7 +116,6 @@ class ComplexComposition extends Component {
                     <div style={{ ...complexCompositionStyle.complexSubTitle }}>
                         {complex.hierarchy.state + ": " + complex.hierarchy.district + ": " + complex.hierarchy.city}
                     </div>
-
                 </div>
 
             </div>
@@ -154,7 +150,7 @@ class ComplexComposition extends Component {
                 cabinList.push(cabinDetails)
             });
 
-        console.log("_cabinList", "" + cabinList.length)
+        // console.log("_cabinList", "" + cabinList.length)
 
         if (cabinList.length !== 0)
             return cabinList.map((cabinDetails, index) => {
@@ -169,12 +165,129 @@ class ComplexComposition extends Component {
     }
 
     Cabin = (props) => {
+        // console.log(' this.props.cabinPayload-:👉', this.props.cabinPayload)
+
         return (
 
-            <div style={{ ...whiteSurface, background: 'white', width: "100%", padding: "10px", display: "flexbox", alignItems: "center" }}>
+            <div style={{ ...whiteSurface, background: 'white', width: "100%", padding: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
 
                 <div style={{ ...complexCompositionStyle.cabinTitle, float: "left" }}>{props.cabin.shortThingName}</div>
+                {
+                    // this.props.cabinPayload !== undefined ?
+                    //     <>
+                    //         {
+                    //             this.props.cabinPayload.clientId === props.cabin.thingName &&
+                    //                 this.props.cabinPayload.eventType === "connected" ?
+                    //                 <div
+                    //                     style={{
+                    //                         float: "left",
+                    //                         width: "8px",
+                    //                         height: "8px",
+                    //                         background: "green",
+                    //                         borderRadius: "10px"
+                    //                     }}>
+                    //                 </div>
 
+                    //                 : props.cabin.connectionStatus === 'OFFLINE' ?
+                    //                     <div
+                    //                         style={{
+                    //                             float: "left",
+                    //                             width: "8px",
+                    //                             height: "8px",
+                    //                             background: "red",
+                    //                             borderRadius: "10px"
+                    //                         }}
+                    //                     >
+                    //                     </div>
+                    //                     :
+                    //                     <div
+                    //                         style={{
+                    //                             float: "left",
+                    //                             width: "8px",
+                    //                             height: "8px",
+                    //                             background: "green",
+                    //                             borderRadius: "10px"
+                    //                         }}
+                    //                     >
+                    //                     </div>
+
+                    //         }
+                    //     </>
+                    //     :
+                    //     <>
+                    //         {
+                    //             props.cabin.connectionStatus === 'OFFLINE' ?
+                    //                 <div
+                    //                     style={{
+                    //                         float: "left",
+                    //                         width: "8px",
+                    //                         height: "8px",
+                    //                         background: "red",
+                    //                         borderRadius: "10px"
+                    //                     }}
+                    //                 >
+                    //                 </div>
+                    //                 :
+                    //                 <div
+                    //                     style={{
+                    //                         float: "left",
+                    //                         width: "8px",
+                    //                         height: "8px",
+                    //                         background: "green",
+                    //                         borderRadius: "10px"
+                    //                     }}
+                    //                 >
+                    //                 </div>
+                    //         }
+                    //     </>
+                    this.props.cabinPayload !== undefined &&
+                        this.props.cabinPayload.clientId === props.cabin.thingName &&
+                        this.props.cabinPayload.eventType === "connected" ?
+                        <div
+                            style={{
+                                float: "left",
+                                width: "8px",
+                                height: "8px",
+                                background: "green",
+                                borderRadius: "10px"
+                            }}>
+                        </div>
+                        :
+                        this.props.cabinPayload !== undefined &&
+                            this.props.cabinPayload.clientId === props.cabin.thingName &&
+                            this.props.cabinPayload.eventType === "disconnected" ?
+                            <div
+                                style={{
+                                    float: "left",
+                                    width: "8px",
+                                    height: "8px",
+                                    background: "red",
+                                    borderRadius: "10px"
+                                }}>
+                            </div>
+                            : props.cabin.connectionStatus === 'OFFLINE' ?
+                                <div
+                                    style={{
+                                        float: "left",
+                                        width: "8px",
+                                        height: "8px",
+                                        background: "red",
+                                        borderRadius: "10px"
+                                    }}
+                                >
+                                </div>
+                                :
+                                <div
+                                    style={{
+                                        float: "left",
+                                        width: "8px",
+                                        height: "8px",
+                                        background: "green",
+                                        borderRadius: "10px"
+                                    }}
+                                >
+                                </div>
+                }
                 <Button
                     style={{ float: "right", padding: "0px 0px 0px 0px" }}
                     color="primary"
@@ -191,10 +304,59 @@ class ComplexComposition extends Component {
     CabinSelected = (props) => {
         return (
 
-            <div style={{ ...selectedSurface, background: 'white', width: "100%", padding: "10px", display: "flexbox", alignItems: "center" }}>
+            <div style={{ ...selectedSurface, background: 'white', width: "100%", padding: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
 
                 <div style={{ ...complexCompositionStyle.cabinTitle, float: "left" }}>{props.cabin.shortThingName}</div>
+                {
+                    this.props.updatedCabinPayload !== undefined &&
+                        this.props.updatedCabinPayload.clientId === props.cabin.thingName &&
+                        this.props.updatedCabinPayload.eventType === "connected" ?
+                        <div
+                            style={{
+                                float: "left",
+                                width: "8px",
+                                height: "8px",
+                                background: "green",
+                                borderRadius: "10px"
+                            }}>
+                        </div>
+                        :
+                        this.props.updatedCabinPayload !== undefined &&
+                            this.props.updatedCabinPayload.clientId === props.cabin.thingName &&
+                            this.props.updatedCabinPayload.eventType === "disconnected" ?
+                            <div
+                                style={{
+                                    float: "left",
+                                    width: "8px",
+                                    height: "8px",
+                                    background: "red",
+                                    borderRadius: "10px"
+                                }}>
+                            </div>
+                            : props.cabin.connectionStatus === 'OFFLINE' ?
+                                <div
+                                    style={{
+                                        float: "left",
+                                        width: "8px",
+                                        height: "8px",
+                                        background: "red",
+                                        borderRadius: "10px"
+                                    }}
+                                >
+                                </div>
+                                :
+                                <div
+                                    style={{
+                                        float: "left",
+                                        width: "8px",
+                                        height: "8px",
+                                        background: "green",
+                                        borderRadius: "10px"
+                                    }}
+                                >
+                                </div>
 
+                }
                 <Button
                     style={{ float: "right", padding: "0px 0px 0px 0px" }}
                     color="primary"
@@ -213,42 +375,16 @@ class ComplexComposition extends Component {
 
 }
 
-
-
-
 const mapStateToProps = (state) => {
-    // console.log("_onComplexSelection", state.complexStore);
-
     return {
         complexStore: state.complexStore,
         complex: state.complexStore.complex,
         cabin: state.complexStore.cabin,
-        hierarchy: state.complexStore.hierarchy
+        hierarchy: state.complexStore.hierarchy,
+        cabinPayload: state.complexStore.cabinPayload,
+        updatedCabinPayload: state.complexStore.updatedCabinPayload
+
     };
-
-    // var complexComposition = {
-    //     "TEST_AWS": {
-    //         complexDetails: {
-    //             address: "Test_aws",
-    //             client: "DEV_TEST",
-    //             coco: "False",
-    //             isSelected: false,
-    //             lat: "15.0909090",
-    //             lon: "76.0909090",
-    //             name: "TEST_AWS",
-    //             selected: false,
-    //             uuid: "HP0501_03092021_000"
-    //         }, complexComposition: { "cabinCount": 4, "mwcCabins": [{ "thingName": "MP1404_23072020_000_MWC_001", "cabinType": "WC", "shortThingName": "MWC_001", "smartnessLevel": "Extra-Premium", "userType": "MALE", "usageChargeType": "COIN", "suffix": "001" }], "fwcCabins": [{ "thingName": "MP1404_23072020_000_FWC_001", "cabinType": "WC", "shortThingName": "FWC_001", "smartnessLevel": "Extra-Premium", "userType": "FEMALE", "usageChargeType": "COIN", "suffix": "001" }], "pwcCabins": [{ "thingName": "MP1404_23072020_000_PWC_001", "cabinType": "WC", "shortThingName": "PWC_001", "smartnessLevel": "Extra-Premium", "userType": "PD", "usageChargeType": "COIN", "suffix": "001" }], "murCabins": [{ "thingName": "MP1404_23072020_000_MUR_001", "cabinType": "URINAL", "shortThingName": "MUR_001", "smartnessLevel": "Extra-Premium", "userType": "MALE", "usageChargeType": "COIN", "suffix": "001", "urinalCount": "2" }], "bwtCabins": [] },
-    //         hierarchy: { state: 'HP', district: 'Mandi', city: 'Mandi' }
-    //     }
-    // };
-    // console.log("_complexComposition", complexComposition);
-
-    // return {
-    //     complexStore: complexComposition,
-    //     complex: state.complexStore.complex,
-    //     hierarchy: state.complexStore.hierarchy
-    // }
 };
 
 const mapActionsToProps = { pushComplexComposition: pushComplexComposition, updateSelectedCabin: updateSelectedCabin };

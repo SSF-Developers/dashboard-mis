@@ -72,7 +72,12 @@ class Summary extends Component {
             this.props.uiResult.data.water_saved === "true" &&
             (
               <div className="col-md-4">
-                <this.Item name="Water Saved" value={"0 Lts"} data={tempData} />
+                {
+                  this.props.bwtDataSummary !== undefined ?
+                    <this.Item name="Water Saved" value={this.props.bwtDataSummary.waterRecycled} data={this.props.bwtChartData.waterRecycled} />
+                    : null
+
+                }
               </div>
             )
           }

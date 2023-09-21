@@ -1,31 +1,20 @@
-//Core
 import React, { Component } from "react";
-//Redux
 import { connect } from "react-redux";
 import { setDashboardData } from "../../redux/actions/dashboard-actions";
 import { setClientList } from "../../redux/actions/administration-actions";
-
-//ReactUI
-import { Card, CardBody, CardHeader, Col, Row, Button } from "reactstrap";
-
-//CustomUI
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
 import {
   executeFetchDashboardLambda,
   executelistClientsLambda,
 } from "../../awsClients/administrationLambdas";
-
-//JsStyles
-import { whiteSurface } from "../../jsStyles/Style";
 import Summary from "./Summary";
 import Stats from "./Stats";
 import ActiveTickets from "./ActiveTickets";
 import QuickConfig from "./QuickConfig";
 import HealthStatus from "./HealthStatus";
 import WaterLevelStatus from "./WaterLevelStatus";
-//Functionality
-
+import LiveStatus from "./LiveStatus";
 class Home extends Component {
   reportParms = { complex: "all", duration: "15" };
 
@@ -42,7 +31,8 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.hasDashboardData) this.fetchDashboardData(15);
+    // if (!this.props.hasDashboardData) this.fetchDashboardData(15);
+    this.fetchDashboardData(15);
   }
 
   render() {
@@ -70,6 +60,7 @@ class Home extends Component {
         this.reportParms.duration,
         this.reportParms.complex
       );
+
       this.props.setDashboardData(result);
       this.fetchAndInitClientList();
     } catch (err) {
@@ -78,6 +69,7 @@ class Home extends Component {
       this.messageDialog.current.showDialog("Error Alert!", err.message);
     }
   }
+
 
   async fetchAndInitClientList() {
     console.log("_lambda", "executelistClientsLambda()");
@@ -92,6 +84,7 @@ class Home extends Component {
     }
   }
 
+
   setDurationSelection(duration) {
     console.log("duration", duration);
     this.reportParms.duration = duration;
@@ -105,22 +98,28 @@ class Home extends Component {
         <>
           <Summary
             chartData={this.props.dashboardData.dashboardChartData}
+            bwtChartData={this.props.dashboardData.bwtdashboardChartData}
             dataSummary={this.props.dashboardData.dataSummary}
+            bwtDataSummary={this.props.dashboardData.bwtdataSummary}
             uiResult={this.props.dashboardData.uiResult}
           />
           <Stats
             setDurationSelection={this.setDurationSelection}
             chartData={this.props.dashboardData.dashboardChartData}
             pieChartData={this.props.dashboardData.pieChartData}
+            bwtChartData={this.props.dashboardData.bwtdashboardChartData}
+            bwtPieChartData={this.props.dashboardData.bwtpieChartData}
+            bwtDataSummary={this.props.dashboardData.bwtdataSummary}
+            dashboardUpiChartData={this.props.dashboardData.dashboardUpiChartData}
+            pieChartUpiData={this.props.dashboardData.pieChartUpiData}
             dataSummary={this.props.dashboardData.dataSummary}
             uiResult={this.props.dashboardData.uiResult.data}
           />
           <ActiveTickets data={this.props.dashboardData.activeTickets} />
           <HealthStatus data={this.props.dashboardData.faultyComplexes} />
+          <LiveStatus data={this.props.dashboardData.connectionStatus} />
           <WaterLevelStatus data={this.props.dashboardData.lowWaterComplexes} />
-          <QuickConfig
-            uiResult={this.props.dashboardData.uiResult.data}
-          />
+          <QuickConfig uiResult={this.props.dashboardData.uiResult.data} />
         </>
       );
     }

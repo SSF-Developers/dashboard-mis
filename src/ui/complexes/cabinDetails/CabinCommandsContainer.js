@@ -1,27 +1,13 @@
 //Core
-import React, { Component, Fragment } from "react";
-//Redux
-import { connect } from "react-redux";
-//ReactUI
+import React from "react";
 import {
-    Card,
-    CardBody,
-    CardHeader,
-    Col,
-    Row,
-    Button
-} from "reactstrap";
-//JsStyles
-import {
-    colorTheme,
     whiteSurface,
     whiteSurfaceNoMargin,
-    complexCompositionStyle,
     cabinDetailsStyle,
-    whiteSurfaceCircularBorder
 } from "../../../jsStyles/Style"
 
 export default function CabinCommands(props) {
+    console.log("props.cabinDetails.ucemsConfig", props.cabinDetails.ucemsConfig)
     return (
         <div className="col-md-12" style={{ ...whiteSurfaceNoMargin, marginTop: '20px', background: "white", padding: "10px 10px 10px 10px" }}>
             <div style={{ ...cabinDetailsStyle.componentTitle }} >

@@ -27,7 +27,14 @@ import vendorReducer from "./redux/reducers/vendor-reducer";
 
 const loginComponent = React.lazy(() => import("./ui//authentication/login"));
 
-const allStoreEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const allStoreEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+let allStoreEnhancers = compose;
+
+allStoreEnhancers = typeof window === 'object' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+    // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+  }) : compose;
 
 const allReducers = combineReducers({
   authentication: authenticationReducer,

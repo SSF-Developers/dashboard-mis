@@ -88,7 +88,7 @@ class VendorHome extends Component {
     };
 
     FooterComponent(props) {
-        console.log("_footer", props);
+        console.log("_footer-1", props);
         return (
             <div className={"row"} style={{ margin: "0px", width: "100%" }}>
                 <div

@@ -9,12 +9,10 @@ import { addTeamMember, setClientList } from "../../redux/actions/administration
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
 import { executelistClientsLambda, executeCreateUserLambda } from "../../awsClients/administrationLambdas"
-
 import {
   Button,
   Card,
   CardBody,
-  CardGroup,
   Col,
   Container,
   Form,
@@ -24,9 +22,7 @@ import {
   InputGroupText,
   Row,
 } from "reactstrap";
-import User from "../../Entity/User/User";
 import Client from "../../Entity/User/Client"
-
 
 class AddTeamMember extends React.Component {
 

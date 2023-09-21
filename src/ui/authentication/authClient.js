@@ -4,6 +4,8 @@ import { authConfigMis, cognitoUserPool } from "../../nomenclature/awsConfig";
 import AWS from "aws-sdk";
 import auth from "./auth";
 import Result from "../../Entity/User/Result";
+import AWSMqttClient from "aws-mqtt";
+
 
 class AuthClient {
 

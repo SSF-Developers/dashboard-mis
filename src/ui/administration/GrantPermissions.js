@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getRoleName } from "./utils/AdminUtils"
 import { UserRoles } from "../../nomenclature/nomenclature";
 import * as Styles from "../../jsStyles/Style"
 import {
@@ -82,6 +81,7 @@ class GrantPermissions extends React.Component {
       total_usage: this.props.data.total_usage,
       average_feedback: this.props.data.average_feedback,
       water_saved: this.props.data.water_saved,
+      bwt_stats: this.props.data.bwt_stats
     }
   }
   async fetchAndInitClientList() {
@@ -100,7 +100,6 @@ class GrantPermissions extends React.Component {
   async fetchClientWiseUI(data) {
     this.loadingDialog.current.showDialog();
     try {
-      // this.props.setUiReset()
       var result = await executeFetchUILambda(data);
       this.props.setUiList(result.data);
       this.loadingDialog.current.closeDialog();
@@ -127,30 +126,16 @@ class GrantPermissions extends React.Component {
   }
 
   onClientSelected = (event) => {
-    // console.log("event", event.target.value);
     this.uiDetails.clientName = event.target.value
     this.fetchClientWiseUI(event.target.value)
   }
-
-  /////// TESTING /////////
-
-  // onClickSelected = (event) => {
-  //   console.log('props -:👉', event.target.value)
-  // }
-
-  /////// TESTING /////////
-
 
   onSubmit = () => {
     this.initCreatePermissionRequest(this.uiDetails);
   };
 
   render() {
-    let trueData = this.props.data
     console.log('props -:👉', this.props)
-    // console.log('"False" -:👉', this.props.data.carbon_monooxide === "false")
-    // console.log('false -:👉', this.props.data.carbon_monooxide === false)
-    // console.log(' -:👉', this.props.data.carbon_monooxide)
 
     return (
       <div>
@@ -238,6 +223,7 @@ class GrantPermissions extends React.Component {
                 >
                   <img
                     src={icToilet}
+                    alt=""
                     style={{
                       width: "30px",
                       height: "30px",
@@ -331,6 +317,22 @@ class GrantPermissions extends React.Component {
                       <span class="slider round"></span>
                     </label>
                   </div>
+                  <div>
+                    <p style={{ ...statsStyle.cardLabel }}>BWT</p>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <label class="switch">Re-Water Stats
+                      <input
+                        type="checkbox"
+                        onClick={(event) =>
+                          (this.uiDetails.bwt_stats = event.target.checked)
+                        }
+                        name="Collection"
+                        defaultChecked={this.props.data.bwt_stats === "false" ? false : this.props.data.bwt_stats}
+                      />
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
                 </Form>
               </div>
             </div>
@@ -356,6 +358,7 @@ class GrantPermissions extends React.Component {
                 >
                   <img
                     src={icToilet}
+                    alt=""
                     style={{
                       width: "30px",
                       height: "30px",
@@ -522,6 +525,7 @@ class GrantPermissions extends React.Component {
               >
                 <img
                   src={icToilet}
+                  alt=""
                   style={{
                     width: "30px",
                     height: "30px",

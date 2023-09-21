@@ -9,7 +9,7 @@ import NoDataComponent from '../../../components/NoDataComponent'
 import DataList from "../../../components/list/DataList"
 
 
-export default function ResetProfile(props) {
+export default function UpiPayment(props) {
     return (
 
         // <UsageProfileList data={props.usageProfile} />
@@ -17,11 +17,11 @@ export default function ResetProfile(props) {
         <div style={{ ...whiteSurface, width: '100%', background: "white", marginTop: '20px', padding: "10px 10px 10px 10px" }}>
 
             <div style={{ ...cabinDetailsStyle.componentTitle }} >
-                Reset Profile
+                UPI Payment
             </div>
 
             <div style={{ ...whiteSurface, width: '100%' }} >
-                <ComponentSelector resetProfile={props.resetProfile} />
+                <ComponentSelector upiPaymentList={props.upiPaymentList} />
 
             </div>
 
@@ -31,10 +31,10 @@ export default function ResetProfile(props) {
 };
 
 function ComponentSelector(props) {
-    console.log('_resetProfile', props.resetProfile.length)
-    if (props.resetProfile.length == 0)
+    console.log('_resetProfile', props.upiPaymentList.length)
+    if (props.upiPaymentList.length == 0)
         return (<NoDataComponent />)
 
 
-    else return (<DataList data={props.resetProfile} />);
+    else return (<DataList data={props.upiPaymentList} />);
 }

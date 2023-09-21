@@ -356,8 +356,10 @@ export function getBwtUsageProfileDisplayData(usageProfile) {
     usageProfile.usageProfile.forEach(element => {
         data.push(
             {
-                'Date': (moment(parseInt(element.DEVICE_TIMESTAMP)).format("M/D/YYYY")),
-                'Time': (moment(parseInt(element.DEVICE_TIMESTAMP)).format("HH:mm:ss")),
+                // 'Date': getUiDate(parseInt(element.DEVICE_TIMESTAMP)),
+                // 'Time': getUiTime(parseInt(element.DEVICE_TIMESTAMP)),
+                'Date': moment(parseInt(element.DEVICE_TIMESTAMP)).format("D/M/YYYY"),
+                'Time': moment(parseInt(element.DEVICE_TIMESTAMP)).format("hh:mm:ss a"),
                 'Cabin Type': getCabinType(element['SHORT_THING_NAME']),
                 'Transfer Pump': element['tpRunTime'],
                 'Air Blower': element['airBlowerRunTime'],
@@ -377,16 +379,13 @@ export function getBWTResetProfileDisplayData(resetProfile) {
     var data = [];
 
     resetProfile.forEach(element => {
-        console.log(element.DEVICE_TIMESTAMP, "DEVICE_TIMESTAMP-element");
-        console.log(moment(element.DEVICE_TIMESTAMP).format("ddd Do-MM-YYYY"), "element-element");
-        // { }
-
         data.push(
             {
+                'Date': moment(parseInt(element.DEVICE_TIMESTAMP)).format("D/M/YYYY"),
+                'Time': moment(parseInt(element.DEVICE_TIMESTAMP)).format("hh:mm:ss a"),
                 'Board ID': element['BoardId'],
                 'Short Name': element['SHORT_THING_NAME'],
                 'Reset Code': element['Resetsource'],
-                'Date': (moment(parseInt(element.TimeStamp)).format("M/D/YYYY")),
             }
         );
     });

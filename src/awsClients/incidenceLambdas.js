@@ -113,7 +113,6 @@ export function getListingS3(complex) {
     } catch (e) {
       reject(e);
     }
-
   });
 }
 
@@ -161,6 +160,63 @@ export function executeFetchReportLambda(userName, duration, complex) {
         var pullResults = JSON.parse(data.Payload);
         console.log("_lambda", pullResults);
         resolve(pullResults);
+      }
+    });
+  });
+}
+
+export function executeFetchReportLambda2(userName, clientName, duration, bwt, email,
+  schedule, rateValue, rateUnit, scheduleDuration, startDate, endDate, usageStats,
+  collectionStats, upiStats, feedbackStats, bwtStats, complex) {
+  return new Promise(function (resolve, reject) {
+    var request = {
+      userName: userName, clientName: clientName, duration: duration, bwt: bwt, email: email, schedule: schedule,
+      rateValue: rateValue, rateUnit: rateUnit, scheduleDuration: scheduleDuration, startDate: startDate, endDate: endDate,
+      usageStats: usageStats, collectionStats: collectionStats, upiStats: upiStats, feedbackStats: feedbackStats, bwtStats: bwtStats,
+      complex: complex
+    };
+    var lambda = new AWS.Lambda({
+      region: "ap-south-1",
+      apiVersion: "2015-03-31",
+    });
+    var pullParams = {
+      FunctionName: "mis_report_api",
+      Payload: JSON.stringify(request),
+    };
+
+    lambda.invoke(pullParams, function (err, data) {
+      if (err) {
+        console.log("_lambda", err);
+        reject(err);
+      } else {
+        var pullResults = JSON.parse(data.Payload);
+        console.log("_lambda", pullResults);
+        resolve(pullResults);
+      }
+    });
+  });
+}
+export function executeDeleteUserSchedulerLambda(userName) {
+  return new Promise(function (resolve, reject) {
+    var lambda = new AWS.Lambda({
+      region: "ap-south-1",
+      apiVersion: "2015-03-31",
+    });
+    var pullParams = {
+      FunctionName: "mis_adminisatration_actions",
+      Payload:
+        '{ "action": "actionDeleteUserScheduler", "userName":"' + userName + '" }',
+    };
+
+    lambda.invoke(pullParams, function (err, data) {
+      if (err) {
+        console.log("_lambda", err);
+        reject(err);
+      } else {
+        var pullResults = JSON.parse(data.Payload);
+        console.log("_lambda", pullResults);
+        if (pullResults.status != 1) reject(pullResults);
+        else resolve(pullResults.user);
       }
     });
   });

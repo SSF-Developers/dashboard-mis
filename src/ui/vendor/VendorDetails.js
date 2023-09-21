@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-    Button,
-} from "reactstrap";
+import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import { NameVendorList } from "../../components/DisplayLabels"
 import NameValue from "../../Entity/NameValue"
@@ -62,6 +60,7 @@ class VendorDetails extends React.Component {
                 vendor_id: this.props.user.vendor_id
             }
             var result = await executeDeleteVendorLambda(vendorDetailsData);
+            console.log("result", result);
             this.loadingDialog.current.closeDialog();
             this.messageDialog.current.showDialog("Success", "User deleted successfully", () => { this.props.history.goBack() })
         } catch (err) {

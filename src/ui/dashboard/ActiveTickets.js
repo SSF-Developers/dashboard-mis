@@ -1,13 +1,7 @@
-//Core
 import React, { Component } from "react";
-
-//ReactUI
-import { Card, CardBody, CardHeader, Col, Row, Button } from "reactstrap";
 import { Link } from "react-router-dom";
-
 import {
   dashboardStyle,
-  whiteCircleSurface,
   whiteSurface,
   colorTheme,
   whiteSurfaceCircularBorder,
@@ -19,7 +13,6 @@ import {
   FaultHeader,
   NoFaultHeader,
 } from "../../components/DisplayLabels";
-import { Table } from "reactstrap";
 
 class ActiveTickets extends Component {
   constructor(props) {
@@ -146,6 +139,7 @@ class ActiveTickets extends Component {
             >
               <img
                 src={icToilet}
+                alt=""
                 style={{
                   width: "20px",
                   height: "20px",

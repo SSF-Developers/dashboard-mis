@@ -14,6 +14,7 @@ class VendorDetailsHome extends Component {
   render() {
     //👇
     console.log('VendorDetails -:👉', this.props)
+    console.log('Vendor -:👉', this.props.location.data)
     //👆
     return (
       <div className="animated fadeIn">

@@ -1,21 +1,12 @@
-//Core
 import React, { Component } from "react";
 
-//ReactUI
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    Col,
-    Row,
-    Button
-} from "reactstrap";
+import { Button } from "reactstrap";
 import LoadingDialog from "../../dialogs/LoadingDialog";
 import MessageDialog from "../../dialogs/MessageDialog";
 import QuickConfigDialog from "./quickConfig/QuickConfigDialog"
 import { executelistClientsLambda } from "../../awsClients/administrationLambdas"
 import { setConfigData } from "../../redux/actions/dashboard-actions"
-import { dashboardStyle, whiteSurface, colorTheme, whiteSurfaceCircularBorder } from "../../jsStyles/Style"
+import { dashboardStyle, whiteSurface, colorTheme } from "../../jsStyles/Style"
 import {
     UsageChargeConfigView,
     PreFlushConfigView,
@@ -30,7 +21,7 @@ import { validateConfigData, getLambdaPayload, getPublishTopicName } from "./qui
 import { executePublishConfigLambda } from "../../awsClients/quickConfigLambdas"
 //REDUX
 import { connect } from "react-redux";
-import { FastRewind } from "@material-ui/icons";
+// import { FastRewind } from "@material-ui/icons";
 
 
 class QuickConfig extends Component {

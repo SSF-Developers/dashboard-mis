@@ -46,13 +46,14 @@ export default function UsageProfileList(props) {
 }
 
 function TableHeader(rowData) {
+  console.log("rowData-TableHeader", rowData)
   var tableLabels = Object.keys(rowData);
 
   return tableLabels.map((mData, index) => {
     return (
       <th >
         <div
-          style={{ width: '120px' }}
+          style={{ width: '135px' }}
         >
           {mData}
         </div>

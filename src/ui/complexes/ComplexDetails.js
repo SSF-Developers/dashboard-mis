@@ -7,6 +7,9 @@ import ComplexComposition from "./ComplexComposition";
 import ComplexNavigationCompact from "./ComplexNavigationCompact";
 import CabinDetails from "./CabinDetails";
 import MessageDialog from "../../dialogs/MessageDialog";
+import AWS from "aws-sdk";
+import AWSMqttClient from "aws-mqtt";
+import { savePayload } from "../../redux/actions/complex-actions";
 
 class ComplexDetails extends Component {
 
@@ -20,6 +23,42 @@ class ComplexDetails extends Component {
     }
 
     render() {
+        const client = new AWSMqttClient({
+            region: AWS.config.region,
+            credentials: AWS.config.credentials,
+            endpoint: "a372gqxqbver9r-ats.iot.ap-south-1.amazonaws.com",
+            expires: 600,
+            clientId: "test123" + Math.floor(Date.now() / 1000),
+            will: {
+                topic: "WillMsg",
+                payload: "Connection Closed abnormally..!",
+                qos: 0,
+                retain: false,
+            },
+        });
+        // console.log("client", client);
+        client.on("connect", () => {
+            console.log("connect");
+            client.subscribe(
+                "$aws/events/presence/#"
+            );
+            client.on("subscribe", () => {
+                console.log("subscribe");
+
+            })
+        });
+        client.on("message", (topic, message) => {
+            // console.log("topic", topic);
+            var json = JSON.parse("" + message);
+            // console.log("message", json);
+            this.props.handlePayload(json, topic);
+        });
+        client.on("close", () => {
+            // console.log("close");
+        });
+        client.on("offline", () => {
+            // console.log("offline");
+        });
         return (
             <div
                 className="animated fadeIn"
@@ -46,9 +85,12 @@ class ComplexDetails extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.authentication.user
+        user: state.authentication.user,
     };
 };
 
-const mapActionsToProps = {};
+const mapActionsToProps = {
+    handlePayload: savePayload,
+};
+
 export default connect(mapStateToProps, mapActionsToProps)(ComplexDetails);

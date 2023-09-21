@@ -1,15 +1,11 @@
-//Core
 import React, { Component } from "react";
-//Redux
 import { connect } from "react-redux";
-import { executeGetCabinDetailsLambda, executeGetBWTComplexCompositionLambda } from "../../awsClients/complexLambdas";
 import UCEMSConfig from './cabinActions/UCEMSConfig';
 import CMSConfig from './cabinActions/CMSConfig';
 import ODSConfig from './cabinActions/ODSConfig';
 import CabinCommands from './cabinActions/CabinCommands';
 import BwtCommands from './cabinActions/BwtCommands';
 import BWTConfig from './cabinActions/BWTConfig';
-
 import BWTCabinHealth from "./cabinDetails/BWTCabinHealth";
 import CabinStatus from "./cabinDetails/CabinStatus";
 import CabinHealth from "./cabinDetails/CabinHealth";
@@ -20,10 +16,13 @@ import CabinUsageFeedback from './cabinDetails/CabinUsageFeedback';
 import TurbidityAndWaterRecycled from './cabinDetails/TurbidityAndWaterRecycled';
 import CabinCommandsContainer from './cabinDetails/CabinCommandsContainer';
 import BWTCabinCommandsContainer from './cabinDetails/BWTCabinCommandsContainer';
+import LastSyncStatus from "./cabinDetails/LastSyncStatus";
+import UpiPayment from "./cabinDetails/UpiPayment";
 import LoadingDialog from "../../dialogs/LoadingDialog";
 import MessageDialog from "../../dialogs/MessageDialog";
-import { getUsageProfileDisplayData, getResetProfileDisplayData } from './utils/ComplexUtils';
 import { getBWTResetProfileDisplayData } from './utils/BWTComplexUtils';
+import { getResetProfileDisplayData, getUpiPaymentDisplayData } from './utils/ComplexUtils';
+import { executeGetCabinDetailsLambda, executeGetBWTComplexCompositionLambda } from "../../awsClients/complexLambdas";
 
 class CabinDetails extends Component {
 
@@ -148,7 +147,7 @@ class CabinDetails extends Component {
 
 
     ComponenetSelector = () => {
-        console.log('_props: 👉', this.props)
+        // console.log('_props: 👉', this.props)
         if (this.state.cabinDetails == undefined) {
             return (<div />)
         } else if (this.props.cabin.cabinType === "BWT") {
@@ -172,7 +171,19 @@ class CabinDetails extends Component {
                         usageProfile={this.state.cabinDetails.usageProfile}
                         uiResult={this.props.uiResult.data}
                     />
+                    {
+                        this.props.uiResult.data.collection_stats === "true" ?
+                            null : (
+                                <UpiPayment
+                                    upiPaymentList={getUpiPaymentDisplayData(this.state.cabinDetails.upiPaymentList)}
+                                />
+                            )
+                    }
                     <ResetProfile resetProfile={getBWTResetProfileDisplayData(this.state.cabinDetails.resetProfile)} />
+                    <LastSyncStatus
+                        liveStatusResult={this.state.cabinDetails.liveStatusResult}
+                        cabinHealth={this.state.cabinDetails.health}
+                    />
                 </div>
             )
 
@@ -204,10 +215,22 @@ class CabinDetails extends Component {
                         usageProfile={this.state.cabinDetails.usageProfile}
                         uiResult={this.props.uiResult.data}
                     />
+                    {
+                        this.props.uiResult.data.collection_stats === "true" ?
+                            (
+                                <UpiPayment
+                                    upiPaymentList={getUpiPaymentDisplayData(this.state.cabinDetails.upiPaymentList)}
+                                />
+                            ) : null
+                    }
+
                     <ResetProfile resetProfile={getResetProfileDisplayData(this.state.cabinDetails.resetProfile)} />
+                    <LastSyncStatus
+                        liveStatusResult={this.state.cabinDetails.liveStatusResult}
+                        cabinHealth={this.state.cabinDetails.health}
+                    />
                 </div>
             );
-
         }
     }
 }

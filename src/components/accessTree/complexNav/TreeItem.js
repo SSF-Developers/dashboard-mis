@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { whiteSurface } from "../../../jsStyles/Style"
 import { Col, Row, Label, Input, Button } from "reactstrap";
-import { 
-  ExpandedRowRoot, 
+import {
+  ExpandedRowRoot,
   CollapsedRowRoot,
-  ExpandedRow, 
+  ExpandedRow,
   CollapsedRow,
-  ComplexRow, 
-  } from "./TreeRows"
+  ComplexRow,
+} from "./TreeRows"
 import { TreeItemType } from "../../../nomenclature/nomenclature"
 
 class TreeItemRoot extends React.Component {
@@ -40,12 +40,12 @@ class TreeItemRoot extends React.Component {
 
   handleToggle = () => {
     var expanded = this.state.expanded
-      this.setState({
-        expanded: !expanded
-      })
+    this.setState({
+      expanded: !expanded
+    })
   }
 
-  handleComplexSelection = () =>{
+  handleComplexSelection = () => {
     this.props.handleComplexSelection(this.props.treeEdge);
   }
 
@@ -87,7 +87,7 @@ class TreeItemRoot extends React.Component {
 
     else if (this.props.type === TreeItemType.Complex) {
 
-      return <ComplexRow treeRowProps={treeRowProps} handleComplexSelection={this.handleComplexSelection}/>;
+      return <ComplexRow treeRowProps={treeRowProps} handleComplexSelection={this.handleComplexSelection} />;
     }
 
   }

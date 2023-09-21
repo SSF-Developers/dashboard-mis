@@ -4,25 +4,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setOwnAccessTree } from "../../redux/actions/authentication-actions";
 import { updateSelectedComplex } from '../../redux/actions/complex-actions';
-import { whiteSurfaceNoMargin, colorTheme, whiteSurfaceCircularBorder, complexCompositionStyle } from '../../jsStyles/Style';
+import { colorTheme, whiteSurfaceCircularBorder, complexCompositionStyle } from '../../jsStyles/Style';
 import icToilet from "../../assets/img/icons/ic_toilet.png"
-//ReactUI
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    Col,
-    Row,
-    Button
-} from "reactstrap";
-//CustomUI
-import MessageDialog from "../../dialogs/MessageDialog";
-import LoadingDialog from "../../dialogs/LoadingDialog";
-import RxAccessSummary from "../../components/RxAccessSummary";
 import StateList from "../../components/accessTree/complexNavCompact/SateList";
 import NoDataComponent from "../../components/NoDataComponent";
-//JsStyles
-import { whiteSurface } from "../../jsStyles/Style"
 //Functionality
 import { executeFetchCompletedUserAccessTree } from "../../awsClients/administrationLambdas";
 import { getAccessSummary, getComplexHierarchy } from "../../components/accessTree/accessTreeUtils";
@@ -104,6 +89,7 @@ class ComplexNavigationFullHeight extends Component {
                 }}>
                     <img
                         src={icToilet}
+                        alt={icToilet}
                         style={{
                             width: "30px",
                             height: "30px",

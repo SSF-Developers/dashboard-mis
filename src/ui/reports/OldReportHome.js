@@ -6,11 +6,11 @@ import { setReportData } from "../../redux/actions/report-actions";
 import { setResetData } from "../../redux/actions/extra-actions";
 import MessageDialog from "../../dialogs/MessageDialog";
 import LoadingDialog from "../../dialogs/LoadingDialog";
-import { executeFetchDashboardLambda } from "../../awsClients/administrationLambdas"
-import { executeDeleteUserSchedulerLambda, executeFetchReportLambda2 } from "../../awsClients/incidenceLambdas"
-import InputDatePicker from "../../components/InputDatePicker"
-import { statsStyle, whiteSurfaceForScheduler } from "../../jsStyles/Style"
-import Stats from '../dashboard/Stats'
+import { executeFetchDashboardLambda } from "../../awsClients/administrationLambdas";
+import { executeDeleteUserSchedulerLambda, executeFetchReportLambda2 } from "../../awsClients/incidenceLambdas";
+import InputDatePicker from "../../components/InputDatePicker";
+import { statsStyle, whiteSurfaceForScheduler } from "../../jsStyles/Style";
+import Stats from '../dashboard/Stats';
 import ComplexNavigationFullHeight from "./ComplexNavigationFullHeight";
 import ComplexNavigationFullHeight2 from "./ComplexNavigationFullHeight2";
 import { getAccessSummary } from "../../components/accessTree/accessTreeUtils";
@@ -43,11 +43,11 @@ class ReportsHome extends Component {
                 ScheduleEndDate: "",
                 selectedDate: ""
             },
-            usageStats: false,
-            collectionStats: false,
-            upiStats: false,
-            feedbackStats: false,
-            bwtStats: false,
+            usageStats: true,
+            collectionStats: true,
+            upiStats: true,
+            feedbackStats: true,
+            bwtStats: true,
             minEndDate: null,
             isEndDateEnabled: false
         };
@@ -346,7 +346,7 @@ class ReportsHome extends Component {
                                     <InputDatePicker
                                         value={this.state.AssignDetails.selectedDate}
                                         onSelect={(value) => this.updateAssignDetailsField("duration", value)}
-                                        minDate={new Date("01-02-2020")}
+                                        minDate={new Date("01-02-2023")}
                                         maxDate={new Date()}
                                         onlyDate
                                         label="Select Past Date"
@@ -370,7 +370,7 @@ class ReportsHome extends Component {
                                                 style={{
                                                     width: "200px"
                                                 }}
-                                                type="email"
+                                                type="text"
                                                 placeholder="Email"
                                                 onChange={(event) => this.updateAssignDetailsField("email", event.target.value)}
                                             />
@@ -398,6 +398,7 @@ class ReportsHome extends Component {
                                                             name="usageStats"
                                                             className="React__checkbox--input"
                                                             onChange={this._handleChange}
+                                                            defaultChecked
                                                         />
                                                         <span
                                                             className="React__checkbox--span"
@@ -414,6 +415,7 @@ class ReportsHome extends Component {
                                                                 name="collectionStats"
                                                                 className="React__checkbox--input"
                                                                 onChange={this._handleChange}
+                                                                defaultChecked
                                                             />
                                                             <span
                                                                 className="React__checkbox--span"
@@ -428,6 +430,7 @@ class ReportsHome extends Component {
                                                                 name="upiStats"
                                                                 className="React__checkbox--input"
                                                                 onChange={this._handleChange}
+                                                                defaultChecked
                                                             />
                                                             <span
                                                                 className="React__checkbox--span"
@@ -444,6 +447,7 @@ class ReportsHome extends Component {
                                                             name="feedbackStats"
                                                             className="React__checkbox--input"
                                                             onChange={this._handleChange}
+                                                            defaultChecked
                                                         />
                                                         <span
                                                             className="React__checkbox--span"
@@ -459,6 +463,7 @@ class ReportsHome extends Component {
                                                                 name="bwtStats"
                                                                 className="React__checkbox--input"
                                                                 onChange={this._handleChange}
+                                                                defaultChecked
                                                             />
                                                             <span
                                                                 className="React__checkbox--span"
@@ -650,7 +655,19 @@ class ReportsHome extends Component {
     }
 
     async fetchReportData() {
+        console.log("uiResult", this.props.dashboardData.uiResult.data.bwt_stats)
+        console.log("bwt_stats", this.props.dashboardData.uiResult.data.bwt_stats === "false")
         const complexData = this.props.complexData
+        const bwt_stats = this.props.dashboardData.uiResult.data.bwt_stats
+        const collection_stats = this.props.dashboardData.uiResult.data.collection_stats
+
+        // const duration = this.state.AssignDetails.duration;
+        // const schedule = this.state.AssignDetails.schedule;
+        // const rateValue = this.state.AssignDetails.rateValue;
+        // const scheduleDuration = this.state.AssignDetails.scheduleDuration;
+        // const ScheduleStartDate = this.state.AssignDetails.ScheduleStartDate;
+        // const ScheduleEndDate = this.state.AssignDetails.ScheduleEndDate;
+        // const email = this.state.AssignDetails.email;
         const {
             duration,
             schedule,
@@ -660,6 +677,17 @@ class ReportsHome extends Component {
             ScheduleEndDate,
             email,
         } = this.state.AssignDetails;
+        if (collection_stats === "false") {
+            this.setState({
+                collectionStats: false,
+                upiStats: false,
+            });
+        }
+        if (bwt_stats === "false") {
+            this.setState({ bwtStats: false });
+        }
+
+
         const usageStats = this.state.usageStats;
         const collectionStats = this.state.collectionStats;
         const upiStats = this.state.upiStats;
@@ -667,6 +695,34 @@ class ReportsHome extends Component {
         const bwtStats = this.state.bwtStats;
 
         try {
+            // Validation check
+            // if (!complexData.length) {
+            //     this.messageDialog.current.showDialog("Validation Error", "Please Select Complex.");
+            //     return;
+            // } else if (duration === null) {
+            //     this.messageDialog.current.showDialog("Validation Error", "Please Select Past Date.");
+            //     return;
+            // } else if (usageStats === false && collectionStats === false && upiStats === false && feedbackStats === false && bwtStats === false) {
+            //     this.messageDialog.current.showDialog("Validation Error", "Please Select atleast one stats.");
+            //     return;
+            // } else if (schedule === true) {
+            //     if (rateValue === "") {
+            //         this.messageDialog.current.showDialog("Validation Error", "Please Select Schedule Rate Value.");
+            //         return;
+            //     } else if (scheduleDuration === "") {
+            //         this.messageDialog.current.showDialog("Validation Error", "Please Select Schedule Duration.");
+            //         return;
+            //     } else if (ScheduleStartDate === "") {
+            //         this.messageDialog.current.showDialog("Validation Error", "Please Select Schedule Start Date.");
+            //         return;
+            //     } else if (email === "") {
+            //         this.messageDialog.current.showDialog("Validation Error", "Please enter an email address if you wish to schedule a report.");
+            //         return;
+            //     } else if (ScheduleEndDate === "") {
+            //         this.messageDialog.current.showDialog("Validation Error", "Please Select Schedule End Date.");
+            //         return;  // Exit function if validation error occurs
+            //     }
+            // }
             if (!complexData.length) {
                 this.messageDialog.current.showDialog("Validation Error", "Please Select Complex.");
                 return;
@@ -767,6 +823,8 @@ class ReportsHome extends Component {
         }
     }
 
+
+
     resetData() {
         this.setState({
             AssignDetails: {
@@ -783,11 +841,11 @@ class ReportsHome extends Component {
             }
         });
         this.setState({
-            usageStats: false,
-            collectionStats: false,
-            upiStats: false,
-            feedbackStats: false,
-            bwtStats: false,
+            usageStats: true,
+            collectionStats: true,
+            upiStats: true,
+            feedbackStats: true,
+            bwtStats: true,
         })
     }
 

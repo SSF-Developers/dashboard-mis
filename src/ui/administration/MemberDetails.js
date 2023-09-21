@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { Col, Row, Label, Input, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import { NameValueList } from "../../components/DisplayLabels"
 import NameValue from "../../Entity/NameValue"
 import { whiteSurface } from "../../jsStyles/Style"
@@ -165,11 +164,6 @@ class MemberDetails extends React.Component {
     }
 }
 
-// MemberDetails.propTypes = {
-//   text: PropTypes.string,
-//   placeholder: PropTypes.string,
-//   onChange: PropTypes.func
-// };
 const mapStateToProps = (state) => {
 
     var lastProps = state.historyStore[UiAdminDestinations.MemberDetails];

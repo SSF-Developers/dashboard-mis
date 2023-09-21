@@ -55,6 +55,36 @@ export function HalfPieChart(props) {
 
     );
 }
+const BWTCOLORS = [
+    dashboardStyle.colorCodes.bwt,
+];
+
+export function BWTHalfPieChart(props) {
+    return (
+        <ResponsiveContainer width="95%" height='95%'>
+            <PieChart>
+                <Pie
+                    data={props.data}
+                    cx='50%'
+                    cy='100%'
+                    startAngle={180}
+                    endAngle={0}
+                    innerRadius={50}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    paddingAngle={5}
+                    dataKey="value"
+                >
+                    {props.data.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={BWTCOLORS[index % BWTCOLORS.length]} />
+                    ))}
+                </Pie>
+            </PieChart>
+        </ResponsiveContainer>
+
+
+    );
+}
 
 export function FullLineChart(props) {
     console.log(props, "ReportLINE-Chart");

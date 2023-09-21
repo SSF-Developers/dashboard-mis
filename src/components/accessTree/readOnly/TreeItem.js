@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { whiteSurface } from "../../../jsStyles/Style"
 import { Col, Row, Label, Input, Button } from "reactstrap";
-import { ExpandedRowRoot, CollapsedRowRoot,CollapsedRowRootRecursive, ExpandedRow, CollapsedRow,CollapsedRowRecursive, ComplexRowSelected, ComplexRow } from "./TreeRowsReadOnly"
+import { ExpandedRowRoot, CollapsedRowRoot, CollapsedRowRootRecursive, ExpandedRow, CollapsedRow, CollapsedRowRecursive, ComplexRowSelected, ComplexRow } from "./TreeRowsReadOnly"
 import { TreeItemType } from "../../../nomenclature/nomenclature"
 
 class TreeItemRoot extends React.Component {
@@ -39,7 +39,7 @@ class TreeItemRoot extends React.Component {
 
   handleToggle = () => {
     if (!this.props.recursiveAccess) {
-      
+
       var expanded = this.state.expanded
       this.setState({
         expanded: !expanded
@@ -63,7 +63,7 @@ class TreeItemRoot extends React.Component {
         return <ExpandedRowRoot treeRowProps={treeRowProps} />;
       }
 
-      if(this.props.recursiveAccess)
+      if (this.props.recursiveAccess)
         return <CollapsedRowRootRecursive treeRowProps={treeRowProps} />;
 
       return <CollapsedRowRoot treeRowProps={treeRowProps} />;
@@ -75,7 +75,7 @@ class TreeItemRoot extends React.Component {
         return <ExpandedRow treeRowProps={treeRowProps} />;
       }
 
-      if(this.props.recursiveAccess)
+      if (this.props.recursiveAccess)
         return <CollapsedRowRecursive treeRowProps={treeRowProps} />;
 
       return <CollapsedRow treeRowProps={treeRowProps} />;
@@ -87,7 +87,7 @@ class TreeItemRoot extends React.Component {
         return <ExpandedRow treeRowProps={treeRowProps} />;
       }
 
-      if(this.props.recursiveAccess)
+      if (this.props.recursiveAccess)
         return <CollapsedRowRecursive treeRowProps={treeRowProps} />;
 
       return <CollapsedRow treeRowProps={treeRowProps} />;

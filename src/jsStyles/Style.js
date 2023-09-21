@@ -14,6 +14,15 @@ export const whiteSurface = {
   borderRadius: "5px",
   padding: "10px 10px 10px 10px",
 };
+export const whiteSurfaceForScheduler = {
+  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+  transition: "0.3s",
+  borderRadius: "5px",
+  padding: "10px 10px 10px 10px",
+};
+export const whiteSurfaceLive = {
+  margin: "10px 0px 0px 0px",
+};
 export const whiteSurface2 = {
   boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
   transition: "0.3s",
@@ -297,11 +306,42 @@ export const usageAndFeedbackStyle = {
     padding: "0px 0px 0px 20px",
   },
 };
+export const liveStatusStyle = {
+  CurvedSurface: {
+    height: "70px",
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
+    boxShadow: "0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)",
+    borderRadius: "50px",
+    backgroundColor: "white",
+  },
+  name: {
+    color: `black`,
+    fontSize: "16px",
+    fontWeight: "bold",
+  },
+  value: {
+    color: `black`,
+    fontSize: "15px",
+    fontWeight: "600",
+  },
+};
 
 export const statsStyle = {
   elementTitle: {
     color: `white`,
     fontSize: "20px",
+  },
+  scheduleTitle: {
+    color: `black`,
+    fontSize: `16px`,
+    fontWeight: `500`,
+  },
+  scheduleLabel: {
+    color: `black`,
+    fontSize: "12px",
+    fontWeight: `300`,
   },
   pieLabel: {
     color: `black`,
